@@ -127,7 +127,7 @@ type
     function Where(const AExpression: array of const): ICriteria; overload;
     function Where(const AExpression: ICQLCriteriaExpression): ICriteria; overload;
     function AsString: String;
-    function AST: ICQLAST;
+//    function AST: ICQLAST;
   end;
 
 implementation
@@ -249,10 +249,10 @@ begin
   Result := TDBRegister.GetSerialize(FDatabase).AsString(FAST);
 end;
 
-function TCriteria.AST: ICQLAST;
-begin
-  Result := FAST;
-end;
+//function TCriteria.AST: ICQLAST;
+//begin
+//  Result := FAST;
+//end;
 
 function TCriteria.Column(const AColumnName: String): ICriteria;
 begin
@@ -304,6 +304,7 @@ constructor TCriteria.Create(const ADatabase: TDBName);
 begin
   FDatabase := ADatabase;
   FAST := TCQLAST.New(ADatabase);
+  FAST.Clear;
 end;
 
 function TCriteria.CreateJoin(AjoinType: TJoinType; const ATableName: String): ICriteria;

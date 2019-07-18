@@ -60,7 +60,7 @@ type
     function Columns: ICQLNames;
   end;
 
-implementation
+implementation
 
 { TCQLOrderByColumn }
 
@@ -86,7 +86,6 @@ end;
 
 procedure TCQLOrderBy.Clear;
 begin
-  inherited;
   Columns.Clear;
 end;
 

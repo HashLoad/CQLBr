@@ -57,7 +57,6 @@ uses
 
 procedure TCQLWhere.Clear;
 begin
-  inherited;
   Expression.Clear;
 end;
 

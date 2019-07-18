@@ -81,7 +81,6 @@ implementation
 uses
   cqlbr.db.register,
   cqlbr.select,
-  cqlbr.select.oracle,
   cqlbr.orderby,
   cqlbr.where,
   cqlbr.delete,

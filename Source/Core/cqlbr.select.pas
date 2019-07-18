@@ -59,7 +59,6 @@ uses
 
 procedure TCQLSelect.Clear;
 begin
-  inherited;
   FColumns.Clear;
   FTableNames.Clear;
 end;

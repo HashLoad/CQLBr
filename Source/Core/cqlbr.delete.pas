@@ -53,7 +53,6 @@ uses
 
 procedure TCQLDelete.Clear;
 begin
-  inherited;
   FTableNames.Clear;
 end;
 

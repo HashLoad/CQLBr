@@ -58,7 +58,6 @@ var
   LFirst: String;
   LSkip: String;
 begin
-  inherited;
   Result := '';
   for LFor := 0 to Count -1 do
   begin

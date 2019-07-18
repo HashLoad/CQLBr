@@ -26,6 +26,10 @@
 
 unit cqlbr.cases;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses
