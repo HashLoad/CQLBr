@@ -40,7 +40,10 @@ uses
   cqlbr.serialize.mysql in '..\Source\Database\cqlbr.serialize.mysql.pas',
   cqlbr.db.register in '..\Source\Core\cqlbr.db.register.pas',
   cqlbr.select.firebird in '..\Source\Database\cqlbr.select.firebird.pas',
-  cqlbr.select.mysql in '..\Source\Database\cqlbr.select.mysql.pas';
+  cqlbr.select.mysql in '..\Source\Database\cqlbr.select.mysql.pas',
+  cqlbr.select.mongodb in '..\Source\Database\cqlbr.select.mongodb.pas',
+  cqlbr.qualifier.mongodb in '..\Source\Database\cqlbr.qualifier.mongodb.pas',
+  cqlbr.serialize.mongodb in '..\Source\Database\cqlbr.serialize.mongodb.pas';
 
 {$IFNDEF TESTINSIGHT}
 var

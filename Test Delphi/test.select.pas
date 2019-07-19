@@ -17,6 +17,8 @@ type
     [Test]
     procedure TestSelectAll;
     [Test]
+    procedure TestSelectAllNoSQL;
+    [Test]
     procedure TestSelectAllWhere;
     [Test]
     procedure TestSelectAllOrderBy;
@@ -57,6 +59,18 @@ var
 begin
   LAsString := 'SELECT * FROM CLIENTES';
   Assert.AreEqual(LAsString, TCriteria.New(dbnFirebird)
+                                      .Select
+                                      .All
+                                      .From('CLIENTES')
+                                      .AsString);
+end;
+
+procedure TTestCriteriaQueryLanguage.TestSelectAllNoSQL;
+var
+  LAsString: String;
+begin
+  LAsString := 'clientes.Find( {} )';
+  Assert.AreEqual(LAsString, TCriteria.New(dbnMongoDB)
                                       .Select
                                       .All
                                       .From('CLIENTES')

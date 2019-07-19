@@ -229,7 +229,10 @@ end;
 
 function TCriteria.All: ICriteria;
 begin
-  Result := Column('*');
+  if FDatabase in [dbnMongoDB] then
+    Result := Column('')
+  else
+    Result := Column('*');
 end;
 
 procedure TCriteria.AssertHaveName;
