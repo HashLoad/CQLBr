@@ -45,7 +45,7 @@ type
   CQL = cqlbr.functions.CQL;
   TDBName = cqlbr.interfaces.TDBName;
 
-  TCriteria = class(TInterfacedObject, ICriteria)
+  TCQL = class(TInterfacedObject, ICQL)
   strict private
     type
       TSection = (secSelect = 0,
@@ -66,66 +66,71 @@ type
     FAST: ICQLAST;
     procedure AssertSection(ASections: TSections);
     procedure AssertHaveName;
-    function CreateJoin(AjoinType: TJoinType; const ATableName: String): ICriteria;
-    function InternalSet(const AColumnName, AColumnValue: String): ICriteria;
+    function CreateJoin(AjoinType: TJoinType; const ATableName: String): ICQL;
+    function InternalSet(const AColumnName, AColumnValue: String): ICQL;
     procedure SetSection(ASection: TSection);
   public
     constructor Create(const ADatabase: TDBName);
-    class function New(const ADatabase: TDBName): ICriteria;
-    function &And(const AExpression: array of const): ICriteria; overload;
-    function &And(const AExpression: String): ICriteria; overload;
-    function &And(const AExpression: ICQLCriteriaExpression): ICriteria; overload;
-    function &As(const AAlias: String): ICriteria;
+    class function New(const ADatabase: TDBName): ICQL;
+    function &And(const AExpression: array of const): ICQL; overload;
+    function &And(const AExpression: String): ICQL; overload;
+    function &And(const AExpression: ICQLCriteriaExpression): ICQL; overload;
+    function &As(const AAlias: String): ICQL;
     function &Case(const AExpression: String = ''): ICQLCriteriaCase; overload;
     function &Case(const AExpression: array of const): ICQLCriteriaCase; overload;
     function &Case(const AExpression: ICQLCriteriaExpression): ICQLCriteriaCase; overload;
-    function Clear: ICriteria;
-    function ClearAll: ICriteria;
-    function All: ICriteria;
-    function Column(const AColumnName: String): ICriteria; overload;
-    function Column(const ADBName, AColumnName: String): ICriteria; overload;
-    function Column(const AColumnsName: array of const): ICriteria; overload;
-    function Column(const ACaseExpression: ICQLCriteriaCase): ICriteria; overload;
-    function Delete: ICriteria;
-    function Desc: ICriteria;
-    function Distinct: ICriteria;
+    function Clear: ICQL;
+    function ClearAll: ICQL;
+    function All: ICQL;
+    function Column(const AColumnName: String): ICQL; overload;
+    function Column(const ATableName: String; const AColumnName: String): ICQL; overload;
+    function Column(const AColumnsName: array of const): ICQL; overload;
+    function Column(const ACaseExpression: ICQLCriteriaCase): ICQL; overload;
+    function Delete: ICQL;
+    function Desc: ICQL;
+    function Distinct: ICQL;
     function IsEmpty: Boolean;
     function Expression(const ATerm: String = ''): ICQLCriteriaExpression; overload;
     function Expression(const ATerm: array of const): ICQLCriteriaExpression; overload;
-    function From(const AExpression: ICQLCriteriaExpression): ICriteria; overload;
-    function From(const AQuery: ICriteria): ICriteria; overload;
-    function From(const ATableName: String): ICriteria; overload;
-    function GroupBy(const AColumnName: String = ''): ICriteria;
-    function Having(const AExpression: String = ''): ICriteria; overload;
-    function Having(const AExpression: array of const): ICriteria; overload;
-    function Having(const AExpression: ICQLCriteriaExpression): ICriteria; overload;
-    function Insert: ICriteria;
-    function Into(const ATableName: String): ICriteria;
-    function FullJoin(const ATableName: String): ICriteria;
-    function InnerJoin(const ATableName: String): ICriteria;
-    function LeftJoin(const ATableName: String): ICriteria;
-    function RightJoin(const ATableName: String): ICriteria;
-    function &On(const AExpression: String): ICriteria; overload;
-    function &On(const AExpression: array of const): ICriteria; overload;
-    function &Or(const AExpression: array of const): ICriteria; overload;
-    function &Or(const AExpression: String): ICriteria; overload;
-    function &Or(const AExpression: ICQLCriteriaExpression): ICriteria; overload;
-    function OrderBy(const AColumnName: String = ''): ICriteria; overload;
-    function OrderBy(const ACaseExpression: ICQLCriteriaCase): ICriteria; overload;
-    function Select(const AColumnName: String = ''): ICriteria; overload;
-    function Select(const ACaseExpression: ICQLCriteriaCase): ICriteria; overload;
-    function &Set(const AColumnName, AColumnValue: String): ICriteria; overload;
-    function &Set(const AColumnName: String; const AColumnValue: array of const): ICriteria; overload;
-    function Values(const AColumnName, AColumnValue: String): ICriteria; overload;
-    function Values(const AColumnName: String; const AColumnValue: array of const): ICriteria; overload;
-    function First(AValue: Integer): ICriteria;
-    function Skip(AValue: Integer): ICriteria;
-    function Limit(AValue: Integer): ICriteria;
-    function Offset(AValue: Integer): ICriteria;
-    function Update(const ATableName: String): ICriteria;
-    function Where(const AExpression: String = ''): ICriteria; overload;
-    function Where(const AExpression: array of const): ICriteria; overload;
-    function Where(const AExpression: ICQLCriteriaExpression): ICriteria; overload;
+    function From(const AExpression: ICQLCriteriaExpression): ICQL; overload;
+    function From(const AQuery: ICQL): ICQL; overload;
+    function From(const ATableName: String): ICQL; overload;
+    function From(const ATableName: String; const AAlias: String): ICQL; overload;
+    function GroupBy(const AColumnName: String = ''): ICQL;
+    function Having(const AExpression: String = ''): ICQL; overload;
+    function Having(const AExpression: array of const): ICQL; overload;
+    function Having(const AExpression: ICQLCriteriaExpression): ICQL; overload;
+    function Insert: ICQL;
+    function Into(const ATableName: String): ICQL;
+    function FullJoin(const ATableName: String): ICQL; overload;
+    function InnerJoin(const ATableName: String): ICQL; overload;
+    function LeftJoin(const ATableName: String): ICQL; overload;
+    function RightJoin(const ATableName: String): ICQL; overload;
+    function FullJoin(const ATableName: String; const AAlias: String): ICQL; overload;
+    function InnerJoin(const ATableName: String; const AAlias: String): ICQL; overload;
+    function LeftJoin(const ATableName: String; const AAlias: String): ICQL; overload;
+    function RightJoin(const ATableName: String; const AAlias: String): ICQL; overload;
+    function &On(const AExpression: String): ICQL; overload;
+    function &On(const AExpression: array of const): ICQL; overload;
+    function &Or(const AExpression: array of const): ICQL; overload;
+    function &Or(const AExpression: String): ICQL; overload;
+    function &Or(const AExpression: ICQLCriteriaExpression): ICQL; overload;
+    function OrderBy(const AColumnName: String = ''): ICQL; overload;
+    function OrderBy(const ACaseExpression: ICQLCriteriaCase): ICQL; overload;
+    function Select(const AColumnName: String = ''): ICQL; overload;
+    function Select(const ACaseExpression: ICQLCriteriaCase): ICQL; overload;
+    function &Set(const AColumnName, AColumnValue: String): ICQL; overload;
+    function &Set(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
+    function Values(const AColumnName, AColumnValue: String): ICQL; overload;
+    function Values(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
+    function First(AValue: Integer): ICQL;
+    function Skip(AValue: Integer): ICQL;
+    function Limit(AValue: Integer): ICQL;
+    function Offset(AValue: Integer): ICQL;
+    function Update(const ATableName: String): ICQL;
+    function Where(const AExpression: String = ''): ICQL; overload;
+    function Where(const AExpression: array of const): ICQL; overload;
+    function Where(const AExpression: ICQLCriteriaExpression): ICQL; overload;
     function AsString: String;
 //    function AST: ICQLAST;
   end;
@@ -135,9 +140,9 @@ implementation
 uses
   cqlbr.db.register;
 
-{ TCriteria }
+{ TCQL }
 
-function TCriteria.&As(const AAlias: String): ICriteria;
+function TCQL.&As(const AAlias: String): ICQL;
 begin
   AssertSection([secSelect, secDelete, secJoin]);
   AssertHaveName;
@@ -145,7 +150,7 @@ begin
   Result := Self;
 end;
 
-function TCriteria.&Case(const AExpression: String): ICQLCriteriaCase;
+function TCQL.&Case(const AExpression: String): ICQLCriteriaCase;
 var
   LExpression: String;
 begin
@@ -157,107 +162,107 @@ begin
     FAST.ASTName.&Case := Result.&Case;
 end;
 
-function TCriteria.&Case(const AExpression: array of const): ICQLCriteriaCase;
+function TCQL.&Case(const AExpression: array of const): ICQLCriteriaCase;
 begin
   Result := &Case(TUtils.SqlParamsToStr(AExpression));
 end;
 
-function TCriteria.&Case(const AExpression: ICQLCriteriaExpression): ICQLCriteriaCase;
+function TCQL.&Case(const AExpression: ICQLCriteriaExpression): ICQLCriteriaCase;
 begin
   Result := TCQLCriteriaCase.Create(Self, '');
   Result.&And(AExpression);
 end;
 
-function TCriteria.&And(const AExpression: ICQLCriteriaExpression): ICriteria;
+function TCQL.&And(const AExpression: ICQLCriteriaExpression): ICQL;
 begin
   FActiveExpr.&And(AExpression.Expression);
   Result := Self;
 end;
 
-function TCriteria.&And(const AExpression: String): ICriteria;
+function TCQL.&And(const AExpression: String): ICQL;
 begin
   FActiveExpr.&And(AExpression);
   Result := Self;
 end;
 
-function TCriteria.&And(const AExpression: array of const): ICriteria;
+function TCQL.&And(const AExpression: array of const): ICQL;
 begin
   Result := &And(TUtils.SqlParamsToStr(AExpression));
 end;
 
-function TCriteria.&Or(const AExpression: array of const): ICriteria;
+function TCQL.&Or(const AExpression: array of const): ICQL;
 begin
   Result := &Or(TUtils.SqlParamsToStr(AExpression));
 end;
 
-function TCriteria.&Or(const AExpression: String): ICriteria;
+function TCQL.&Or(const AExpression: String): ICQL;
 begin
   FActiveExpr.&Or(AExpression);
   Result := Self;
 end;
 
-function TCriteria.&Or(const AExpression: ICQLCriteriaExpression): ICriteria;
+function TCQL.&Or(const AExpression: ICQLCriteriaExpression): ICQL;
 begin
   FActiveExpr.&Or(AExpression.Expression);
   Result := Self;
 end;
 
-function TCriteria.&Set(const AColumnName: String; const AColumnValue: array of const): ICriteria;
+function TCQL.&Set(const AColumnName: String; const AColumnValue: array of const): ICQL;
 begin
   Result := InternalSet(AColumnName, TUtils.SqlParamsToStr(AColumnValue));
 end;
 
-function TCriteria.&Set(const AColumnName, AColumnValue: String): ICriteria;
+function TCQL.&Set(const AColumnName, AColumnValue: String): ICQL;
 begin
   Result := InternalSet(AColumnName, QuotedStr(AColumnValue));
 end;
 
-function TCriteria.&On(const AExpression: String): ICriteria;
+function TCQL.&On(const AExpression: String): ICQL;
 begin
   Result := &And(AExpression);
 end;
 
-function TCriteria.Offset(AValue: Integer): ICriteria;
+function TCQL.Offset(AValue: Integer): ICQL;
 begin
   Result := Skip(AValue);
 end;
 
-function TCriteria.&On(const AExpression: array of const): ICriteria;
+function TCQL.&On(const AExpression: array of const): ICQL;
 begin
   Result := &On(TUtils.SqlParamsToStr(AExpression));
 end;
 
-function TCriteria.All: ICriteria;
+function TCQL.All: ICQL;
 begin
-  if FDatabase in [dbnMongoDB] then
-    Result := Column('')
+  if not (FDatabase in [dbnMongoDB]) then
+    Result := Column('*')
   else
-    Result := Column('*');
+    Result := Self;
 end;
 
-procedure TCriteria.AssertHaveName;
+procedure TCQL.AssertHaveName;
 begin
   if not Assigned(FAST.ASTName) then
     raise Exception.Create('TCriteria: Curernt name is not set');
 end;
 
-procedure TCriteria.AssertSection(ASections: TSections);
+procedure TCQL.AssertSection(ASections: TSections);
 begin
   if not (FActiveSection in ASections) then
     raise Exception.Create('TCriteria: Not supported in this section');
 end;
 
-function TCriteria.AsString: String;
+function TCQL.AsString: String;
 begin
   Result := TDBRegister.GetSerialize(FDatabase).AsString(FAST);
 end;
 
-//function TCriteria.AST: ICQLAST;
+//function TCQL.AST: ICQLAST;
 //begin
 //  Result := FAST;
 //end;
 
-function TCriteria.Column(const AColumnName: String): ICriteria;
+function TCQL.Column(const AColumnName: String): ICQL;
 begin
   if Assigned(FAST) then
   begin
@@ -269,24 +274,24 @@ begin
   Result := Self;
 end;
 
-function TCriteria.Column(const ADBName, AColumnName: String): ICriteria;
+function TCQL.Column(const ATableName: String; const AColumnName: String): ICQL;
 begin
-  Result := Column(ADBName + '.' + AColumnName);
+  Result := Column(ATableName + '.' + AColumnName);
 end;
 
-function TCriteria.Clear: ICriteria;
+function TCQL.Clear: ICQL;
 begin
   FAST.ASTSection.Clear;
   Result := Self;
 end;
 
-function TCriteria.ClearAll: ICriteria;
+function TCQL.ClearAll: ICQL;
 begin
   FAST.Clear;
   Result := Self;
 end;
 
-function TCriteria.Column(const ACaseExpression: ICQLCriteriaCase): ICriteria;
+function TCQL.Column(const ACaseExpression: ICQLCriteriaCase): ICQL;
 begin
   if Assigned(FAST.ASTColumns) then
   begin
@@ -298,19 +303,19 @@ begin
   Result := Self;
 end;
 
-function TCriteria.Column(const AColumnsName: array of const): ICriteria;
+function TCQL.Column(const AColumnsName: array of const): ICQL;
 begin
   Result := Column(TUtils.SqlParamsToStr(AColumnsName));
 end;
 
-constructor TCriteria.Create(const ADatabase: TDBName);
+constructor TCQL.Create(const ADatabase: TDBName);
 begin
   FDatabase := ADatabase;
   FAST := TCQLAST.New(ADatabase);
   FAST.Clear;
 end;
 
-function TCriteria.CreateJoin(AjoinType: TJoinType; const ATableName: String): ICriteria;
+function TCQL.CreateJoin(AjoinType: TJoinType; const ATableName: String): ICQL;
 var
   LJoin: ICQLJoin;
 begin
@@ -325,13 +330,13 @@ begin
   Result := Self;
 end;
 
-function TCriteria.Delete: ICriteria;
+function TCQL.Delete: ICQL;
 begin
   SetSection(secDelete);
   Result := Self;
 end;
 
-function TCriteria.Desc: ICriteria;
+function TCQL.Desc: ICQL;
 begin
   AssertSection([secOrderBy]);
   Assert(FAST.ASTColumns.Count > 0, 'TCriteria.Desc: No columns set up yet');
@@ -339,7 +344,7 @@ begin
   Result := Self;
 end;
 
-function TCriteria.Distinct: ICriteria;
+function TCQL.Distinct: ICQL;
 var
   LQualifier: ICQLSelectQualifier;
 begin
@@ -349,17 +354,17 @@ begin
   Result := Self;
 end;
 
-function TCriteria.Expression(const ATerm: array of const): ICQLCriteriaExpression;
+function TCQL.Expression(const ATerm: array of const): ICQLCriteriaExpression;
 begin
   Result := Expression(TUtils.SqlParamsToStr(ATerm));
 end;
 
-function TCriteria.Expression(const ATerm: String): ICQLCriteriaExpression;
+function TCQL.Expression(const ATerm: String): ICQLCriteriaExpression;
 begin
   Result := TCQLCriteriaExpression.Create(ATerm);
 end;
 
-function TCriteria.First(AValue: Integer): ICriteria;
+function TCQL.First(AValue: Integer): ICQL;
 var
   LQualifier: ICQLSelectQualifier;
 begin
@@ -370,17 +375,17 @@ begin
   Result := Self;
 end;
 
-function TCriteria.From(const AExpression: ICQLCriteriaExpression): ICriteria;
+function TCQL.From(const AExpression: ICQLCriteriaExpression): ICQL;
 begin
   Result := From('(' + AExpression.AsString + ')');
 end;
 
-function TCriteria.From(const AQuery: ICriteria): ICriteria;
+function TCQL.From(const AQuery: ICQL): ICQL;
 begin
   Result := From('(' + AQuery.AsString + ')');
 end;
 
-function TCriteria.From(const ATableName: String): ICriteria;
+function TCQL.From(const ATableName: String): ICQL;
 begin
   AssertSection([secSelect, secDelete]);
   FAST.ASTName := FAST.ASTTableNames.Add;
@@ -388,12 +393,12 @@ begin
   Result := Self;
 end;
 
-function TCriteria.FullJoin(const ATableName: String): ICriteria;
+function TCQL.FullJoin(const ATableName: String): ICQL;
 begin
   Result := CreateJoin(jtFULL, ATableName);
 end;
 
-function TCriteria.GroupBy(const AColumnName: String): ICriteria;
+function TCQL.GroupBy(const AColumnName: String): ICQL;
 begin
   SetSection(secGroupBy);
   if AColumnName = '' then
@@ -402,7 +407,7 @@ begin
     Result := Column(AColumnName);
 end;
 
-function TCriteria.Having(const AExpression: String): ICriteria;
+function TCQL.Having(const AExpression: String): ICQL;
 begin
   SetSection(secHaving);
   if AExpression = '' then
@@ -411,29 +416,35 @@ begin
     Result := &And(AExpression);
 end;
 
-function TCriteria.Having(const AExpression: array of const): ICriteria;
+function TCQL.Having(const AExpression: array of const): ICQL;
 begin
   Result := Having(TUtils.SqlParamsToStr(AExpression));
 end;
 
-function TCriteria.Having(const AExpression: ICQLCriteriaExpression): ICriteria;
+function TCQL.Having(const AExpression: ICQLCriteriaExpression): ICQL;
 begin
   SetSection(secHaving);
   Result := &And(AExpression);
 end;
 
-function TCriteria.InnerJoin(const ATableName: String): ICriteria;
+function TCQL.InnerJoin(const ATableName: String): ICQL;
 begin
   Result := CreateJoin(jtINNER, ATableName);
 end;
 
-function TCriteria.Insert: ICriteria;
+function TCQL.InnerJoin(const ATableName, AAlias: String): ICQL;
+begin
+  InnerJoin(ATableName).&As(AAlias);
+  Result := Self;
+end;
+
+function TCQL.Insert: ICQL;
 begin
   SetSection(secInsert);
   Result := Self;
 end;
 
-function TCriteria.InternalSet(const AColumnName, AColumnValue: String): ICriteria;
+function TCQL.InternalSet(const AColumnName, AColumnValue: String): ICQL;
 var
   LPair: ICQLNameValue;
 begin
@@ -444,45 +455,57 @@ begin
   Result := Self;
 end;
 
-function TCriteria.Into(const ATableName: String): ICriteria;
+function TCQL.Into(const ATableName: String): ICQL;
 begin
   AssertSection([secInsert]);
   FAST.Insert.TableName := ATableName;
   Result := Self;
 end;
 
-function TCriteria.IsEmpty: Boolean;
+function TCQL.IsEmpty: Boolean;
 begin
   Result := FAST.ASTSection.IsEmpty;
 end;
 
-function TCriteria.LeftJoin(const ATableName: String): ICriteria;
+function TCQL.LeftJoin(const ATableName: String): ICQL;
 begin
   Result := CreateJoin(jtLEFT, ATableName);
 end;
 
-function TCriteria.Limit(AValue: Integer): ICriteria;
+function TCQL.LeftJoin(const ATableName, AAlias: String): ICQL;
+begin
+  LeftJoin(ATableName).&As(AAlias);
+  Result := Self;
+end;
+
+function TCQL.Limit(AValue: Integer): ICQL;
 begin
   Result := First(AValue);
 end;
 
-class function TCriteria.New(const ADatabase: TDBName): ICriteria;
+class function TCQL.New(const ADatabase: TDBName): ICQL;
 begin
   Result := Self.Create(ADatabase);
 end;
 
-function TCriteria.OrderBy(const ACaseExpression: ICQLCriteriaCase): ICriteria;
+function TCQL.OrderBy(const ACaseExpression: ICQLCriteriaCase): ICQL;
 begin
   SetSection(secOrderBy);
   Result := Column(ACaseExpression);
 end;
 
-function TCriteria.RightJoin(const ATableName: String): ICriteria;
+function TCQL.RightJoin(const ATableName, AAlias: String): ICQL;
+begin
+  RightJoin(ATableName).&As(AAlias);
+  Result := Self;
+end;
+
+function TCQL.RightJoin(const ATableName: String): ICQL;
 begin
   Result := CreateJoin(jtRIGHT, ATableName);
 end;
 
-function TCriteria.OrderBy(const AColumnName: String): ICriteria;
+function TCQL.OrderBy(const AColumnName: String): ICQL;
 begin
   SetSection(secOrderBy);
   if AColumnName = '' then
@@ -491,7 +514,7 @@ begin
     Result := Column(AColumnName);
 end;
 
-function TCriteria.Select(const AColumnName: String): ICriteria;
+function TCQL.Select(const AColumnName: String): ICQL;
 begin
   SetSection(secSelect);
   if AColumnName = '' then
@@ -500,13 +523,13 @@ begin
     Result := Column(AColumnName);
 end;
 
-function TCriteria.Select(const ACaseExpression: ICQLCriteriaCase): ICriteria;
+function TCQL.Select(const ACaseExpression: ICQLCriteriaCase): ICQL;
 begin
   SetSection(secSelect);
   Result := Column(ACaseExpression);
 end;
 
-procedure TCriteria.SetSection(ASection: TSection);
+procedure TCQL.SetSection(ASection: TSection);
 begin
   case ASection of
     secSelect:
@@ -579,7 +602,7 @@ begin
   FActiveSection := ASection;
 end;
 
-function TCriteria.Skip(AValue: Integer): ICriteria;
+function TCQL.Skip(AValue: Integer): ICQL;
 var
   LQualifier: ICQLSelectQualifier;
 begin
@@ -590,24 +613,24 @@ begin
   Result := Self;
 end;
 
-function TCriteria.Update(const ATableName: String): ICriteria;
+function TCQL.Update(const ATableName: String): ICQL;
 begin
   SetSection(secUpdate);
   FAST.Update.TableName := ATableName;
   Result := Self;
 end;
 
-function TCriteria.Values(const AColumnName: String; const AColumnValue: array of const): ICriteria;
+function TCQL.Values(const AColumnName: String; const AColumnValue: array of const): ICQL;
 begin
   Result := InternalSet(AColumnName, TUtils.SqlParamsToStr(AColumnValue));
 end;
 
-function TCriteria.Values(const AColumnName, AColumnValue: String): ICriteria;
+function TCQL.Values(const AColumnName, AColumnValue: String): ICQL;
 begin
   Result := InternalSet(AColumnName, QuotedStr(AColumnValue));
 end;
 
-function TCriteria.Where(const AExpression: String): ICriteria;
+function TCQL.Where(const AExpression: String): ICQL;
 begin
   SetSection(secWhere);
   if AExpression = '' then
@@ -616,15 +639,27 @@ begin
     Result := &And(AExpression);
 end;
 
-function TCriteria.Where(const AExpression: array of const): ICriteria;
+function TCQL.Where(const AExpression: array of const): ICQL;
 begin
   Result := Where(TUtils.SqlParamsToStr(AExpression));
 end;
 
-function TCriteria.Where(const AExpression: ICQLCriteriaExpression): ICriteria;
+function TCQL.Where(const AExpression: ICQLCriteriaExpression): ICQL;
 begin
   SetSection(secWhere);
   Result := &And(AExpression);
+end;
+
+function TCQL.From(const ATableName, AAlias: String): ICQL;
+begin
+  From(ATableName).&As(AAlias);
+  Result := Self;
+end;
+
+function TCQL.FullJoin(const ATableName, AAlias: String): ICQL;
+begin
+  FullJoin(ATableName).&As(AAlias);
+  Result := Self;
 end;
 
 end.

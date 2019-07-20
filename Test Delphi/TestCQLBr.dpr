@@ -43,7 +43,10 @@ uses
   cqlbr.select.mysql in '..\Source\Database\cqlbr.select.mysql.pas',
   cqlbr.select.mongodb in '..\Source\Database\cqlbr.select.mongodb.pas',
   cqlbr.qualifier.mongodb in '..\Source\Database\cqlbr.qualifier.mongodb.pas',
-  cqlbr.serialize.mongodb in '..\Source\Database\cqlbr.serialize.mongodb.pas';
+  cqlbr.serialize.mongodb in '..\Source\Database\cqlbr.serialize.mongodb.pas',
+  test.insert in 'test.insert.pas',
+  test.update in 'test.update.pas',
+  test.delete in 'test.delete.pas';
 
 {$IFNDEF TESTINSIGHT}
 var

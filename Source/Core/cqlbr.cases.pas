@@ -93,19 +93,19 @@ type
 
   TCQLCriteriaCase = class(TInterfacedObject, ICQLCriteriaCase)
   strict private
-    FOwner: ICriteria;
+    FOwner: ICQL;
     FCase: ICQLCase;
     FLastExpression: ICQLCriteriaExpression;
   protected
     function GetCase: ICQLCase;
   public
-    constructor Create(const AOwner: ICriteria; const AExpression: String);
+    constructor Create(const AOwner: ICQL; const AExpression: String);
     function &And(const AExpression: array of const): ICQLCriteriaCase; overload;
     function &And(const AExpression: String): ICQLCriteriaCase; overload;
     function &And(const AExpression: ICQLCriteriaExpression): ICQLCriteriaCase; overload;
     function &Else(const AValue: String): ICQLCriteriaCase; overload;
     function &Else(const AValue: Int64): ICQLCriteriaCase; overload;
-    function &End: ICriteria;
+    function &End: ICQL;
     function &Or(const AExpression: array of const): ICQLCriteriaCase; overload;
     function &Or(const AExpression: String): ICQLCriteriaCase; overload;
     function &Or(const AExpression: ICQLCriteriaExpression): ICQLCriteriaCase; overload;
@@ -278,7 +278,7 @@ begin
   Result := Self;
 end;
 
-constructor TCQLCriteriaCase.Create(const AOwner: ICriteria; const AExpression: string);
+constructor TCQLCriteriaCase.Create(const AOwner: ICQL; const AExpression: string);
 begin
   FOwner := AOwner;
   FCase := TCQLCase.New;
@@ -298,7 +298,7 @@ begin
   Result := &Else(IntToStr(AValue));
 end;
 
-function TCQLCriteriaCase.&End: ICriteria;
+function TCQLCriteriaCase.&End: ICQL;
 begin
   Result := FOwner;
 end;

@@ -7,7 +7,7 @@ uses
 
 type
   [TestFixture]
-  TTestCriteriaQueryLanguage = class
+  TTestCQLSelect = class
   public
     [Setup]
     procedure Setup;
@@ -32,10 +32,6 @@ type
     procedure TestSelectPagingOracle;
     [Test]
     procedure TestSelectPagingMySQL;
-//    [Test]
-//    [TestCase('TestA','1,2')]
-//    [TestCase('TestB','3,4')]
-    procedure Test2(const AValue1 : Integer;const AValue2 : Integer);
   end;
 
 implementation
@@ -45,44 +41,44 @@ uses
   cqlbr.interfaces,
   criteria.query.language;
 
-procedure TTestCriteriaQueryLanguage.Setup;
+procedure TTestCQLSelect.Setup;
 begin
 end;
 
-procedure TTestCriteriaQueryLanguage.TearDown;
+procedure TTestCQLSelect.TearDown;
 begin
 end;
 
-procedure TTestCriteriaQueryLanguage.TestSelectAll;
+procedure TTestCQLSelect.TestSelectAll;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT * FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCriteria.New(dbnFirebird)
+  LAsString := 'SELECT * FROM CLIENTES AS CLI';
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .All
-                                      .From('CLIENTES')
+                                      .From('CLIENTES').&As('CLI')
                                       .AsString);
 end;
 
-procedure TTestCriteriaQueryLanguage.TestSelectAllNoSQL;
+procedure TTestCQLSelect.TestSelectAllNoSQL;
 var
   LAsString: String;
 begin
   LAsString := 'clientes.Find( {} )';
-  Assert.AreEqual(LAsString, TCriteria.New(dbnMongoDB)
+  Assert.AreEqual(LAsString, TCQL.New(dbnMongoDB)
                                       .Select
                                       .All
                                       .From('CLIENTES')
                                       .AsString);
 end;
 
-procedure TTestCriteriaQueryLanguage.TestSelectAllOrderBy;
+procedure TTestCQLSelect.TestSelectAllOrderBy;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES ORDER BY ID_CLIENTE';
-  Assert.AreEqual(LAsString, TCriteria.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -90,12 +86,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCriteriaQueryLanguage.TestSelectAllWhere;
+procedure TTestCQLSelect.TestSelectAllWhere;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES WHERE ID_CLIENTE = 1';
-  Assert.AreEqual(LAsString, TCriteria.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -103,12 +99,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCriteriaQueryLanguage.TestSelectColumns;
+procedure TTestCQLSelect.TestSelectColumns;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT ID_CLIENTE, NOME_CLIENTE FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCriteria.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .Column('ID_CLIENTE')
                                       .Column('NOME_CLIENTE')
@@ -116,12 +112,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCriteriaQueryLanguage.TestSelectColumnsCase;
+procedure TTestCQLSelect.TestSelectColumnsCase;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT ID_CLIENTE, NOME_CLIENTE, (CASE TIPO_CLIENTE WHEN 0 THEN ''FISICA'' WHEN 1 THEN ''JURIDICA'' ELSE ''PRODUTOR'' END) AS TIPO_PESSOA FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCriteria.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .Column('ID_CLIENTE')
                                       .Column('NOME_CLIENTE')
@@ -136,26 +132,26 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCriteriaQueryLanguage.TestSelectPagingFirebird;
+procedure TTestCQLSelect.TestSelectPagingFirebird;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT FIRST 3 SKIP 0 * FROM CLIENTES ORDER BY ID_CLIENTE';
-  Assert.AreEqual(LAsString, TCriteria.New(dbnFirebird)
+  LAsString := 'SELECT FIRST 3 SKIP 0 * FROM CLIENTES AS CLI ORDER BY CLI.ID_CLIENTE';
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .All
                                       .First(3).Skip(0)
-                                      .From('CLIENTES')
-                                      .OrderBy('ID_CLIENTE')
+                                      .From('CLIENTES', 'CLI')
+                                      .OrderBy('CLI.ID_CLIENTE')
                                       .AsString);
 end;
 
-procedure TTestCriteriaQueryLanguage.TestSelectPagingMySQL;
+procedure TTestCQLSelect.TestSelectPagingMySQL;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES ORDER BY ID_CLIENTE LIMIT 3 OFFSET 0';
-  Assert.AreEqual(LAsString, TCriteria.New(dbnMySQL)
+  Assert.AreEqual(LAsString, TCQL.New(dbnMySQL)
                                       .Select
                                       .All
                                       .Limit(3).Offset(0)
@@ -164,12 +160,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCriteriaQueryLanguage.TestSelectPagingOracle;
+procedure TTestCQLSelect.TestSelectPagingOracle;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM (SELECT T.*, ROWNUM AS ROWINI FROM (SELECT * FROM CLIENTES ORDER BY ID_CLIENTE) T) WHERE ROWNUM <= 3 AND ROWINI > 0';
-  Assert.AreEqual(LAsString, TCriteria.New(dbnOracle)
+  Assert.AreEqual(LAsString, TCQL.New(dbnOracle)
                                       .Select
                                       .All
                                       .Limit(3).Offset(0)
@@ -178,12 +174,7 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCriteriaQueryLanguage.Test2(const AValue1 : Integer;const AValue2 : Integer);
-begin
-
-end;
-
 initialization
-  TDUnitX.RegisterTestFixture(TTestCriteriaQueryLanguage);
+  TDUnitX.RegisterTestFixture(TTestCQLSelect);
 
 end.
