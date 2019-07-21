@@ -65,7 +65,7 @@ end;
 constructor TCQLUpdate.Create;
 begin
   inherited Create('Update');
-  FValues := TCQLNameValuePairs.Create;
+  FValues := TCQLNameValuePairs.New;
 end;
 
 function TCQLUpdate.GetTableName: string;

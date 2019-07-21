@@ -78,9 +78,9 @@ type
     function SerializeName(const AName: ICQLName): String;
     function SerializeDirection(ADirection: TOrderByDirection): String;
   protected
-    function  GetColumns(AIdx: Integer): ICQLName;
-  public
+    function GetColumns(AIdx: Integer): ICQLName;
     constructor Create;
+  public
     class function New: ICQLNames;
     destructor Destroy; override;
     function Add: ICQLName; overload; virtual;
@@ -113,8 +113,9 @@ type
     FList: TList<ICQLNameValue>;
   protected
     function GetItem(AIdx: Integer): ICQLNameValue;
-  public
     constructor Create;
+  public
+    class function New: ICQLNameValuePairs;
     destructor Destroy; override;
     function Add: ICQLNameValue; overload;
     procedure Add(const ANameValue: ICQLNameValue); overload;
@@ -352,6 +353,11 @@ end;
 function TCQLNameValuePairs.IsEmpty: Boolean;
 begin
   Result := (Count = 0);
+end;
+
+class function TCQLNameValuePairs.New: ICQLNameValuePairs;
+begin
+  Result := Self.Create;
 end;
 
 end.

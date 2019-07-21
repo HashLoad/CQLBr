@@ -34,6 +34,7 @@ type
              dbnAbsoluteDB, dbnMongoDB, dbnElevateDB, dbnNexusDB);
 
   ICQL = interface;
+  ICQLAST = interface;
 
   TExpressionOperation = (opNone, opAND, opOR);
   ICQLExpression = interface
@@ -265,6 +266,7 @@ type
     function Add: ICQLSelectQualifier; overload;
     procedure Add(AQualifier: ICQLSelectQualifier); overload;
     procedure Clear;
+    function ExecutingPagination: Boolean;
     function Count: Integer;
     function IsEmpty: Boolean;
     function SerializePagination: String;
@@ -284,7 +286,7 @@ type
 
   ICQLWhere = interface(ICQLSection)
     ['{664D8830-662B-4993-BD9C-325E6C1A2ACA}']
-    function  GetExpression: ICQLExpression;
+    function GetExpression: ICQLExpression;
     procedure SetExpression(const Value: ICQLExpression);
     //
     function Serialize: String;

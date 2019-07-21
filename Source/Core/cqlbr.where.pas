@@ -35,16 +35,17 @@ uses
 
 type
   TCQLWhere = class(TCQLSection, ICQLWhere)
-  strict private
-    FExpression: ICQLExpression;
-  strict protected
-    function  GetExpression: ICQLExpression;
+  private
+    function GetExpression: ICQLExpression;
     procedure SetExpression(const Value: ICQLExpression);
+  protected
+    FExpression: ICQLExpression;
   public
-    constructor Create;
+    constructor Create; virtual;
+    destructor Destroy; override;
     procedure Clear; override;
-    function Serialize: String;
-    function IsEmpty: boolean; override;
+    function Serialize: String; virtual;
+    function IsEmpty: Boolean; override;
     property Expression: ICQLExpression read GetExpression write SetExpression;
   end;
 
@@ -66,12 +67,17 @@ begin
   FExpression := TCQLExpression.New;
 end;
 
+destructor TCQLWhere.Destroy;
+begin
+  inherited;
+end;
+
 function TCQLWhere.GetExpression: ICQLExpression;
 begin
   Result := FExpression;
 end;
 
-function TCQLWhere.IsEmpty: boolean;
+function TCQLWhere.IsEmpty: Boolean;
 begin
   Result := FExpression.IsEmpty;
 end;

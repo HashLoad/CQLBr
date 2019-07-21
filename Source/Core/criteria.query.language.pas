@@ -69,8 +69,9 @@ type
     function CreateJoin(AjoinType: TJoinType; const ATableName: String): ICQL;
     function InternalSet(const AColumnName, AColumnValue: String): ICQL;
     procedure SetSection(ASection: TSection);
-  public
+  protected
     constructor Create(const ADatabase: TDBName);
+  public
     class function New(const ADatabase: TDBName): ICQL;
     function &And(const AExpression: array of const): ICQL; overload;
     function &And(const AExpression: String): ICQL; overload;
@@ -254,7 +255,7 @@ end;
 
 function TCQL.AsString: String;
 begin
-  Result := TDBRegister.GetSerialize(FDatabase).AsString(FAST);
+  Result := TDBRegister.Serialize(FDatabase).AsString(FAST);
 end;
 
 //function TCQL.AST: ICQLAST;
@@ -351,6 +352,10 @@ begin
   AssertSection([secSelect]);
   LQualifier := FAST.Select.Qualifiers.Add;
   LQualifier.Qualifier := sqDistinct;
+  /// <summary>
+  ///   Esse método tem que Add o Qualifier já todo parametrizado.
+  /// </summary>
+  FAST.Select.Qualifiers.Add(LQualifier);
   Result := Self;
 end;
 
@@ -372,6 +377,10 @@ begin
   LQualifier := FAST.Select.Qualifiers.Add;
   LQualifier.Qualifier := sqFirst;
   LQualifier.Value := AValue;
+  /// <summary>
+  ///   Esse método tem que Add o Qualifier já todo parametrizado.
+  /// </summary>
+  FAST.Select.Qualifiers.Add(LQualifier);
   Result := Self;
 end;
 
@@ -610,6 +619,10 @@ begin
   LQualifier := FAST.Select.Qualifiers.Add;
   LQualifier.Qualifier := sqSkip;
   LQualifier.Value := AValue;
+  /// <summary>
+  ///   Esse método tem que Add o Qualifier já todo parametrizado.
+  /// </summary>
+  FAST.Select.Qualifiers.Add(LQualifier);
   Result := Self;
 end;
 

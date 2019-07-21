@@ -56,8 +56,10 @@ type
     procedure SetASTName(const Value: ICQLName);
     function GetASTTableNames: ICQLNames;
     procedure SetASTTableNames(const Value: ICQLNames);
+  protected
   public
     constructor Create(const ADatabase: TDBName);
+    destructor Destroy; override;
     class function New(const ADatabase: TDBName): ICQLAST;
     procedure Clear;
     function IsEmpty: Boolean;
@@ -107,20 +109,46 @@ end;
 
 constructor TCQLAST.Create(const ADatabase: TDBName);
 begin
-  FSelect := TDBRegister.GetSelect(ADatabase);
+  /// <summary> SELECT </summary>
+  FSelect := TDBRegister.Select(ADatabase);
+  if FSelect = nil then
+    FSelect := TCQLSelect.Create;
+
+  /// <summary> DELETE </summary>
   FDelete := TCQLDelete.Create;
+
+  /// <summary> INSERT </summary>
   FInsert := TCQLInsert.Create;
+
+  /// <summary> UPDATE </summary>
   FUpdate := TCQLUpdate.Create;
+
+  /// <summary> JOIN </summary>
   FJoins := TCQLJoins.Create;
-  FWhere := TCQLWhere.Create;
+
+  /// <summary> WHERE </summary>
+  FWhere := TDBRegister.Where(ADatabase);
+  if FWhere = nil then
+    FWhere := TCQLWhere.Create;
+
+  /// <summary> GROUP BY </summary>
   FGroupBy := TCQLGroupBy.Create;
+
+  /// <summary> HAVING </summary>
   FHaving := TCQLHaving.Create;
+
+  /// <summary> ORDER BY </summary>
   FOrderBy := TCQLOrderBy.Create;
 end;
 
 function TCQLAST.Delete: ICQLDelete;
 begin
   Result := FDelete;
+end;
+
+destructor TCQLAST.Destroy;
+begin
+  inherited;
 end;
 
 function TCQLAST.GetASTColumns: ICQLNames;

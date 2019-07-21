@@ -170,6 +170,9 @@
         <DCCReference Include="test.insert.pas"/>
         <DCCReference Include="test.update.pas"/>
         <DCCReference Include="test.delete.pas"/>
+        <DCCReference Include="..\Source\Database\cqlbr.select.mssql.pas"/>
+        <DCCReference Include="..\Source\Database\cqlbr.serialize.mssql.pas"/>
+        <DCCReference Include="..\Source\Database\cqlbr.qualifier.mssql.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

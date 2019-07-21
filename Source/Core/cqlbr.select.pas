@@ -37,10 +37,11 @@ type
   TCQLSelect = class(TCQLSection, ICQLSelect)
   protected
     FColumns: ICQLNames;
-    FQualifiers: ICQLSelectQualifiers;
     FTableNames: ICQLNames;
+    FQualifiers: ICQLSelectQualifiers;
   public
     constructor Create; virtual;
+    destructor Destroy; override;
     procedure Clear; override;
     function IsEmpty: Boolean; override;
     function Columns: ICQLNames;
@@ -75,7 +76,12 @@ begin
   FTableNames := TCQLNames.New;
 end;
 
-function TCQLSelect.IsEmpty: boolean;
+destructor TCQLSelect.Destroy;
+begin
+  inherited;
+end;
+
+function TCQLSelect.IsEmpty: Boolean;
 begin
   Result := (FColumns.IsEmpty and FTableNames.IsEmpty);
 end;

@@ -58,10 +58,10 @@ type
   strict private
     FWhenThenList: TList<ICQLCaseWhenThen>;
   protected
-    function  GetWhenThen(AIdx: Integer): ICQLCaseWhenThen;
+    function GetWhenThen(AIdx: Integer): ICQLCaseWhenThen;
     procedure SetWhenThen(AIdx: Integer; const AValue: ICQLCaseWhenThen);
-  public
     constructor Create;
+  public
     destructor Destroy; override;
     class function New: ICQLCaseWhenList;
     function Add: ICQLCaseWhenThen; overload;
@@ -82,8 +82,8 @@ type
     procedure SetCaseExpression(const AValue: ICQLExpression);
     procedure SetElseExpression(const AValue: ICQLExpression);
     procedure SetWhenList(const AValue: ICQLCaseWhenList);
-  public
     constructor Create;
+  public
     class function New: ICQLCase;
     function Serialize: String; virtual;
     property CaseExpression: ICQLExpression read GetCaseExpression write SetCaseExpression;

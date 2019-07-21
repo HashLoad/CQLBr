@@ -54,14 +54,16 @@ type
 
   TCQLSelectQualifiers = class(TInterfacedObject, ICQLSelectQualifiers)
   protected
+    FExecutingPagination: Boolean;
     FQualifiers: TList<ICQLSelectQualifier>;
     function GetQualifier(AIdx: Integer): ICQLSelectQualifier;
-  public
     constructor Create;
+  public
     destructor Destroy; override;
     function Add: ICQLSelectQualifier; overload;
     procedure Add(AQualifier: ICQLSelectQualifier); overload;
     procedure Clear;
+    function ExecutingPagination: Boolean;
     function Count: Integer;
     function IsEmpty: Boolean;
     function SerializePagination: String; virtual; abstract;
@@ -79,12 +81,13 @@ uses
 function TCQLSelectQualifiers.Add: ICQLSelectQualifier;
 begin
   Result := TCQLSelectQualifier.Create;
-  Add(Result);
 end;
 
 procedure TCQLSelectQualifiers.Add(AQualifier: ICQLSelectQualifier);
 begin
   FQualifiers.Add(AQualifier);
+  if AQualifier.Qualifier in [sqFirst, sqSkip] then
+    FExecutingPagination := True;
 end;
 
 procedure TCQLSelectQualifiers.Clear;
@@ -99,6 +102,7 @@ end;
 
 constructor TCQLSelectQualifiers.Create;
 begin
+  FExecutingPagination := False;
   FQualifiers := TList<ICQLSelectQualifier>.Create;
 end;
 
@@ -106,6 +110,11 @@ destructor TCQLSelectQualifiers.Destroy;
 begin
   FQualifiers.Free;
   inherited;
+end;
+
+function TCQLSelectQualifiers.ExecutingPagination: Boolean;
+begin
+  Result := FExecutingPagination;
 end;
 
 function TCQLSelectQualifiers.GetQualifier(AIdx: Integer): ICQLSelectQualifier;

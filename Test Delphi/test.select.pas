@@ -32,6 +32,8 @@ type
     procedure TestSelectPagingOracle;
     [Test]
     procedure TestSelectPagingMySQL;
+    [Test]
+    procedure TestSelectPagingMSSQL;
   end;
 
 implementation
@@ -143,6 +145,20 @@ begin
                                       .First(3).Skip(0)
                                       .From('CLIENTES', 'CLI')
                                       .OrderBy('CLI.ID_CLIENTE')
+                                      .AsString);
+end;
+
+procedure TTestCQLSelect.TestSelectPagingMSSQL;
+var
+  LAsString: String;
+begin
+  LAsString := 'SELECT * FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY CURRENT_TIMESTAMP) AS ROWNUMBER FROM CLIENTES) AS CLIENTES WHERE (ROWNUMBER > 3 AND ROWNUMBER <= 6) ORDER BY ID_CLIENTE';
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
+                                      .Select
+                                      .All
+                                      .Limit(3).Offset(3)
+                                      .From('CLIENTES')
+                                      .OrderBy('ID_CLIENTE')
                                       .AsString);
 end;
 

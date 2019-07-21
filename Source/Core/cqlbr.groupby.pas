@@ -54,7 +54,7 @@ uses
 constructor TCQLGroupBy.Create;
 begin
   inherited Create('GroupBy');
-  FColumns := TCQLNames.Create;
+  FColumns := TCQLNames.New;
 end;
 
 procedure TCQLGroupBy.Clear;

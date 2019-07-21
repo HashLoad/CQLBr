@@ -59,7 +59,7 @@ end;
 constructor TCQLDelete.Create;
 begin
   inherited Create('Delete');
-  FTableNames := TCQLNames.Create;
+  FTableNames := TCQLNames.New;
 end;
 
 function TCQLDelete.IsEmpty: boolean;

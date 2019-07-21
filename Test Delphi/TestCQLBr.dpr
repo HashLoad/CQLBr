@@ -46,7 +46,10 @@ uses
   cqlbr.serialize.mongodb in '..\Source\Database\cqlbr.serialize.mongodb.pas',
   test.insert in 'test.insert.pas',
   test.update in 'test.update.pas',
-  test.delete in 'test.delete.pas';
+  test.delete in 'test.delete.pas',
+  cqlbr.select.mssql in '..\Source\Database\cqlbr.select.mssql.pas',
+  cqlbr.serialize.mssql in '..\Source\Database\cqlbr.serialize.mssql.pas',
+  cqlbr.qualifier.mssql in '..\Source\Database\cqlbr.qualifier.mssql.pas';
 
 {$IFNDEF TESTINSIGHT}
 var

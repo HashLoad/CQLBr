@@ -72,8 +72,8 @@ end;
 constructor TCQLInsert.Create;
 begin
   inherited Create('Insert');
-  FColumns := TCQLNames.Create;
-  FValues := TCQLNameValuePairs.Create;
+  FColumns := TCQLNames.New;
+  FValues := TCQLNameValuePairs.New;
 end;
 
 function TCQLInsert.GetTableName: string;

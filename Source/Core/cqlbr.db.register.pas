@@ -41,6 +41,7 @@ type
   TDBRegister = class
   strict private
     class var FCQLSelect: TDictionary<TDBName, ICQLSelect>;
+    class var FCQLWhere: TDictionary<TDBName, ICQLWhere>;
     class var FCQLSerialize: TDictionary<TDBName, ICQLSerialize>;
   private
     class constructor Create;
@@ -51,13 +52,19 @@ type
     /// </summary>
     class procedure RegisterSelect(const ADBName: TDBName;
       const ACQLSelect: ICQLSelect);
-    class function GetSelect(const ADBName: TDBName): ICQLSelect;
+    class function Select(const ADBName: TDBName): ICQLSelect;
+    /// <summary>
+    ///   Select for database
+    /// </summary>
+    class procedure RegisterWhere(const ADBName: TDBName;
+      const ACQLWhere: ICQLWhere);
+    class function Where(const ADBName: TDBName): ICQLWhere;
     /// <summary>
     ///   Serialize for database
     /// </summary>
     class procedure RegisterSerialize(const ADBName: TDBName;
       const ACQLSelect: ICQLSerialize);
-    class function GetSerialize(const ADBName: TDBName): ICQLSerialize;
+    class function Serialize(const ADBName: TDBName): ICQLSerialize;
   end;
 
 implementation
@@ -72,6 +79,7 @@ const
 class constructor TDBRegister.Create;
 begin
   FCQLSelect := TDictionary<TDBName, ICQLSelect>.Create;
+  FCQLWhere := TDictionary<TDBName, ICQLWhere>.Create;
   FCQLSerialize := TDictionary<TDBName, ICQLSerialize>.Create;
 end;
 
@@ -79,18 +87,18 @@ class destructor TDBRegister.Destroy;
 begin
   FCQLSelect.Clear;
   FCQLSelect.Free;
+  FCQLWhere.Clear;
+  FCQLWhere.Free;
   FCQLSerialize.Clear;
   FCQLSerialize.Free;
   inherited;
 end;
 
-class function TDBRegister.GetSelect(const ADBName: TDBName): ICQLSelect;
+class function TDBRegister.Select(const ADBName: TDBName): ICQLSelect;
 begin
-  if not FCQLSelect.ContainsKey(ADBName) then
-    raise Exception
-            .Create('O select do banco ' + TStrDBName[ADBName] + ' não está registrado, adicione a unit "cqlbr.select.???.pas" onde ??? nome do banco, na cláusula USES do seu projeto!');
-
-  Result := FCQLSelect[ADBName];
+  Result := nil;
+  if FCQLSelect.ContainsKey(ADBName) then
+    Result := FCQLSelect[ADBName];
 end;
 
 class procedure TDBRegister.RegisterSelect(const ADBName: TDBName;
@@ -99,7 +107,7 @@ begin
   FCQLSelect.AddOrSetValue(ADBName, ACQLSelect);
 end;
 
-class function TDBRegister.GetSerialize(const ADBName: TDBName): ICQLSerialize;
+class function TDBRegister.Serialize(const ADBName: TDBName): ICQLSerialize;
 begin
   if not FCQLSerialize.ContainsKey(ADBName) then
     raise Exception
@@ -108,10 +116,22 @@ begin
   Result := FCQLSerialize[ADBName];
 end;
 
+class function TDBRegister.Where(const ADBName: TDBName): ICQLWhere;
+begin
+  Result := nil;
+  if FCQLWhere.ContainsKey(ADBName) then
+    Result := FCQLWhere[ADBName];
+end;
+
 class procedure TDBRegister.RegisterSerialize(const ADBName: TDBName;
   const ACQLSelect: ICQLSerialize);
 begin
   FCQLSerialize.AddOrSetValue(ADBName, ACQLSelect);
+end;
+
+class procedure TDBRegister.RegisterWhere(const ADBName: TDBName; const ACQLWhere: ICQLWhere);
+begin
+  FCQLWhere.AddOrSetValue(ADBName, ACQLWhere);
 end;
 
 end.
