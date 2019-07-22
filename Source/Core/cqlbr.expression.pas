@@ -75,6 +75,9 @@ type
     function &Or(const AExpression: array of const): ICQLCriteriaExpression; overload;
     function &Or(const AExpression: String): ICQLCriteriaExpression; overload;
     function &Or(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
+    function &Add(const AExpression: array of const): ICQLCriteriaExpression; overload;
+    function &Add(const AExpression: String): ICQLCriteriaExpression; overload;
+    function &Add(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
     function AsString: String;
     function Expression: ICQLExpression;
   end;
@@ -124,6 +127,9 @@ end;
 
 function TCQLExpression.IsEmpty: Boolean;
 begin
+  /// <summary>
+  ///   Caso não exista a chamada do WHERE pe considerado Empty.
+  /// </summary>
   Result := (FOperation = opNone) and (FTerm = '');
 end;
 
@@ -157,7 +163,12 @@ begin
                                          'OR',
                                          FRight.Serialize(True)]) + ')';
         end;
-      else 
+      opOperation:
+        begin
+          Result := '(' + TUtils.Concat([FLeft.Serialize(False),
+                                         FRight.Serialize(False)]) + ')';
+        end;
+      else
         raise Exception.Create('TCQLExpression.Serialize: Unknown operation');
     end;
 end;
@@ -190,12 +201,12 @@ var
   LRoot: ICQLExpression;
 begin
   LRoot := FExpression;
-  if LRoot.IsEmpty then 
+  if LRoot.IsEmpty then
   begin
     LRoot.Assign(AExpression);
     FLastAnd := LRoot;
   end
-  else 
+  else
   begin
     LNode := TCQLExpression.New;
     LNode.Assign(LRoot);
@@ -246,7 +257,13 @@ end;
 
 function TCQLCriteriaExpression.FindRightmostAnd(const AExpression: ICQLExpression): ICQLExpression;
 begin
-
+  if AExpression.Operation = opNone then
+    Result := FExpression
+  else
+  if AExpression.Operation = opOR then
+    Result := FExpression
+  else
+    Result := FindRightmostAnd(AExpression.Right);
 end;
 
 function TCQLCriteriaExpression.&Or(const AExpression: array of const): ICQLCriteriaExpression;
@@ -263,20 +280,44 @@ begin
   Result := &Or(LNode);
 end;
 
-function TCQLCriteriaExpression.&Or(const AExpression: ICQLExpression): ICQLCriteriaExpression;
+function TCQLCriteriaExpression.&Add(const AExpression: array of const): ICQLCriteriaExpression;
+begin
+  Result := &Add(TUtils.SqlParamsToStr(AExpression));
+end;
+
+function TCQLCriteriaExpression.&Add(const AExpression: String): ICQLCriteriaExpression;
 var
   LNode: ICQLExpression;
 begin
-  if (not Assigned(FLastAnd)) or FLastAnd.IsEmpty then
-    Result := &And(AExpression)
-  else 
-  begin
-    LNode := TCQLExpression.New;
-    LNode.Assign(FLastAnd);
-    FLastAnd.Left := LNode;
-    FLastAnd.Operation := opOR;
-    FLastAnd.Right := AExpression;
-  end;
+  LNode := TCQLExpression.New;
+  LNode.Term := AExpression;
+  Result := &Add(LNode);
+end;
+
+function TCQLCriteriaExpression.&Add(const AExpression: ICQLExpression): ICQLCriteriaExpression;
+var
+  LNode: ICQLExpression;
+begin
+  LNode := TCQLExpression.New;
+  LNode.Assign(FLastAnd);
+  FLastAnd.Left := LNode;
+  FLastAnd.Operation := opOperation;
+  FLastAnd.Right := AExpression;
+  Result := Self;
+end;
+
+function TCQLCriteriaExpression.&Or(const AExpression: ICQLExpression): ICQLCriteriaExpression;
+var
+  LNode: ICQLExpression;
+  LRoot: ICQLExpression;
+begin
+  LRoot := FExpression;
+  LNode := TCQLExpression.New;
+  LNode.Assign(LRoot);
+  LRoot.Left := LNode;
+  LRoot.Operation := opOR;
+  LRoot.Right := AExpression;
+  FLastAnd := LRoot.Right;
   Result := Self;
 end;
 

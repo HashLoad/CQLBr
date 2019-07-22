@@ -337,7 +337,7 @@ end;
 
 function TCQLCriteriaCase.&Then(const AValue: string): ICQLCriteriaCase;
 begin
-  Assert(FCase.WhenList.Count > 0, 'TCQLSelectCase.&Then: Missing When');
+  Assert(FCase.WhenList.Count > 0, 'TCQLCriteriaCase.&Then: Missing When');
   FLastExpression := TCQLCriteriaExpression.Create(AValue);
   FCase.WhenList[FCase.WhenList.Count-1].ThenExpression := FLastExpression.Expression;
   Result := Self;

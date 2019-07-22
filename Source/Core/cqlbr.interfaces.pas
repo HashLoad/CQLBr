@@ -29,6 +29,9 @@ unit cqlbr.interfaces;
 interface
 
 type
+  TOperator = (opeNone, opeWhere, opeAND, opeOR);
+  TOperators = set of TOperator;
+
   TDBName = (dbnMSSQL, dbnMySQL, dbnFirebird, dbnSQLite, dbnInterbase, dbnDB2,
              dbnOracle, dbnInformix, dbnPostgreSQL, dbnADS, dbnASA,
              dbnAbsoluteDB, dbnMongoDB, dbnElevateDB, dbnNexusDB);
@@ -36,7 +39,7 @@ type
   ICQL = interface;
   ICQLAST = interface;
 
-  TExpressionOperation = (opNone, opAND, opOR);
+  TExpressionOperation = (opNone, opAND, opOR, opOperation);
   ICQLExpression = interface
     ['{D1DA5991-9755-485A-A031-9C25BC42A2AA}']
     function GetLeft: ICQLExpression;
@@ -66,6 +69,9 @@ type
     function &Or(const AExpression: array of const): ICQLCriteriaExpression; overload;
     function &Or(const AExpression: string): ICQLCriteriaExpression; overload;
     function &Or(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
+    function &Add(const AExpression: array of const): ICQLCriteriaExpression; overload;
+    function &Add(const AExpression: String): ICQLCriteriaExpression; overload;
+    function &Add(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
     function AsString: string;
     function Expression: ICQLExpression;
   end;
@@ -190,8 +196,32 @@ type
     function Values(const AColumnName, AColumnValue: String): ICQL; overload;
     function Values(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
     function AsString: String;
-//    function AST: ICQLAST;
-  end;
+    /// <summary>
+    ///   Operators functions
+    /// </summary>
+    function Equal(const AValue: String): ICQL; overload;
+    function Equal(const AValue: Extended): ICQL overload;
+    function Equal(const AValue: Integer): ICQL; overload;
+    function NotEqual(const AValue: String): ICQL; overload;
+    function NotEqual(const AValue: Extended): ICQL; overload;
+    function NotEqual(const AValue: Integer): ICQL; overload;
+    function GreaterThan(const AValue: Extended): ICQL; overload;
+    function GreaterThan(const AValue: Integer) : ICQL; overload;
+    function GreaterEqThan(const AValue: Extended): ICQL; overload;
+    function GreaterEqThan(const AValue: Integer) : ICQL; overload;
+    function LessThan(const AValue: Extended): ICQL; overload;
+    function LessThan(const AValue: Integer) : ICQL; overload;
+    function LessEqThan(const AValue: Extended): ICQL; overload;
+    function LessEqThan(const AValue: Integer) : ICQL; overload;
+    function IsNull: ICQL;
+    function IsNotNull: ICQL;
+    function LikeFull(const AValue: String): ICQL;
+    function LikeLeft(const AValue: String): ICQL;
+    function LikeRight(const AValue: String): ICQL;
+    function NotLikeFull(const AValue: String): ICQL;
+    function NotLikeLeft(const AValue: String): ICQL;
+    function NotLikeRight(const AValue: String): ICQL;
+  end;
 
   ICQLName = interface
     ['{FA82F4B9-1202-4926-8385-C2100EB0CA97}']
@@ -421,6 +451,62 @@ type
     ['{8F7A3C1F-2704-401F-B1DF-D334EEFFC8B7}']
     function AsString(const AAST: ICQLAST): String;
   end;
+
+  TCQLOperatorCompare  = (fcEqual, fcNotEqual,
+                          fcGreater, fcGreaterEqual,
+                          fcLess, fcLessEqual,
+                          fcIn, fcNotIn,
+                          fcIsNull, fcIsNotNull,
+                          fcBetween, fcNotBetween,
+                          fcExists, fcNotExists,
+                          fcLikeFull, fcLikeLeft, fcLikeRight,
+                          fcNotLikeFull, fcNotLikeLeft, fcNotLikeRight
+                          );
+  TCQLDataFieldType = (dftUnknown, dftString, dftInteger, dftFloat, dftDate);
+
+  ICQLOperator = interface
+    ['{A07D4935-0C52-4D8A-A3CF-5837AFE01C75}']
+    function GetColumnName: string;
+    function GetCompare: TCQLOperatorCompare;
+    function GetValue: Variant;
+    function GetDataType: TCQLDataFieldType;
+    procedure SetColumnName(const Value: String);
+    procedure SetCompare(const Value: TCQLOperatorCompare);
+    procedure SetValue(const Value: Variant);
+    procedure SetDataType(const Value: TCQLDataFieldType);
+
+    property ColumnName: string read GetcolumnName write SetcolumnName;
+    property Compare: TCQLOperatorCompare read Getcompare write Setcompare;
+    property Value: Variant read Getvalue write Setvalue;
+    property DataType: TCQLDataFieldType read GetdataType   write SetdataType;
+    function AsString: string;
+  end;
+
+  ICQLFunc = interface
+    ['{7F855D42-FB26-4F21-BCBE-93BC407ED15B}']
+    function IsEqual(const AValue: Extended) : String; overload;
+    function IsEqual(const AValue: Integer): String; overload;
+    function IsEqual(const AValue: String): String; overload;
+    function IsNotEqual(const AValue: Extended): String; overload;
+    function IsNotEqual(const AValue: Integer): String; overload;
+    function IsNotEqual(const AValue: String): String; overload;
+    function IsGreaterThan(const AValue: Extended): String; overload;
+    function IsGreaterThan(const AValue: Integer): String; overload;
+    function IsGreaterEqThan(const AValue: Extended): String; overload;
+    function IsGreaterEqThan(const AValue: Integer): String; overload;
+    function IsLessThan(const AValue: Extended): String; overload;
+    function IsLessThan(const AValue: Integer): String; overload;
+    function IsLessEqThan(const AValue: Extended): String; overload;
+    function IsLessEqThan(const AValue: Integer) : String; overload;
+    function IsNull: String;
+    function IsNotNull: String;
+    function IsLikeFull(const AValue: String): String;
+    function IsLikeLeft(const AValue: String): String;
+    function IsLikeRight(const AValue: String): String;
+    function IsNotLikeFull(const AValue: String): String;
+    function IsNotLikeLeft(const AValue: String): String;
+    function IsNotLikeRight(const AValue: String): String;
+  end;
 
 implementation
 

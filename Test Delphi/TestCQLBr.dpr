@@ -49,7 +49,13 @@ uses
   test.delete in 'test.delete.pas',
   cqlbr.select.mssql in '..\Source\Database\cqlbr.select.mssql.pas',
   cqlbr.serialize.mssql in '..\Source\Database\cqlbr.serialize.mssql.pas',
-  cqlbr.qualifier.mssql in '..\Source\Database\cqlbr.qualifier.mssql.pas';
+  cqlbr.qualifier.mssql in '..\Source\Database\cqlbr.qualifier.mssql.pas',
+  cqlbr.operators in '..\Source\Core\cqlbr.operators.pas',
+  test.operators in 'test.operators.pas',
+  test.operators.like in 'test.operators.like.pas',
+  test.operators.less in 'test.operators.less.pas',
+  test.operators.greater in 'test.operators.greater.pas',
+  test.operators.equal in 'test.operators.equal.pas';
 
 {$IFNDEF TESTINSIGHT}
 var
