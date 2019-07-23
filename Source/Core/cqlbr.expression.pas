@@ -311,7 +311,7 @@ var
   LNode: ICQLExpression;
   LRoot: ICQLExpression;
 begin
-  LRoot := FExpression;
+  LRoot := FLastAnd;
   LNode := TCQLExpression.New;
   LNode.Assign(LRoot);
   LRoot.Left := LNode;

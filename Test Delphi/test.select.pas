@@ -21,6 +21,8 @@ type
     [Test]
     procedure TestSelectAllWhere;
     [Test]
+    procedure TestSelectAllWhereAndOr;
+    [Test]
     procedure TestSelectAllOrderBy;
     [Test]
     procedure TestSelectColumns;
@@ -98,6 +100,21 @@ begin
                                       .All
                                       .From('CLIENTES')
                                       .Where('ID_CLIENTE = 1')
+                                      .AsString);
+end;
+
+procedure TTestCQLSelect.TestSelectAllWhereAndOr;
+var
+  LAsString: String;
+begin
+  LAsString := 'SELECT * FROM CLIENTES WHERE (ID_CLIENTE = 1) AND ((ID >= 10) OR (ID <= 20))';
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+                                      .Select
+                                      .All
+                                      .From('CLIENTES')
+                                      .Where('ID_CLIENTE = 1')
+                                      .&And('ID').GreaterEqThan(10)
+                                      .&Or('ID').LessEqThan(20)
                                       .AsString);
 end;
 
