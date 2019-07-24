@@ -1,4 +1,4 @@
-# CQLBr [![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
+# CQLBr [![License](https://img.shields.io/cran/l/gnulesser.svg)](https://opensource.org/licenses/LGPL-3.0)
 
 ## CQLBr Framework for Delphi/Lazaruz
 Criteria Query Language é um framework que provê escritas através de uma interface que permite mapear de forma orientada a objeto gerando toda sintaxe do comandos para realizar as operações de consulta, inclusão, alteração e exclusão em banco de dados, o MCQ só gera o comando mas não o executa.
