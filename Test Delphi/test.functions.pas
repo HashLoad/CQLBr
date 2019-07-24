@@ -1,4 +1,4 @@
-unit cqlbr.funtions;
+unit test.functions;
 
 interface
 
