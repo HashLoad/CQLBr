@@ -58,7 +58,7 @@ uses
   cqlbr.serialize.mysql in '..\Source\Database\cqlbr.serialize.mysql.pas',
   cqlbr.serialize.oracle in '..\Source\Database\cqlbr.serialize.oracle.pas',
   test.operators.exists in 'test.operators.exists.pas',
-  cqlbr.funtions in '..\Source\Core\cqlbr.funtions.pas';
+  test.functions in 'test.functions.pas';
 
 {$IFNDEF TESTINSIGHT}
 var

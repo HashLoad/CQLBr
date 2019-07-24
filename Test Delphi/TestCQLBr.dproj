@@ -181,7 +181,7 @@
         <DCCReference Include="..\Source\Database\cqlbr.serialize.mysql.pas"/>
         <DCCReference Include="..\Source\Database\cqlbr.serialize.oracle.pas"/>
         <DCCReference Include="test.operators.exists.pas"/>
-        <DCCReference Include="..\Source\Core\cqlbr.funtions.pas"/>
+        <DCCReference Include="test.functions.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -4,6 +4,9 @@
 
 O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gerar uma query com CQLBr, ele irá te possibilitar mudar de banco de dados em um sistema, sem ter que refaturar querys com particularidades do banco substituído.
 
+
+# Query SELECT
+
 ```Delphi
   /// <summary>
   ///   SELECT * FROM CLIENTES WHERE (ID_CLIENTE = 1) AND (ID >= 10) AND (ID <= 20)
@@ -15,7 +18,7 @@ O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gera
       .Where('ID_CLIENTE = 1')
       .&And('ID').GreaterEqThan(10)
       .&And('ID').LessEqThan(20)
-  .AsString;
+    .AsString;
 	
   
   /// <summary>
@@ -33,5 +36,83 @@ O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gera
         .&End
         .&As('TIPO_PESSOA')
         .From('CLIENTES')
+    .AsString);
+	
+  /// <summary>
+  ///   'SELECT * FROM CLIENTES WHERE (NOME LIKE ''%VALUE%'')';
+  /// </summary>
+  TCQL.New(dbnFirebird)
+      .Select
+      .All
+      .From('CLIENTES')
+      .Where('NOME').LikeFull('VALUE')
+    .AsString);
+	
+  /// <summary>
+  ///   'SELECT * FROM CLIENTES WHERE (VALOR IN (1, 2, 3))';
+  /// </summary>
+  TCQL.New(dbnFirebird)
+      .Select
+      .All
+      .From('CLIENTES')
+      .Where('VALOR').&In([1, 2, 3])
+    .AsString);
+
+  /// <summary>
+  ///   'SELECT * FROM CLIENTES WHERE (NOT EXISTS (SELECT IDCLIENTE FROM PEDIDOS WHERE (PEDIDOS.IDCLIENTE = CLIENTES.IDCLIENTE)))';
+  /// </summary>
+  TCQL.New(dbnFirebird)
+      .Select
+      .All
+      .From('CLIENTES')
+      .Where.NotExists( TCQL.New(dbnFirebird)
+                            .Select
+                            .Column('IDCLIENTE')
+                            .From('PEDIDOS')
+                            .Where('PEDIDOS.IDCLIENTE').Equal('CLIENTES.IDCLIENTE')
+                        .AsString)
+    .AsString);
+	
+	
+```
+
+# Query INSERT
+
+```Delphi
+  /// <summary>
+  ///   'INSERT INTO CLIENTES (ID_CLIENTE, NOME_CLIENTE) VALUES (''1'', ''MyName'')';
+  /// </summary>
+  TCQL.New(dbnFirebird)
+      .Insert
+      .Into('CLIENTES')
+      .&Set('ID_CLIENTE', '1')
+      .&Set('NOME_CLIENTE', 'MyName')
+    .AsString);
+```
+
+# Query UPDATE
+
+```Delphi
+  /// <summary>
+  ///   'UPDATE CLIENTES SET ID_CLIENTE = ''1'', NOME_CLIENTE = ''MyName'' WHERE ID_CLIENTE = 1';
+  /// </summary>  
+  TCQL.New(dbnFirebird)
+      .Update('CLIENTES')
+      .&Set('ID_CLIENTE', '1')
+      .&Set('NOME_CLIENTE', 'MyName')
+      .Where('ID_CLIENTE = 1')
+    .AsString);
+```
+
+# Query DELETE
+
+```Delphi
+  /// <summary>
+  ///   'DELETE FROM CLIENTES WHERE ID_CLIENTE = 1';
+  /// </summary>  
+  TCQL.New(dbnFirebird)
+      .Delete
+      .From('CLIENTES')
+      .Where('ID_CLIENTE = 1')
     .AsString);
 ```
