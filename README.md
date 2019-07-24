@@ -1,11 +1,11 @@
-# CQLBr Framework for Delphi/Lazaruz  -  [![License](https://img.shields.io/badge/Licence-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
+## CQLBr Framework for Delphi/Lazaruz  -  [![License](https://img.shields.io/badge/Licence-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 
 **Criteria Query Language** é um framework que provê escritas através de uma interface permitindo mapear de forma orientada a objeto, toda sintaxe de comandos para realizar as operações de consulta, inclusão, alteração e exclusão em banco de dados.
 
 O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gerar uma query com CQLBr, ele irá te possibilitar mudar de banco de dados em um sistema, sem ter que refaturar querys com particularidades do banco substituído.
 
 
-# Query SELECT
+## SELECT
 
 ```Delphi
   /// <summary>
@@ -76,7 +76,7 @@ O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gera
 	
 ```
 
-# Query INSERT
+## INSERT
 
 ```Delphi
   /// <summary>
@@ -90,7 +90,7 @@ O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gera
     .AsString);
 ```
 
-# Query UPDATE
+## UPDATE
 
 ```Delphi
   /// <summary>
@@ -104,7 +104,7 @@ O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gera
     .AsString);
 ```
 
-# Query DELETE
+## DELETE
 
 ```Delphi
   /// <summary>
