@@ -1,4 +1,10 @@
-## CQLBr Framework for Delphi/Lazaruz  -  [![License](https://img.shields.io/badge/Licence-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
+<p align="center">
+  <a href="https://www.isaquepinheiro.com.br/">
+    <img src="https://www.isaquepinheiro.com.br/imagens/cqlbr_repo.png" alt="Criteria Query Language" width="500" />
+  </a>
+</p>
+
+## CQLBr Framework for Delphi/Lazaruz   [![License](https://img.shields.io/badge/Licence-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 
 **Criteria Query Language** é um framework que provê escritas através de uma interface permitindo mapear de forma orientada a objeto, toda sintaxe de comandos para realizar as operações de consulta, inclusão, alteração e exclusão em banco de dados.
 
