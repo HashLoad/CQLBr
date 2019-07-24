@@ -1,6 +1,6 @@
  |  | 
 :----------------------------------------------------------------------| ----------------------------------------------------------------------------------------:| :-:
-![CQLBr Framework.png](https://www.isaquepinheiro.com.br/imagens/cqlbr_repo.png)  | [![pageseguro.png](http://www.ormbr.com.br/imagens/pagseguro.png)](https://pag.ae/bglQrWD)|
+![CQLBr Framework.png](https://www.isaquepinheiro.com.br/imagens/cqlbrbitucket.png)  | [![pageseguro.png](http://www.ormbr.com.br/imagens/pagseguro.png)](https://pag.ae/bglQrWD)|
 
 
 ## CQLBr Framework for Delphi/Lazaruz   [![License](https://img.shields.io/badge/Licence-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
