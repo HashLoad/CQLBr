@@ -23,6 +23,8 @@ type
     [Test]
     procedure TestSelectAllWhereAndOr;
     [Test]
+    procedure TestSelectAllWhereAndAnd;
+    [Test]
     procedure TestSelectAllOrderBy;
     [Test]
     procedure TestSelectColumns;
@@ -103,6 +105,21 @@ begin
                                       .AsString);
 end;
 
+procedure TTestCQLSelect.TestSelectAllWhereAndAnd;
+var
+  LAsString: String;
+begin
+  LAsString := 'SELECT * FROM CLIENTES WHERE (ID_CLIENTE = 1) AND (ID >= 10) AND (ID <= 20)';
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+                                      .Select
+                                      .All
+                                      .From('CLIENTES')
+                                      .Where('ID_CLIENTE = 1')
+                                      .&And('ID').GreaterEqThan(10)
+                                      .&And('ID').LessEqThan(20)
+                                      .AsString);
+end;
+
 procedure TTestCQLSelect.TestSelectAllWhereAndOr;
 var
   LAsString: String;
@@ -142,8 +159,8 @@ begin
                                       .Column('NOME_CLIENTE')
                                       .Column('TIPO_CLIENTE')
                                       .&Case
-                                        .When('0').&Then('''FISICA''')
-                                        .When('1').&Then('''JURIDICA''')
+                                        .When('0').&Then(CQL.Q('FISICA'))
+                                        .When('1').&Then(CQL.Q('JURIDICA'))
                                                   .&Else('''PRODUTOR''')
                                       .&End
                                       .&As('TIPO_PESSOA')

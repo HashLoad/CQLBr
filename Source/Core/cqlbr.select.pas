@@ -62,7 +62,8 @@ procedure TCQLSelect.Clear;
 begin
   FColumns.Clear;
   FTableNames.Clear;
-  FQualifiers.Clear;
+  if Assigned(FQualifiers) then
+    FQualifiers.Clear;
 end;
 
 function TCQLSelect.Columns: ICQLNames;

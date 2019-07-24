@@ -81,7 +81,7 @@ begin
                                  .Select
                                  .All
                                  .From('CLIENTES')
-                                 .Where('NOME').Equal('VALUE')
+                                 .Where('NOME').Equal('''VALUE''')
                                  .AsString);
 end;
 
@@ -120,7 +120,7 @@ begin
                                  .Select
                                  .All
                                  .From('CLIENTES')
-                                 .Where('NOME').NotEqual('VALUE')
+                                 .Where('NOME').NotEqual('''VALUE''')
                                  .AsString);
 end;
 

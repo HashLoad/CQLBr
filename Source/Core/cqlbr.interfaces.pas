@@ -69,9 +69,9 @@ type
     function &Or(const AExpression: array of const): ICQLCriteriaExpression; overload;
     function &Or(const AExpression: string): ICQLCriteriaExpression; overload;
     function &Or(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
-    function &Add(const AExpression: array of const): ICQLCriteriaExpression; overload;
-    function &Add(const AExpression: String): ICQLCriteriaExpression; overload;
-    function &Add(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
+    function &Ope(const AExpression: array of const): ICQLCriteriaExpression; overload;
+    function &Ope(const AExpression: String): ICQLCriteriaExpression; overload;
+    function &Ope(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
     function AsString: string;
     function Expression: ICQLExpression;
   end;
@@ -221,7 +221,23 @@ type
     function NotLikeFull(const AValue: String): ICQL;
     function NotLikeLeft(const AValue: String): ICQL;
     function NotLikeRight(const AValue: String): ICQL;
-  end;
+    function &In(const AValue: TArray<Double>): ICQL; overload;
+    function &In(const AValue: TArray<String>): ICQL; overload;
+    function &In(const AValue: String): ICQL; overload;
+    function NotIn(const AValue: TArray<Double>): ICQL; overload;
+    function NotIn(const AValue: TArray<String>): ICQL; overload;
+    function NotIn(const AValue: String): ICQL; overload;
+    function Exists(const AValue: String): ICQL; overload;
+    function NotExists(const AValue: String): ICQL; overload;
+    /// <summary>
+    ///   Functions methods
+    /// </summary>
+    function Count: ICQL;
+    function Lower: ICQL;
+    function Min: ICQL;
+    function Max: ICQL;
+    function Upper: ICQL;
+  end;
 
   ICQLName = interface
     ['{FA82F4B9-1202-4926-8385-C2100EB0CA97}']
@@ -462,7 +478,7 @@ type
                           fcLikeFull, fcLikeLeft, fcLikeRight,
                           fcNotLikeFull, fcNotLikeLeft, fcNotLikeRight
                           );
-  TCQLDataFieldType = (dftUnknown, dftString, dftInteger, dftFloat, dftDate);
+  TCQLDataFieldType = (dftUnknown, dftString, dftInteger, dftFloat, dftDate, dftArray, dftText);
 
   ICQLOperator = interface
     ['{A07D4935-0C52-4D8A-A3CF-5837AFE01C75}']
@@ -482,7 +498,7 @@ type
     function AsString: string;
   end;
 
-  ICQLFunc = interface
+  ICQLOperators = interface
     ['{7F855D42-FB26-4F21-BCBE-93BC407ED15B}']
     function IsEqual(const AValue: Extended) : String; overload;
     function IsEqual(const AValue: Integer): String; overload;
@@ -506,7 +522,24 @@ type
     function IsNotLikeFull(const AValue: String): String;
     function IsNotLikeLeft(const AValue: String): String;
     function IsNotLikeRight(const AValue: String): String;
-  end;
+    function IsIn(const AValue: TArray<Double>): string; overload;
+    function IsIn(const AValue: TArray<String>): string; overload;
+    function IsIn(const AValue: String): string; overload;
+    function IsNotIn(const AValue: TArray<Double>): string; overload;
+    function IsNotIn(const AValue: TArray<String>): string; overload;
+    function IsNotIn(const AValue: String): string; overload;
+    function IsExists(const AValue: String): string; overload;
+    function IsNotExists(const AValue: String): string; overload;
+  end;
+
+  ICQLFunctions = interface
+    ['{5035E399-D3F0-48C6-BACB-9CA6D94B2BE7}']
+    function Count(const AValue: String): String;
+    function Lower(const AValue: String): String;
+    function Min(const AValue: String): String;
+    function Max(const AValue: String): String;
+    function Upper(const AValue: String): String;
+  end;
 
 implementation
 

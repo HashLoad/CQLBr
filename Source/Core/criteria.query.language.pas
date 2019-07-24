@@ -30,6 +30,7 @@ interface
 
 uses
   SysUtils,
+  cqlbr.operators,
   cqlbr.functions,
   cqlbr.interfaces,
   cqlbr.cases,
@@ -42,8 +43,8 @@ uses
   cqlbr.expression;
 
 type
-  Func = cqlbr.functions.TCQLFunc;
   TDBName = cqlbr.interfaces.TDBName;
+  CQL = cqlbr.functions.TCQLFunctions;
 
   TCQL = class(TInterfacedObject, ICQL)
   strict private
@@ -64,7 +65,8 @@ type
     FActiveExpr: ICQLCriteriaExpression;
     FActiveValues: ICQLNameValuePairs;
     FDatabase: TDBName;
-    FFunc: ICQLFunc;
+    FOperator: ICQLOperators;
+    FFunction: ICQLFunctions;
     FAST: ICQLAST;
     procedure AssertSection(ASections: TSections);
     procedure AssertOperator(AOperators: TOperators);
@@ -72,6 +74,14 @@ type
     function CreateJoin(AjoinType: TJoinType; const ATableName: String): ICQL;
     function InternalSet(const AColumnName, AColumnValue: String): ICQL;
     procedure SetSection(ASection: TSection);
+    procedure DefineSectionSelect;
+    procedure DefineSectionDelete;
+    procedure DefineSectionInsert;
+    procedure DefineSectionUpdate;
+    procedure DefineSectionWhere;
+    procedure DefineSectionGroupBy;
+    procedure DefineSectionHaving;
+    procedure DefineSectionOrderBy;
   protected
     constructor Create(const ADatabase: TDBName);
   public
@@ -136,7 +146,7 @@ type
     function Where(const AExpression: array of const): ICQL; overload;
     function Where(const AExpression: ICQLCriteriaExpression): ICQL; overload;
     /// <summary>
-    ///   Operators functions
+    ///   Operators methods
     /// </summary>
     function Equal(const AValue: String): ICQL; overload;
     function Equal(const AValue: Extended): ICQL overload;
@@ -160,7 +170,23 @@ type
     function NotLikeFull(const AValue: String): ICQL;
     function NotLikeLeft(const AValue: String): ICQL;
     function NotLikeRight(const AValue: String): ICQL;
-    /// <summary>
+    function &In(const AValue: TArray<Double>): ICQL; overload;
+    function &In(const AValue: TArray<String>): ICQL; overload;
+    function &In(const AValue: String): ICQL; overload;
+    function NotIn(const AValue: TArray<Double>): ICQL; overload;
+    function NotIn(const AValue: TArray<String>): ICQL; overload;
+    function NotIn(const AValue: String): ICQL; overload;
+    function Exists(const AValue: String): ICQL; overload;
+    function NotExists(const AValue: String): ICQL; overload;
+    /// <summary>
+    ///   Functions methods
+    /// </summary>
+    function Count: ICQL;
+    function Lower: ICQL;
+    function Min: ICQL;
+    function Max: ICQL;
+    function Upper: ICQL;
+    /// <summary>
     ///   Result full command sql
     /// </summary>
     function AsString: String;
@@ -267,6 +293,13 @@ begin
   Result := &On(TUtils.SqlParamsToStr(AExpression));
 end;
 
+function TCQL.&In(const AValue: String): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsIn(AValue));
+  Result := Self;
+end;
+
 function TCQL.All: ICQL;
 begin
   if not (FDatabase in [dbnMongoDB]) then
@@ -340,6 +373,14 @@ begin
   Result := Self;
 end;
 
+function TCQL.Count: ICQL;
+begin
+  AssertSection([secSelect, secDelete, secJoin]);
+  AssertHaveName;
+  FAST.ASTName.Name := FFunction.Count(FAST.ASTName.Name);
+  Result := Self;
+end;
+
 function TCQL.Column(const AColumnsName: array of const): ICQL;
 begin
   Result := Column(TUtils.SqlParamsToStr(AColumnsName));
@@ -351,7 +392,8 @@ begin
   FActiveOperator := opeNone;
   FAST := TCQLAST.New(ADatabase);
   FAST.Clear;
-  FFunc := TCQLFunc.New;
+  FOperator := TCQLOperators.New;
+  FFunction := TCQLFunctions.New;
 end;
 
 function TCQL.CreateJoin(AjoinType: TJoinType; const ATableName: String): ICQL;
@@ -367,6 +409,78 @@ begin
   FAST.ASTColumns := nil;
   FActiveExpr := TCQLCriteriaExpression.Create(LJoin.Condition);
   Result := Self;
+end;
+
+procedure TCQL.DefineSectionDelete;
+begin
+  FAST.ASTSection := FAST.Delete;
+  FAST.ASTColumns := nil;
+  FAST.ASTTableNames := FAST.Delete.TableNames;
+  FActiveExpr := nil;
+  FActiveValues := nil;
+end;
+
+procedure TCQL.DefineSectionGroupBy;
+begin
+  FAST.ASTSection := FAST.GroupBy;
+  FAST.ASTColumns := FAST.GroupBy.Columns;
+  FAST.ASTTableNames := nil;
+  FActiveExpr := nil;
+  FActiveValues := nil;
+end;
+
+procedure TCQL.DefineSectionHaving;
+begin
+  FAST.ASTSection := FAST.Having;
+  FAST.ASTColumns   := nil;
+  FActiveExpr := TCQLCriteriaExpression.Create(FAST.Having.Expression);
+  FAST.ASTTableNames := nil;
+  FActiveValues := nil;
+end;
+
+procedure TCQL.DefineSectionInsert;
+begin
+  FAST.ASTSection := FAST.Insert;
+  FAST.ASTColumns := FAST.Insert.Columns;
+  FAST.ASTTableNames := nil;
+  FActiveExpr := nil;
+  FActiveValues := FAST.Insert.Values;
+end;
+
+procedure TCQL.DefineSectionOrderBy;
+begin
+  FAST.ASTSection := FAST.OrderBy;
+  FAST.ASTColumns := FAST.OrderBy.Columns;
+  FAST.ASTTableNames := nil;
+  FActiveExpr := nil;
+  FActiveValues := nil;
+end;
+
+procedure TCQL.DefineSectionSelect;
+begin
+  FAST.ASTSection := FAST.Select;
+  FAST.ASTColumns := FAST.Select.Columns;
+  FAST.ASTTableNames := FAST.Select.TableNames;
+  FActiveExpr := nil;
+  FActiveValues := nil;
+end;
+
+procedure TCQL.DefineSectionUpdate;
+begin
+  FAST.ASTSection := FAST.Update;
+  FAST.ASTColumns := nil;
+  FAST.ASTTableNames := nil;
+  FActiveExpr := nil;
+  FActiveValues := FAST.Update.Values;
+end;
+
+procedure TCQL.DefineSectionWhere;
+begin
+  FAST.ASTSection := FAST.Where;
+  FAST.ASTColumns := nil;
+  FAST.ASTTableNames := nil;
+  FActiveExpr := TCQLCriteriaExpression.Create(FAST.Where.Expression);
+  FActiveValues := nil;
 end;
 
 function TCQL.Delete: ICQL;
@@ -400,21 +514,28 @@ end;
 function TCQL.Equal(const AValue: Integer): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.Add(FFunc.IsEqual(AValue));
+  FActiveExpr.&Ope(FOperator.IsEqual(AValue));
   Result := Self;
 end;
 
 function TCQL.Equal(const AValue: Extended): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.Add(FFunc.IsEqual(AValue));
+  FActiveExpr.&Ope(FOperator.IsEqual(AValue));
   Result := Self;
 end;
 
 function TCQL.Equal(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.Add(FFunc.IsEqual(AValue));
+  FActiveExpr.&Ope(FOperator.IsEqual(AValue));
+  Result := Self;
+end;
+
+function TCQL.Exists(const AValue: String): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsExists(AValue));
   Result := Self;
 end;
 
@@ -469,28 +590,28 @@ end;
 function TCQL.GreaterEqThan(const AValue: Integer): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsGreaterEqThan(AValue));
+  FActiveExpr.&Ope(FOperator.IsGreaterEqThan(AValue));
   Result := Self;
 end;
 
 function TCQL.GreaterEqThan(const AValue: Extended): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsGreaterEqThan(AValue));
+  FActiveExpr.&Ope(FOperator.IsGreaterEqThan(AValue));
   Result := Self;
 end;
 
 function TCQL.GreaterThan(const AValue: Integer): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsGreaterThan(AValue));
+  FActiveExpr.&Ope(FOperator.IsGreaterThan(AValue));
   Result := Self;
 end;
 
 function TCQL.GreaterThan(const AValue: Extended): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsGreaterThan(AValue));
+  FActiveExpr.&Ope(FOperator.IsGreaterThan(AValue));
   Result := Self;
 end;
 
@@ -563,17 +684,31 @@ begin
   Result := FAST.ASTSection.IsEmpty;
 end;
 
+function TCQL.&In(const AValue: TArray<String>): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsIn(AValue));
+  Result := Self;
+end;
+
+function TCQL.&In(const AValue: TArray<Double>): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsIn(AValue));
+  Result := Self;
+end;
+
 function TCQL.IsNotNull: ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsNotNull);
+  FActiveExpr.&Ope(FOperator.IsNotNull);
   Result := Self;
 end;
 
 function TCQL.IsNull: ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsNull);
+  FActiveExpr.&Ope(FOperator.IsNull);
   Result := Self;
 end;
 
@@ -591,55 +726,79 @@ end;
 function TCQL.LessEqThan(const AValue: Integer): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsLessEqThan(AValue));
+  FActiveExpr.&Ope(FOperator.IsLessEqThan(AValue));
   Result := Self;
 end;
 
 function TCQL.LessEqThan(const AValue: Extended): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsLessEqThan(AValue));
+  FActiveExpr.&Ope(FOperator.IsLessEqThan(AValue));
   Result := Self;
 end;
 
 function TCQL.LessThan(const AValue: Integer): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsLessThan(AValue));
+  FActiveExpr.&Ope(FOperator.IsLessThan(AValue));
   Result := Self;
 end;
 
 function TCQL.LessThan(const AValue: Extended): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsLessThan(AValue));
+  FActiveExpr.&Ope(FOperator.IsLessThan(AValue));
   Result := Self;
 end;
 
 function TCQL.LikeFull(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsLikeFull(AValue));
+  FActiveExpr.&Ope(FOperator.IsLikeFull(AValue));
   Result := Self;
 end;
 
 function TCQL.LikeLeft(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsLikeLeft(AValue));
+  FActiveExpr.&Ope(FOperator.IsLikeLeft(AValue));
   Result := Self;
 end;
 
 function TCQL.LikeRight(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsLikeRight(AValue));
+  FActiveExpr.&Ope(FOperator.IsLikeRight(AValue));
   Result := Self;
 end;
 
 function TCQL.Limit(AValue: Integer): ICQL;
 begin
   Result := First(AValue);
+end;
+
+function TCQL.Lower: ICQL;
+begin
+  AssertSection([secSelect, secDelete, secJoin]);
+  AssertHaveName;
+  FAST.ASTName.Name := FFunction.Lower(FAST.ASTName.Name);
+  Result := Self;
+end;
+
+function TCQL.Max: ICQL;
+begin
+  AssertSection([secSelect, secDelete, secJoin]);
+  AssertHaveName;
+  FAST.ASTName.Name := FFunction.Max(FAST.ASTName.Name);
+  Result := Self;
+end;
+
+function TCQL.Min: ICQL;
+begin
+  AssertSection([secSelect, secDelete, secJoin]);
+  AssertHaveName;
+  FAST.ASTName.Name := FFunction.Min(FAST.ASTName.Name);
+  Result := Self;
 end;
 
 class function TCQL.New(const ADatabase: TDBName): ICQL;
@@ -650,42 +809,63 @@ end;
 function TCQL.NotEqual(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsNotEqual(AValue));
+  FActiveExpr.&Ope(FOperator.IsNotEqual(AValue));
   Result := Self;
 end;
 
 function TCQL.NotEqual(const AValue: Extended): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsNotEqual(AValue));
+  FActiveExpr.&Ope(FOperator.IsNotEqual(AValue));
   Result := Self;
 end;
 
 function TCQL.NotEqual(const AValue: Integer): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsNotEqual(AValue));
+  FActiveExpr.&Ope(FOperator.IsNotEqual(AValue));
+  Result := Self;
+end;
+
+function TCQL.NotExists(const AValue: String): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsNotExists(AValue));
+  Result := Self;
+end;
+
+function TCQL.NotIn(const AValue: TArray<String>): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsNotIn(AValue));
+  Result := Self;
+end;
+
+function TCQL.NotIn(const AValue: TArray<Double>): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsNotIn(AValue));
   Result := Self;
 end;
 
 function TCQL.NotLikeFull(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsNotLikeFull(AValue));
+  FActiveExpr.&Ope(FOperator.IsNotLikeFull(AValue));
   Result := Self;
 end;
 
 function TCQL.NotLikeLeft(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsNotLikeLeft(AValue));
+  FActiveExpr.&Ope(FOperator.IsNotLikeLeft(AValue));
   Result := Self;
 end;
 
 function TCQL.NotLikeRight(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Add(FFunc.IsNotLikeRight(AValue));
+  FActiveExpr.&Ope(FOperator.IsNotLikeRight(AValue));
   Result := Self;
 end;
 
@@ -733,71 +913,15 @@ end;
 procedure TCQL.SetSection(ASection: TSection);
 begin
   case ASection of
-    secSelect:
-      begin
-        FAST.ASTSection := FAST.Select;
-        FAST.ASTColumns := FAST.Select.Columns;
-        FAST.ASTTableNames := FAST.Select.TableNames;
-        FActiveExpr := nil;
-        FActiveValues := nil;
-      end;
-    secDelete:
-      begin
-        FAST.ASTSection := FAST.Delete;
-        FAST.ASTColumns := nil;
-        FAST.ASTTableNames := FAST.Delete.TableNames;
-        FActiveExpr := nil;
-        FActiveValues := nil;
-      end;
-    secInsert:
-      begin
-        FAST.ASTSection := FAST.Insert;
-        FAST.ASTColumns := FAST.Insert.Columns;
-        FAST.ASTTableNames := nil;
-        FActiveExpr := nil;
-        FActiveValues := FAST.Insert.Values;
-      end;
-    secUpdate:
-      begin
-        FAST.ASTSection := FAST.Update;
-        FAST.ASTColumns := nil;
-        FAST.ASTTableNames := nil;
-        FActiveExpr := nil;
-        FActiveValues := FAST.Update.Values;
-      end;
-    secWhere:
-      begin
-        FAST.ASTSection := FAST.Where;
-        FAST.ASTColumns := nil;
-        FAST.ASTTableNames := nil;
-        FActiveExpr := TCQLCriteriaExpression.Create(FAST.Where.Expression);
-        FActiveValues := nil;
-      end;
-    secGroupBy:
-      begin
-        FAST.ASTSection := FAST.GroupBy;
-        FAST.ASTColumns := FAST.GroupBy.Columns;
-        FAST.ASTTableNames := nil;
-        FActiveExpr := nil;
-        FActiveValues := nil;
-      end;
-    secHaving:
-      begin
-        FAST.ASTSection := FAST.Having;
-        FAST.ASTColumns   := nil;
-        FActiveExpr := TCQLCriteriaExpression.Create(FAST.Having.Expression);
-        FAST.ASTTableNames := nil;
-        FActiveValues := nil;
-      end;
-    secOrderBy:
-      begin
-        FAST.ASTSection := FAST.OrderBy;
-        FAST.ASTColumns := FAST.OrderBy.Columns;
-        FAST.ASTTableNames := nil;
-        FActiveExpr := nil;
-        FActiveValues := nil;
-      end;
-    else
+    secSelect:  DefineSectionSelect;
+    secDelete:  DefineSectionDelete;
+    secInsert:  DefineSectionInsert;
+    secUpdate:  DefineSectionUpdate;
+    secWhere:   DefineSectionWhere;
+    secGroupBy: DefineSectionGroupBy;
+    secHaving:  DefineSectionHaving;
+    secOrderBy: DefineSectionOrderBy;
+  else
       raise Exception.Create('TCriteria.SetSection: Unknown section');
   end;
   FActiveSection := ASection;
@@ -822,6 +946,14 @@ function TCQL.Update(const ATableName: String): ICQL;
 begin
   SetSection(secUpdate);
   FAST.Update.TableName := ATableName;
+  Result := Self;
+end;
+
+function TCQL.Upper: ICQL;
+begin
+  AssertSection([secSelect, secDelete, secJoin]);
+  AssertHaveName;
+  FAST.ASTName.Name := FFunction.Upper(FAST.ASTName.Name);
   Result := Self;
 end;
 
@@ -866,6 +998,13 @@ end;
 function TCQL.FullJoin(const ATableName, AAlias: String): ICQL;
 begin
   FullJoin(ATableName).&As(AAlias);
+  Result := Self;
+end;
+
+function TCQL.NotIn(const AValue: String): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsNotIn(AValue));
   Result := Self;
 end;
 

@@ -18,6 +18,8 @@ type
   published
     procedure TestSelectAll;
     procedure TestSelectAllWhere;
+    procedure TestSelectAllWhereAndOr;
+    procedure TestSelectAllWhereAndAnd;
     procedure TestSelectAllOrderBy;
     procedure TestSelectColumns;
     procedure TestSelectColumnsCase;
@@ -43,7 +45,7 @@ var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES';
-  AssertEquals(LAsString, TCriteria.New(dbnFirebird)
+  AssertEquals(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -55,11 +57,41 @@ var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES WHERE ID_CLIENTE = 1';
-  AssertEquals(LAsString, TCriteria.New(dbnFirebird)
+  AssertEquals(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .All
                                       .From('CLIENTES')
                                       .Where('ID_CLIENTE = 1')
+                                      .AsString);
+end;
+
+procedure TTestCQLBrSelect.TestSelectAllWhereAndOr;
+var
+  LAsString: String;
+begin
+  LAsString := 'SELECT * FROM CLIENTES WHERE (ID_CLIENTE = 1) AND ((ID >= 10) OR (ID <= 20))';
+  AssertEquals(LAsString, TCQL.New(dbnFirebird)
+                                      .Select
+                                      .All
+                                      .From('CLIENTES')
+                                      .Where('ID_CLIENTE = 1')
+                                      .&And('ID').GreaterEqThan(10)
+                                      .&Or('ID').LessEqThan(20)
+                                      .AsString);
+end;
+
+procedure TTestCQLBrSelect.TestSelectAllWhereAndAnd;
+var
+  LAsString: String;
+begin
+  LAsString := 'SELECT * FROM CLIENTES WHERE (ID_CLIENTE = 1) AND (ID >= 10) AND (ID <= 20)';
+  AssertEquals(LAsString, TCQL.New(dbnFirebird)
+                                      .Select
+                                      .All
+                                      .From('CLIENTES')
+                                      .Where('ID_CLIENTE = 1')
+                                      .&And('ID').GreaterEqThan(10)
+                                      .&And('ID').LessEqThan(20)
                                       .AsString);
 end;
 
@@ -68,7 +100,7 @@ var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES ORDER BY ID_CLIENTE';
-  AssertEquals(LAsString, TCriteria.New(dbnFirebird)
+  AssertEquals(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -81,7 +113,7 @@ var
   LAsString: String;
 begin
   LAsString := 'SELECT ID_CLIENTE, NOME_CLIENTE FROM CLIENTES';
-  AssertEquals(LAsString, TCriteria.New(dbnFirebird)
+  AssertEquals(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .Column('ID_CLIENTE')
                                       .Column('NOME_CLIENTE')
@@ -94,7 +126,7 @@ var
 LAsString: String;
 begin
 LAsString := 'SELECT ID_CLIENTE, NOME_CLIENTE, (CASE TIPO_CLIENTE WHEN 0 THEN ''FISICA'' WHEN 1 THEN ''JURIDICA'' ELSE ''PRODUTOR'' END) AS TIPO_PESSOA FROM CLIENTES';
-AssertEquals(LAsString, TCriteria.New(dbnFirebird)
+AssertEquals(LAsString, TCQL.New(dbnFirebird)
                                     .Select
                                     .Column('ID_CLIENTE')
                                     .Column('NOME_CLIENTE')
@@ -114,7 +146,7 @@ var
   LAsString: String;
 begin
   LAsString := 'SELECT FIRST 3 SKIP 0 * FROM CLIENTES ORDER BY ID_CLIENTE';
-  AssertEquals(LAsString, TCriteria.New(dbnFirebird)
+  AssertEquals(LAsString, TCQL.New(dbnFirebird)
                                       .Select
                                       .All
                                       .First(3).Skip(0)
@@ -128,7 +160,7 @@ var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM (SELECT T.*, ROWNUM AS ROWINI FROM (SELECT * FROM CLIENTES ORDER BY ID_CLIENTE) T) WHERE ROWNUM <= 3 AND ROWINI > 0';
-  AssertEquals(LAsString, TCriteria.New(dbnOracle)
+  AssertEquals(LAsString, TCQL.New(dbnOracle)
                                       .Select
                                       .All
                                       .Limit(3).Offset(0)
@@ -142,7 +174,7 @@ var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES ORDER BY ID_CLIENTE LIMIT 3 OFFSET 0';
-  AssertEquals(LAsString, TCriteria.New(dbnMySQL)
+  AssertEquals(LAsString, TCQL.New(dbnMySQL)
                                       .Select
                                       .All
                                       .Limit(3).Offset(0)

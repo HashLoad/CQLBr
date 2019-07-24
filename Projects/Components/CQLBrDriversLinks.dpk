@@ -1,0 +1,43 @@
+package CQLBrDriversLinks;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'CQLBr - Drivers Links'}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  designide;
+
+contains
+  cqlbr.driver.link.firebird in 'cqlbr.driver.link.firebird.pas',
+  cqlbr.driver.link.mssql in 'cqlbr.driver.link.mssql.pas',
+  cqlbr.driver.link.mysql in 'cqlbr.driver.link.mysql.pas',
+  cqlbr.driver.link.oracle in 'cqlbr.driver.link.oracle.pas',
+  cqlbr.driver.link.mongodb in 'cqlbr.driver.link.mongodb.pas',
+  cqlbr.driver.link.reg in 'cqlbr.driver.link.reg.pas';
+
+end.

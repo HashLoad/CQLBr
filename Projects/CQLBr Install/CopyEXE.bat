@@ -1,0 +1,1 @@
+@Copy CQLBrInstall.exe ..\..\
