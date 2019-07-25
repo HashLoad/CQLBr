@@ -1,3 +1,4 @@
+ |  | 
 :----------------------------------------------------------------------| ----------------------------------------------------------------------------------------:| :-:
 ![CQLBr Framework](https://www.isaquepinheiro.com.br/imagens/cqlbrbitucket.png)  | [![pageseguro.png](http://www.ormbr.com.br/imagens/pagseguro.png)](https://pag.ae/bglQrWD)|
 
