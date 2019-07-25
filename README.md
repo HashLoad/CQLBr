@@ -121,3 +121,14 @@ Durante o desenvolvimento de software, é evidente a preocupação em que se tem
       .Where('ID_CLIENTE = 1')
     .AsString);
 ```
+
+### Instalação ###
+
+
+### Requisitos ###
+Embarcadero Delphi XE e superior ou Lazarus.
+
+### Versão Atual ###
+1.0.0 (18 Jul 2019)
+
+Copyright (c) 2019 CQLBr Framework Team

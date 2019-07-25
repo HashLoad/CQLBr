@@ -11,7 +11,7 @@ uses
 
 type
   [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
-  TCQLDriverLinkFirebird = class(TComponent)
+  TCQLBrDriverLinkFirebird = class(TComponent)
   private
     { Private declarations }
   protected

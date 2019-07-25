@@ -11,7 +11,7 @@ uses
 
 type
   [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
-  TCQLDriverLinkMSSQL = class(TComponent)
+  TCQLBrDriverLinkMSSQL = class(TComponent)
   private
     { Private declarations }
   protected

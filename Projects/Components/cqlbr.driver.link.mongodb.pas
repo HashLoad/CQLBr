@@ -11,7 +11,7 @@ uses
 
 type
   [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
-  TCQLDriverLinkMongoDB = class(TComponent)
+  TCQLBrDriverLinkMongoDB = class(TComponent)
   private
     { Private declarations }
   protected

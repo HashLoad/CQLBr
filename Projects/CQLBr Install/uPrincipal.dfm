@@ -1,7 +1,7 @@
 object frmPrincipal: TfrmPrincipal
   Left = 359
   Top = 202
-  ActiveControl = wizPgInicio
+  ActiveControl = edtDirDestino
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsNone
   BorderWidth = 2
@@ -25,7 +25,7 @@ object frmPrincipal: TfrmPrincipal
     Top = 0
     Width = 720
     Height = 637
-    ActivePage = wizPgInicio
+    ActivePage = wizPgConfiguracao
     ButtonBarHeight = 42
     ButtonStart.Caption = 'Para o in'#237'cio'
     ButtonStart.NumGlyphs = 1
@@ -92,12 +92,12 @@ object frmPrincipal: TfrmPrincipal
         Left = 31
         Top = 48
         Width = 220
-        Height = 91
+        Height = 104
         Caption = 
           'Este assistente olhe guiar'#225' no processo de instala'#231#227'o dos compon' +
-          'entes para uso como o CQLBr em seu computador, e adicionar todos' +
-          ' os paths no Type Library.'#13#10#13#10#201' recomend'#225'vel fechar todas as ver' +
-          #245'es do Delphi antes de continuar.'
+          'entes para uso como o Criteria Query Language Brasil em seu comp' +
+          'utador, e adicionar todos os paths no Type Library.'#13#10#13#10#201' recomen' +
+          'd'#225'vel fechar todas as ver'#245'es do Delphi antes de continuar.'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
         Font.Height = -11
@@ -565,10 +565,10 @@ object frmPrincipal: TfrmPrincipal
       object lblUrlForum1: TLabel
         Left = 93
         Top = 301
-        Width = 179
+        Width = 171
         Height = 13
         Cursor = crHandPoint
-        Caption = 'https://isaquepinheiro.com.br/forum/'
+        Caption = 'https://www.isaquepinheiro.com.br'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 2667766
         Font.Height = -11
@@ -739,7 +739,7 @@ object frmPrincipal: TfrmPrincipal
         Visible = False
       end
       object Label8: TLabel
-        Left = 219
+        Left = 212
         Top = 117
         Width = 270
         Height = 13
@@ -752,6 +752,21 @@ object frmPrincipal: TfrmPrincipal
         ParentFont = False
         Transparent = True
         OnClick = Label8Click
+      end
+      object Label7: TLabel
+        Left = 212
+        Top = 140
+        Width = 177
+        Height = 13
+        Caption = 'Usar arquivo de configura'#231#227'o (*.cfg)'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clSilver
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+        OnClick = Label7Click
       end
       object edtPlatform: TComboBox
         Left = 195
@@ -766,7 +781,7 @@ object frmPrincipal: TfrmPrincipal
         Font.Style = []
         ItemIndex = 0
         ParentFont = False
-        TabOrder = 1
+        TabOrder = 2
         Text = 'Win32'
         Items.Strings = (
           'Win32')
@@ -791,7 +806,7 @@ object frmPrincipal: TfrmPrincipal
       object chkDeixarSomenteLIB: TCheckBox
         Left = 195
         Top = 115
-        Width = 17
+        Width = 16
         Height = 17
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
@@ -801,7 +816,7 @@ object frmPrincipal: TfrmPrincipal
         Font.Style = []
         ParentColor = False
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 4
       end
       object clbDelphiVersion: TCheckListBox
         Left = 17
@@ -819,7 +834,7 @@ object frmPrincipal: TfrmPrincipal
         ItemHeight = 13
         ParentCtl3D = False
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 1
         OnClick = clbDelphiVersionClick
       end
       object edtDelphiVersion: TComboBox
@@ -834,8 +849,21 @@ object frmPrincipal: TfrmPrincipal
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 4
+        TabOrder = 3
         Visible = False
+      end
+      object ckbUsarArquivoConfig: TCheckBox
+        Left = 195
+        Top = 138
+        Width = 16
+        Height = 17
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clSilver
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 5
       end
     end
     object wizPgPacotes: TJvWizardInteriorPage
@@ -1168,7 +1196,7 @@ object frmPrincipal: TfrmPrincipal
       BevelOuter = bvNone
       Color = 12150102
       ParentBackground = False
-      TabOrder = 4
+      TabOrder = 2
       object Label9: TLabel
         Left = 14
         Top = 19

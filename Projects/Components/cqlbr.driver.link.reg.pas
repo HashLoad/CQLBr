@@ -44,17 +44,17 @@ implementation
 
 procedure register;
 begin
-  RegisterComponents('CQLBr-Links', [TCQLDriverLinkFirebird,
-                                     TCQLDriverLinkMSSQL,
-                                     TCQLDriverLinkMYSQL,
-                                     TCQLDriverLinkOracle,
-                                     TCQLDriverLinkMongoDB
+  RegisterComponents('CQLBr-Links', [TCQLBrDriverLinkFirebird,
+                                     TCQLBrDriverLinkMSSQL,
+                                     TCQLBrDriverLinkMYSQL,
+                                     TCQLBrDriverLinkOracle,
+                                     TCQLBrDriverLinkMongoDB
                                     ]);
-  RegisterSelectionEditor(TCQLDriverLinkFirebird, TCQLBrEditorFirebird);
-  RegisterSelectionEditor(TCQLDriverLinkMSSQL, TCQLBrEditorMSSQL);
-  RegisterSelectionEditor(TCQLDriverLinkMYSQL, TCQLBrEditorMYSQL);
-  RegisterSelectionEditor(TCQLDriverLinkOracle, TCQLBrEditorOracle);
-  RegisterSelectionEditor(TCQLDriverLinkMongoDB, TCQLBrEditorMongoDB);
+  RegisterSelectionEditor(TCQLBrDriverLinkFirebird, TCQLBrEditorFirebird);
+  RegisterSelectionEditor(TCQLBrDriverLinkMSSQL, TCQLBrEditorMSSQL);
+  RegisterSelectionEditor(TCQLBrDriverLinkMYSQL, TCQLBrEditorMYSQL);
+  RegisterSelectionEditor(TCQLBrDriverLinkOracle, TCQLBrEditorOracle);
+  RegisterSelectionEditor(TCQLBrDriverLinkMongoDB, TCQLBrEditorMongoDB);
 end;
 
 { TCQLBrEditorFirebird }

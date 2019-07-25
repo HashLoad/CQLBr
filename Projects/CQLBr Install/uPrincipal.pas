@@ -61,6 +61,8 @@ type
     edtDelphiVersion: TComboBox;
     Label1: TLabel;
     Label8: TLabel;
+    ckbUsarArquivoConfig: TCheckBox;
+    Label7: TLabel;
     procedure imgPropaganda1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -83,6 +85,7 @@ type
       const FromPage: TJvWizardCustomPage);
     procedure clbDelphiVersionClick(Sender: TObject);
     procedure Label8Click(Sender: TObject);
+    procedure Label7Click(Sender: TObject);
   private
     FCountErros: Integer;
     FCQLBr: TJclBorRADToolInstallations;
@@ -293,6 +296,11 @@ begin
 end;
 
 // ler o arquivo .ini de configurações e setar os campos com os valores lidos
+procedure TfrmPrincipal.Label7Click(Sender: TObject);
+begin
+  ckbUsarArquivoConfig.Checked := not ckbUsarArquivoConfig.Checked;
+end;
+
 procedure TfrmPrincipal.Label8Click(Sender: TObject);
 begin
   chkDeixarSomenteLIB.Checked := not chkDeixarSomenteLIB.Checked;
@@ -558,7 +566,7 @@ begin
   Sender.Options.Clear;
 
   // não utilizar o dcc32.cfg
-  if (FCQLBr.Installations[iVersion].SupportsNoConfig) then
+  if (FCQLBr.Installations[iVersion].SupportsNoConfig) and (not ckbUsarArquivoConfig.Checked) then
     Sender.Options.Add('--no-config');
 
   // -B = Build all units
@@ -604,9 +612,14 @@ begin
      if VersionNumberStr = 'd16' then
         Sender.Options.Add('-NSData.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;System.Win');
 
-     if MatchText(VersionNumberStr, ['d17','d18','d19','d20','d21','d22','d23','d24','d25','d26']) then
+     if MatchText(VersionNumberStr, ['d17','d18','d19','d20','d21','d22','d23','d24','d25','d26','d27','d28','d29','d30']) then
         Sender.Options.Add('-NSWinapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell,Ibx');
-
+  end;
+  if (ckbUsarArquivoConfig.Checked) then
+  begin
+    LArquivoCfg := ChangeFileExt(FPacoteAtual, '.cfg');
+    Sender.Options.SaveToFile(LArquivoCfg);
+    Sender.Options.Clear;
   end;
 end;
 
@@ -667,7 +680,9 @@ begin
     else if FCQLBr.Installations[iFor].VersionNumberStr = 'd25' then
       edtDelphiVersion.Items.Add('Delphi 10.2 Tokyo')
     else if FCQLBr.Installations[iFor].VersionNumberStr = 'd26' then
-      edtDelphiVersion.Items.Add('Delphi 10.3 Rio');
+      edtDelphiVersion.Items.Add('Delphi 10.3 Rio')
+    else if FCQLBr.Installations[iFor].VersionNumberStr = 'd27' then
+      edtDelphiVersion.Items.Add('Delphi 10.4 ???');
 
     // -- Evento disparado antes de iniciar a execução do processo.
     FCQLBr.Installations[iFor].DCC32.OnBeforeExecute := BeforeExecute;
