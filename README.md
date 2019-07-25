@@ -7,7 +7,7 @@
 
 **Criteria Query Language** é um framework que provê escritas através de uma interface permitindo mapear de forma orientada a objeto, toda sintaxe de comandos para realizar as operações de consulta, inclusão, alteração e exclusão em banco de dados.
 
-O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gerar uma query com CQLBr, ele irá te possibilitar mudar de banco de dados em um sistema, sem ter que refaturar querys com particularidades do banco substituído.
+Durante o desenvolvimento de software, é evidente a preocupação em que se tem em aumentar a produtividade e manter a compatibilidade. No que se refere a banco de dados, temos na maioria dos casos quebra de compatibilidade por necessidade de escrever sintaxe que acaba sendo particularidade de um determinado banco de dados, foi ai que CQLBr nasceu, ele foi projetado, para que a escrita de querys para todos os banco dados seja unica. Ao gerar uma query com CQLBr, ele irá te possibilitar mudar de banco de dados em um sistema, sem ter que refaturar querys com particularidades do banco substituído.
 
 
 ### SELECT
