@@ -1,6 +1,6 @@
  |  | 
 :----------------------------------------------------------------------| ----------------------------------------------------------------------------------------:| :-:
-![CQLBr Framework.png](https://www.isaquepinheiro.com.br/imagens/cqlbrbitucket.png)  | [![pageseguro.png](http://www.ormbr.com.br/imagens/pagseguro.png)](https://pag.ae/bglQrWD)|
+![CQLBr Framework](https://www.isaquepinheiro.com.br/imagens/cqlbrbitucket.png)  | [![pageseguro.png](http://www.ormbr.com.br/imagens/pagseguro.png)](https://pag.ae/bglQrWD)|
 
 
 # CQLBr Framework for Delphi/Lazaruz   [![License](https://img.shields.io/badge/Licence-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
@@ -10,7 +10,7 @@
 O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gerar uma query com CQLBr, ele irá te possibilitar mudar de banco de dados em um sistema, sem ter que refaturar querys com particularidades do banco substituído.
 
 
-## SELECT
+### SELECT
 
 ```Delphi
   /// <summary>
@@ -81,7 +81,7 @@ O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gera
 	
 ```
 
-## INSERT
+### INSERT
 
 ```Delphi
   /// <summary>
@@ -95,7 +95,7 @@ O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gera
     .AsString);
 ```
 
-## UPDATE
+### UPDATE
 
 ```Delphi
   /// <summary>
@@ -109,7 +109,7 @@ O CQLBr nasceu, e foi projetado, para unificar a escrita de banco dados. Ao gera
     .AsString);
 ```
 
-## DELETE
+### DELETE
 
 ```Delphi
   /// <summary>
