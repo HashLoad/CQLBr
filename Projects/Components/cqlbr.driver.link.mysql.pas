@@ -3,14 +3,10 @@ unit cqlbr.driver.link.mysql;
 interface
 
 uses
-  Classes,
-  SysUtils,
-  cqlbr.select.mysql,
-  cqlbr.serialize.mysql,
-  cqlbr.qualifier.mysql;
+  Classes;
 
 type
-  [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
+//  [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
   TCQLBrDriverLinkMySQL = class(TComponent)
   private
     { Private declarations }

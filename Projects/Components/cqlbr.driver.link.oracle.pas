@@ -3,14 +3,10 @@ unit cqlbr.driver.link.oracle;
 interface
 
 uses
-  Classes,
-  SysUtils,
-  cqlbr.select.oracle,
-  cqlbr.serialize.oracle,
-  cqlbr.qualifier.oracle;
+  Classes;
 
 type
-  [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
+//  [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
   TCQLBrDriverLinkOracle = class(TComponent)
   private
     { Private declarations }

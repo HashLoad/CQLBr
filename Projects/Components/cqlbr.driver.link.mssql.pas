@@ -3,14 +3,10 @@ unit cqlbr.driver.link.mssql;
 interface
 
 uses
-  Classes,
-  SysUtils,
-  cqlbr.select.mssql,
-  cqlbr.serialize.mssql,
-  cqlbr.qualifier.mssql;
+  Classes;
 
 type
-  [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
+//  [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
   TCQLBrDriverLinkMSSQL = class(TComponent)
   private
     { Private declarations }

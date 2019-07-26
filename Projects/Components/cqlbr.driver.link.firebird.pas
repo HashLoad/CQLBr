@@ -3,14 +3,10 @@ unit cqlbr.driver.link.firebird;
 interface
 
 uses
-  Classes,
-  SysUtils,
-  cqlbr.select.firebird,
-  cqlbr.serialize.firebird,
-  cqlbr.qualifier.firebird;
+  Classes;
 
 type
-  [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
+//  [ComponentPlatformsAttribute(pfidWindows or pfidOSX or pfidLinux)]
   TCQLBrDriverLinkFirebird = class(TComponent)
   private
     { Private declarations }
