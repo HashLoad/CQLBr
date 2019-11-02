@@ -392,8 +392,8 @@ begin
   FActiveOperator := opeNone;
   FAST := TCQLAST.New(ADatabase);
   FAST.Clear;
-  FOperator := TCQLOperators.New;
-  FFunction := TCQLFunctions.New;
+  FOperator := TCQLOperators.New(FDatabase);
+  FFunction := TCQLFunctions.New(FDatabase);
 end;
 
 function TCQL.CreateJoin(AjoinType: TJoinType; const ATableName: String): ICQL;

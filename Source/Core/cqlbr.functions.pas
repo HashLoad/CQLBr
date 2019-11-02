@@ -29,27 +29,37 @@ unit cqlbr.functions;
 interface
 
 uses
+  SysUtils,
   cqlbr.interfaces;
 
 type
   TCQLFunctions = class(TInterfacedObject, ICQLFunctions)
+  private
+    FDatabase: TDBName;
+    constructor CreatePrivate(const ADatabase: TDBName);
   public
-    class function New: ICQLFunctions;
+    class function New(const ADatabase: TDBName): ICQLFunctions;
     class function Q(const AValue: String): String;
     function Count(const AValue: String): String;
     function Upper(const AValue: String): String;
     function Lower(const AValue: String): String;
     function Min(const AValue: String): String;
     function Max(const AValue: String): String;
+    function Sum(const AValue: String): String;
+    function Coalesce(const AValues: array of String): String;
+    function Substring(const AVAlue: String; const AFrom, AFor: Integer): String;
+    function Cast(const AExpression, ADataType: String): String;
+    function Convert(const ADataType, AExpression, AStyle: String): String;
+    function FormatDate(const AValue: String; const AFormat: String): String;
   end;
 
 implementation
 
 { TCQLFunctions }
 
-class function TCQLFunctions.New: ICQLFunctions;
+class function TCQLFunctions.New(const ADatabase: TDBName): ICQLFunctions;
 begin
-  Result := Self.Create;
+  Result := Self.CreatePrivate(ADatabase);
 end;
 
 class function TCQLFunctions.Q(const AValue: String): String;
@@ -57,9 +67,44 @@ begin
   Result := '''' + AValue + '''';
 end;
 
+function TCQLFunctions.Substring(const AVAlue: String; const AFrom, AFor: Integer): String;
+begin
+  Result := 'Substring(' + AValue + ', ' + IntToStr(AFrom) + ', ' + IntToStr(AFor) + ')';
+end;
+
+function TCQLFunctions.Sum(const AValue: String): String;
+begin
+  Result := 'Sum(' + AValue + ')';
+end;
+
+function TCQLFunctions.FormatDate(const AValue, AFormat: String): String;
+begin
+  Result := '';
+end;
+
+function TCQLFunctions.Cast(const AExpression, ADataType: String): String;
+begin
+  Result := 'Cast(' + AExpression + ', ' + ADataType + ')';
+end;
+
+function TCQLFunctions.Coalesce(const AValues: array of String): String;
+begin
+  Result := '';
+end;
+
+function TCQLFunctions.Convert(const ADataType, AExpression, AStyle: String): String;
+begin
+  Result := '';
+end;
+
 function TCQLFunctions.Count(const AValue: String): String;
 begin
   Result := 'Count(' + AValue + ')';
+end;
+
+constructor TCQLFunctions.CreatePrivate(const ADatabase: TDBName);
+begin
+  FDatabase := ADatabase;
 end;
 
 function TCQLFunctions.Lower(const AValue: String): String;
