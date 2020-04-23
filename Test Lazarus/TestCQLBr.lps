@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="46">
+    <Units Count="47">
       <Unit0>
         <Filename Value="TestCQLBr.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -350,6 +350,7 @@
       <Unit40>
         <Filename Value="test.insert.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <TopLine Value="18"/>
         <CursorPos X="5" Y="54"/>
@@ -379,27 +380,31 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="81"/>
-        <CursorPos X="45" Y="125"/>
+        <CursorPos X="83" Y="106"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit43>
       <Unit44>
-        <Filename Value="D:\lazarus\fpc\3.0.4\source\packages\fcl-fpcunit\src\fpcunit.pp"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="95"/>
-        <CursorPos X="25" Y="113"/>
-        <UsageCount Value="10"/>
-      </Unit44>
-      <Unit45>
         <Filename Value="test.operators.like.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="88"/>
         <CursorPos X="15" Y="113"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="D:\lazarus\fpc\3.0.4\source\packages\fcl-fpcunit\src\fpcunit.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="95"/>
+        <CursorPos X="25" Y="113"/>
+        <UsageCount Value="10"/>
       </Unit45>
+      <Unit46>
+        <Filename Value="..\..\MCIBr\Source\mcibr.inc"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit46>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>

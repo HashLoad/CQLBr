@@ -165,23 +165,26 @@
         <DCCReference Include="test.operators.greater.pas"/>
         <DCCReference Include="test.operators.equal.pas"/>
         <DCCReference Include="test.operators.isin.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.qualifier.firebird.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.qualifier.mongodb.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.qualifier.mssql.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.qualifier.mysql.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.qualifier.oracle.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.select.firebird.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.select.mongodb.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.select.mssql.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.select.mysql.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.select.oracle.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.serialize.firebird.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.serialize.mongodb.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.serialize.mssql.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.serialize.mysql.pas"/>
-        <DCCReference Include="..\Source\Database\cqlbr.serialize.oracle.pas"/>
         <DCCReference Include="test.operators.exists.pas"/>
         <DCCReference Include="test.functions.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.firebird.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.mongodb.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.mssql.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.mysql.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.oracle.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.sqlite.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.select.mongodb.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.select.mssql.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.select.mysql.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.select.oracle.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.select.sqlite.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.serialize.mongodb.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.serialize.mssql.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.serialize.mysql.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.serialize.oracle.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.serialize.sqlite.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.serialize.firebird.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.select.firebird.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -204,13 +207,24 @@
                 </Source>
             </Delphi.Personality>
             <Deployment Version="3">
+                <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Debug\TestCQLBr.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>TestCQLBr.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="$(BDS)\Redist\osx64\libcgsqlite3.dylib" Class="DependencyModule">
                     <Platform Name="OSX64">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
-                    <Platform Name="OSX32">
+                <DeployFile LocalName="$(BDS)\Redist\iossimulator\libPCRE.dylib" Class="DependencyModule">
+                    <Platform Name="iOSSimulator">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -229,17 +243,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\TestCQLBr.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>TestCQLBr.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="OSX32">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="Win32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
                         <Operation>0</Operation>
                     </Platform>
                 </DeployClass>
@@ -373,20 +382,12 @@
                         <Operation>1</Operation>
                         <Extensions>.framework</Extensions>
                     </Platform>
-                    <Platform Name="OSX64">
-                        <Operation>1</Operation>
-                        <Extensions>.framework</Extensions>
-                    </Platform>
                     <Platform Name="Win32">
                         <Operation>0</Operation>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="DependencyModule">
                     <Platform Name="OSX32">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX64">
                         <Operation>1</Operation>
                         <Extensions>.dylib</Extensions>
                     </Platform>
@@ -412,10 +413,6 @@
                         <Operation>1</Operation>
                         <Extensions>.dylib</Extensions>
                     </Platform>
-                    <Platform Name="OSX64">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
                     <Platform Name="Win32">
                         <Operation>0</Operation>
                         <Extensions>.bpl</Extensions>
@@ -435,9 +432,6 @@
                         <Operation>0</Operation>
                     </Platform>
                     <Platform Name="OSX32">
-                        <Operation>0</Operation>
-                    </Platform>
-                    <Platform Name="OSX64">
                         <Operation>0</Operation>
                     </Platform>
                     <Platform Name="Win32">
@@ -558,10 +552,6 @@
                         <RemoteDir>Contents\Resources</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
-                    <Platform Name="OSX64">
-                        <RemoteDir>Contents\Resources</RemoteDir>
-                        <Operation>1</Operation>
-                    </Platform>
                 </DeployClass>
                 <DeployClass Required="true" Name="ProjectOutput">
                     <Platform Name="Android">
@@ -581,9 +571,6 @@
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="OSX32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="OSX64">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="Win32">

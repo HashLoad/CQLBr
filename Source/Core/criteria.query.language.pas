@@ -145,9 +145,7 @@ type
     function Where(const AExpression: String = ''): ICQL; overload;
     function Where(const AExpression: array of const): ICQL; overload;
     function Where(const AExpression: ICQLCriteriaExpression): ICQL; overload;
-    /// <summary>
-    ///   Operators methods
-    /// </summary>
+    // Operators methods
     function Equal(const AValue: String): ICQL; overload;
     function Equal(const AValue: Extended): ICQL overload;
     function Equal(const AValue: Integer): ICQL; overload;
@@ -178,17 +176,13 @@ type
     function NotIn(const AValue: String): ICQL; overload;
     function Exists(const AValue: String): ICQL; overload;
     function NotExists(const AValue: String): ICQL; overload;
-    /// <summary>
-    ///   Functions methods
-    /// </summary>
+    // Functions methods
     function Count: ICQL;
     function Lower: ICQL;
     function Min: ICQL;
     function Max: ICQL;
     function Upper: ICQL;
-    /// <summary>
-    ///   Result full command sql
-    /// </summary>
+    // Result full command sql
     function AsString: String;
   end;
 
