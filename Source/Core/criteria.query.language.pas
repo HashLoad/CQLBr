@@ -162,9 +162,11 @@ type
     function LessEqThan(const AValue: Integer) : ICQL; overload;
     function IsNull: ICQL;
     function IsNotNull: ICQL;
+    function Like(const AValue: String): ICQL;
     function LikeFull(const AValue: String): ICQL;
     function LikeLeft(const AValue: String): ICQL;
     function LikeRight(const AValue: String): ICQL;
+    function NotLike(const AValue: String): ICQL;
     function NotLikeFull(const AValue: String): ICQL;
     function NotLikeLeft(const AValue: String): ICQL;
     function NotLikeRight(const AValue: String): ICQL;
@@ -269,7 +271,7 @@ end;
 
 function TCQL.&Set(const AColumnName, AColumnValue: String): ICQL;
 begin
-  Result := InternalSet(AColumnName, QuotedStr(AColumnValue));
+  Result := InternalSet(AColumnName, {QuotedStr(AColumnValue)} AColumnValue);
 end;
 
 function TCQL.&On(const AExpression: String): ICQL;
@@ -745,6 +747,13 @@ begin
   Result := Self;
 end;
 
+function TCQL.Like(const AValue: String): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsLike(AValue));
+  Result := Self;
+end;
+
 function TCQL.LikeFull(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
@@ -839,6 +848,13 @@ function TCQL.NotIn(const AValue: TArray<Double>): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
   FActiveExpr.&Ope(FOperator.IsNotIn(AValue));
+  Result := Self;
+end;
+
+function TCQL.NotLike(const AValue: String): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsNotLike(AValue));
   Result := Self;
 end;
 
