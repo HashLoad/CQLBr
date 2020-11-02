@@ -30,30 +30,34 @@ interface
 
 uses
   SysUtils,
-  cqlbr.interfaces;
+  cqlbr.interfaces,
+  cqlbr.functions.abstract;
 
 type
-  TCQLFunctions = class(TInterfacedObject, ICQLFunctions)
+  TCQLFunctions = class(TCQLFunctionAbstract, ICQLFunctions)
   private
     FDatabase: TDBName;
     constructor CreatePrivate(const ADatabase: TDBName);
   public
     class function New(const ADatabase: TDBName): ICQLFunctions;
     class function Q(const AValue: String): String;
-    function Count(const AValue: String): String;
-    function Upper(const AValue: String): String;
-    function Lower(const AValue: String): String;
-    function Min(const AValue: String): String;
-    function Max(const AValue: String): String;
-    function Sum(const AValue: String): String;
-    function Coalesce(const AValues: array of String): String;
-    function Substring(const AVAlue: String; const AFrom, AFor: Integer): String;
-    function Cast(const AExpression, ADataType: String): String;
-    function Convert(const ADataType, AExpression, AStyle: String): String;
-    function FormatDate(const AValue: String; const AFormat: String): String;
+    function Count(const AValue: String): String; override;
+    function Upper(const AValue: String): String; override;
+    function Lower(const AValue: String): String; override;
+    function Min(const AValue: String): String; override;
+    function Max(const AValue: String): String; override;
+    function Sum(const AValue: String): String; override;
+    function Coalesce(const AValues: array of String): String; override;
+    function Substring(const AVAlue: String; const AStart, ALength: Integer): String; override;
+    function Cast(const AExpression: String; ADataType: String): String; override;
+    function Convert(const ADataType: String; AExpression: String; AStyle: String): String; override;
+    function Date(const AVAlue: String; const AFormat: String): String; override;
   end;
 
 implementation
+
+uses
+  cqlbr.db.register;
 
 { TCQLFunctions }
 
@@ -67,9 +71,9 @@ begin
   Result := '''' + AValue + '''';
 end;
 
-function TCQLFunctions.Substring(const AVAlue: String; const AFrom, AFor: Integer): String;
+function TCQLFunctions.Substring(const AVAlue: String; const AStart, ALength: Integer): String;
 begin
-  Result := 'Substring(' + AValue + ', ' + IntToStr(AFrom) + ', ' + IntToStr(AFor) + ')';
+  Result := TDBRegister.Functions(FDatabase).Substring(AValue, AStart, ALength);
 end;
 
 function TCQLFunctions.Sum(const AValue: String): String;
@@ -77,14 +81,14 @@ begin
   Result := 'Sum(' + AValue + ')';
 end;
 
-function TCQLFunctions.FormatDate(const AValue, AFormat: String): String;
+function TCQLFunctions.Date(const AVAlue: String; const AFormat: String): String;
 begin
-  Result := '';
+  Result := TDBRegister.Functions(FDatabase).Date(AVAlue, AFormat);
 end;
 
-function TCQLFunctions.Cast(const AExpression, ADataType: String): String;
+function TCQLFunctions.Cast(const AExpression: String; ADataType: String): String;
 begin
-  Result := 'Cast(' + AExpression + ', ' + ADataType + ')';
+  Result := 'Cast(' + AExpression + ' AS ' + ADataType + ')';
 end;
 
 function TCQLFunctions.Coalesce(const AValues: array of String): String;
@@ -92,7 +96,7 @@ begin
   Result := '';
 end;
 
-function TCQLFunctions.Convert(const ADataType, AExpression, AStyle: String): String;
+function TCQLFunctions.Convert(const ADataType: String; AExpression: String; AStyle: String): String;
 begin
   Result := '';
 end;

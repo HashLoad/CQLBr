@@ -24,6 +24,8 @@ type
     procedure TestMax;
     [Test]
     procedure TestMin;
+    [Test]
+    procedure TestSubstring;
    end;
 
 implementation
@@ -65,6 +67,19 @@ begin
                                       .Select
                                       .Column('ID_CLIENTE').Min
                                       .&As('IDCOUNT')
+                                      .From('CLIENTES')
+                                      .AsString);
+end;
+
+procedure TTestCQLFunctions.TestSubstring;
+var
+  LAsString: String;
+begin
+  LAsString := 'SELECT SUBSTRING(NOME_CLIENTE FROM 1 FOR 2) AS NOME FROM CLIENTES';
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+                                      .Select
+                                      .Column('NOME_CLIENTE').Substring(1, 2)
+                                      .&As('NOME')
                                       .From('CLIENTES')
                                       .AsString);
 end;

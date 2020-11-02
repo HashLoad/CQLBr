@@ -149,6 +149,8 @@ type
     function &Or(const AExpression: String): ICQL; overload;
     function &Or(const AExpression: ICQLCriteriaExpression): ICQL; overload;
     function &Set(const AColumnName, AColumnValue: String): ICQL; overload;
+    function &Set(const AColumnName: String; AColumnValue: Integer): ICQL; overload;
+    function &Set(const AColumnName: String; AColumnValue: Extended): ICQL; overload;
     function &Set(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
     function All: ICQL;
     function Clear: ICQL;
@@ -196,9 +198,7 @@ type
     function Values(const AColumnName, AColumnValue: String): ICQL; overload;
     function Values(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
     function AsString: String;
-    /// <summary>
-    ///   Operators functions
-    /// </summary>
+    // Operators functions
     function Equal(const AValue: String): ICQL; overload;
     function Equal(const AValue: Extended): ICQL overload;
     function Equal(const AValue: Integer): ICQL; overload;
@@ -231,14 +231,13 @@ type
     function NotIn(const AValue: String): ICQL; overload;
     function Exists(const AValue: String): ICQL; overload;
     function NotExists(const AValue: String): ICQL; overload;
-    /// <summary>
-    ///   Functions methods
-    /// </summary>
+    // Functions methods
     function Count: ICQL;
     function Lower: ICQL;
     function Min: ICQL;
     function Max: ICQL;
     function Upper: ICQL;
+    function Substring(const AStart: Integer; const ALength: Integer): ICQL;
   end;
 
   ICQLName = interface
@@ -543,6 +542,8 @@ type
     function Min(const AValue: String): String;
     function Max(const AValue: String): String;
     function Upper(const AValue: String): String;
+    function Substring(const AVAlue: String; const AFrom, AFor: Integer): String;
+    function Date(const AVAlue: String; const AFormat: String): String;
   end;
 
 implementation

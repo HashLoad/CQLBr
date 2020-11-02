@@ -35,6 +35,7 @@ interface
 uses
   SysUtils,
   Generics.Collections,
+  cqlbr.functions.abstract,
   cqlbr.interfaces;
 
 type
@@ -43,6 +44,7 @@ type
     class var FCQLSelect: TDictionary<TDBName, ICQLSelect>;
     class var FCQLWhere: TDictionary<TDBName, ICQLWhere>;
     class var FCQLSerialize: TDictionary<TDBName, ICQLSerialize>;
+    class var FCQLFunctions: TDictionary<TDBName, TCQLFunctionAbstract>;
   private
     class constructor Create;
     class destructor Destroy;
@@ -55,6 +57,10 @@ type
     class procedure RegisterWhere(const ADBName: TDBName;
       const ACQLWhere: ICQLWhere);
     class function Where(const ADBName: TDBName): ICQLWhere;
+    // Functions for database
+    class procedure RegisterFunctions(const ADBName: TDBName;
+      const ACQLFunctions: TCQLFunctionAbstract);
+    class function Functions(const ADBName: TDBName): TCQLFunctionAbstract;
     // Serialize for database
     class procedure RegisterSerialize(const ADBName: TDBName;
       const ACQLSelect: ICQLSerialize);
@@ -75,6 +81,7 @@ begin
   FCQLSelect := TDictionary<TDBName, ICQLSelect>.Create;
   FCQLWhere := TDictionary<TDBName, ICQLWhere>.Create;
   FCQLSerialize := TDictionary<TDBName, ICQLSerialize>.Create;
+  FCQLFunctions := TDictionary<TDBName, TCQLFunctionAbstract>.Create;
 end;
 
 class destructor TDBRegister.Destroy;
@@ -85,7 +92,16 @@ begin
   FCQLWhere.Free;
   FCQLSerialize.Clear;
   FCQLSerialize.Free;
+  FCQLFunctions.Clear;
+  FCQLFunctions.Free;
   inherited;
+end;
+
+class function TDBRegister.Functions(const ADBName: TDBName): TCQLFunctionAbstract;
+begin
+  Result := nil;
+  if FCQLFunctions.ContainsKey(ADBName) then
+    Result := FCQLFunctions[ADBName];
 end;
 
 class function TDBRegister.Select(const ADBName: TDBName): ICQLSelect;
@@ -96,6 +112,12 @@ begin
             .Create('O select do banco ' + TStrDBName[ADBName] + ' não está registrado, adicione a unit "cqlbr.select.???.pas" onde ??? nome do banco, na cláusula USES do seu projeto!');
 
     Result := FCQLSelect[ADBName];
+end;
+
+class procedure TDBRegister.RegisterFunctions(const ADBName: TDBName;
+      const ACQLFunctions: TCQLFunctionAbstract);
+begin
+  FCQLFunctions.AddOrSetValue(ADBName, ACQLFunctions);
 end;
 
 class procedure TDBRegister.RegisterSelect(const ADBName: TDBName;

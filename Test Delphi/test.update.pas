@@ -53,10 +53,10 @@ procedure TTestCQLUpdate.TestUpdateWhereFirebird;
 var
   LAsString: String;
 begin
-  LAsString := 'UPDATE CLIENTES SET ID_CLIENTE = ''1'', NOME_CLIENTE = ''MyName'' WHERE ID_CLIENTE = 1';
+  LAsString := 'UPDATE CLIENTES SET ID_CLIENTE = 1, NOME_CLIENTE = ''MyName'' WHERE ID_CLIENTE = 1';
   Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
                                       .Update('CLIENTES')
-                                      .&Set('ID_CLIENTE', '1')
+                                      .&Set('ID_CLIENTE', 1)
                                       .&Set('NOME_CLIENTE', 'MyName')
                                       .Where('ID_CLIENTE = 1')
                                       .AsString);

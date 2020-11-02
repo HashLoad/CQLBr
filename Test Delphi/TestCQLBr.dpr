@@ -17,7 +17,7 @@ uses
   cqlbr.core in '..\Source\Core\cqlbr.core.pas',
   cqlbr.delete in '..\Source\Core\cqlbr.delete.pas',
   cqlbr.expression in '..\Source\Core\cqlbr.expression.pas',
-  cqlbr.functions in '..\Source\Core\cqlbr.functions.pas',
+  cqlbr.functions.abstract in '..\Source\Core\cqlbr.functions.abstract.pas',
   cqlbr.groupby in '..\Source\Core\cqlbr.groupby.pas',
   cqlbr.having in '..\Source\Core\cqlbr.having.pas',
   cqlbr.insert in '..\Source\Core\cqlbr.insert.pas',
@@ -61,7 +61,16 @@ uses
   cqlbr.serialize.oracle in '..\Source\Drivers\cqlbr.serialize.oracle.pas',
   cqlbr.serialize.sqlite in '..\Source\Drivers\cqlbr.serialize.sqlite.pas',
   cqlbr.serialize.firebird in '..\Source\Drivers\cqlbr.serialize.firebird.pas',
-  cqlbr.select.firebird in '..\Source\Drivers\cqlbr.select.firebird.pas';
+  cqlbr.select.firebird in '..\Source\Drivers\cqlbr.select.firebird.pas',
+  cqlbr.functions.firebird in '..\Source\Drivers\cqlbr.functions.firebird.pas',
+  cqlbr.functions in '..\Source\Core\cqlbr.functions.pas',
+  cqlbr.functions.interbase in '..\Source\Drivers\cqlbr.functions.interbase.pas',
+  cqlbr.functions.mysql in '..\Source\Drivers\cqlbr.functions.mysql.pas',
+  cqlbr.functions.mssql in '..\Source\Drivers\cqlbr.functions.mssql.pas',
+  cqlbr.functions.sqlite in '..\Source\Drivers\cqlbr.functions.sqlite.pas',
+  cqlbr.functions.oracle in '..\Source\Drivers\cqlbr.functions.oracle.pas',
+  cqlbr.functions.db2 in '..\Source\Drivers\cqlbr.functions.db2.pas',
+  cqlbr.functions.postgresql in '..\Source\Drivers\cqlbr.functions.postgresql.pas';
 
 {$IFNDEF TESTINSIGHT}
 var
