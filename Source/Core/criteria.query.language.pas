@@ -96,7 +96,7 @@ type
     function Clear: ICQL;
     function ClearAll: ICQL;
     function All: ICQL;
-    function Column(const AColumnName: String): ICQL; overload;
+    function Column(const AColumnName: String = ''): ICQL; overload;
     function Column(const ATableName: String; const AColumnName: String): ICQL; overload;
     function Column(const AColumnsName: array of const): ICQL; overload;
     function Column(const ACaseExpression: ICQLCriteriaCase): ICQL; overload;
@@ -148,10 +148,10 @@ type
     function Where(const AExpression: array of const): ICQL; overload;
     function Where(const AExpression: ICQLCriteriaExpression): ICQL; overload;
     // Operators methods
-    function Equal(const AValue: String): ICQL; overload;
+    function Equal(const AValue: String = ''): ICQL; overload;
     function Equal(const AValue: Extended): ICQL overload;
     function Equal(const AValue: Integer): ICQL; overload;
-    function NotEqual(const AValue: String): ICQL; overload;
+    function NotEqual(const AValue: String = ''): ICQL; overload;
     function NotEqual(const AValue: Extended): ICQL; overload;
     function NotEqual(const AValue: Integer): ICQL; overload;
     function GreaterThan(const AValue: Extended): ICQL; overload;
@@ -187,8 +187,12 @@ type
     function Max: ICQL;
     function Upper: ICQL;
     function Substring(const AStart: Integer; const ALength: Integer): ICQL;
-    function Date(const AValue: String; const AFormat: String): ICQL;
+    function Date(const AValue: String): ICQL;
+    function Day(const AValue: String): ICQL;
+    function Month(const AValue: String): ICQL;
+    function Year(const AValue: String): ICQL;
     // Result full command sql
+    function AsFun: ICQLFunctions;
     function AsString: String;
   end;
 
@@ -205,6 +209,11 @@ begin
   AssertHaveName;
   FAST.ASTName.Alias := AAlias;
   Result := Self;
+end;
+
+function TCQL.AsFun: ICQLFunctions;
+begin
+  Result := FFunction;
 end;
 
 function TCQL.&Case(const AExpression: String): ICQLCriteriaCase;
@@ -421,11 +430,25 @@ begin
   Result := Self;
 end;
 
-function TCQL.Date(const AValue: String; const AFormat: String): ICQL;
+function TCQL.Date(const AValue: String): ICQL;
 begin
-  AssertSection([secSelect, secDelete, secJoin]);
+  AssertSection([secSelect, secJoin, secWhere]);
   AssertHaveName;
-  FAST.ASTName.Name := FFunction.Date({FAST.ASTName.Name} AValue, AFormat);
+  case FActiveSection of
+    secSelect: FAST.ASTName.Name := FFunction.Date(AValue);
+    secWhere: FActiveExpr.&Fun(FFunction.Date(AValue));
+  end;
+  Result := Self;
+end;
+
+function TCQL.Day(const AValue: String): ICQL;
+begin
+  AssertSection([secSelect, secJoin, secWhere]);
+  AssertHaveName;
+  case FActiveSection of
+    secSelect: FAST.ASTName.Name := FFunction.Day(AValue);
+    secWhere: FActiveExpr.&Fun(FFunction.Day(AValue));
+  end;
   Result := Self;
 end;
 
@@ -544,7 +567,10 @@ end;
 function TCQL.Equal(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
-  FActiveExpr.&Ope(FOperator.IsEqual(AValue));
+  if AValue = '' then
+    FActiveExpr.&Fun(FOperator.IsEqual(AValue))
+  else
+    FActiveExpr.&Ope(FOperator.IsEqual(AValue));
   Result := Self;
 end;
 
@@ -822,6 +848,17 @@ begin
   Result := Self;
 end;
 
+function TCQL.Month(const AValue: String): ICQL;
+begin
+  AssertSection([secSelect, secJoin, secWhere]);
+  AssertHaveName;
+  case FActiveSection of
+    secSelect: FAST.ASTName.Name := FFunction.Month(AValue);
+    secWhere: FActiveExpr.&Fun(FFunction.Month(AValue));
+  end;
+  Result := Self;
+end;
+
 class function TCQL.New(const ADatabase: TDBName): ICQL;
 begin
   Result := Self.Create(ADatabase);
@@ -1021,6 +1058,17 @@ begin
   SetSection(secWhere);
   FActiveOperator := opeWhere;
   Result := &And(AExpression);
+end;
+
+function TCQL.Year(const AValue: String): ICQL;
+begin
+  AssertSection([secSelect, secJoin, secWhere]);
+  AssertHaveName;
+  case FActiveSection of
+    secSelect: FAST.ASTName.Name := FFunction.Year(AValue);
+    secWhere: FActiveExpr.&Fun(FFunction.Year(AValue));
+  end;
+  Result := Self;
 end;
 
 function TCQL.From(const ATableName, AAlias: String): ICQL;

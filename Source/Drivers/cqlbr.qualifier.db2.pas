@@ -24,7 +24,7 @@
   @author(Site : https://www.isaquepinheiro.com.br)
 }
 
-unit cqlbr.qualifier.oracle;
+unit cqlbr.qualifier.db2;
 
 interface
 
@@ -34,10 +34,10 @@ uses
   cqlbr.qualifier;
 
 type
-  TCQLSelectQualifiersOracle = class(TCQLSelectQualifiers)
+  TCQLSelectQualifiersDB2 = class(TCQLSelectQualifiers)
   public
     function SerializePagination: String; override;
-    class function New: TCQLSelectQualifiersOracle;
+    class function New: TCQLSelectQualifiersDB2;
   end;
 
 implementation
@@ -45,14 +45,14 @@ implementation
 uses
   cqlbr.utils;
 
-{ TCQLSelectQualifiersOracle }
+{ TCQLSelectQualifiersDB2 }
 
-class function TCQLSelectQualifiersOracle.New: TCQLSelectQualifiersOracle;
+class function TCQLSelectQualifiersDB2.New: TCQLSelectQualifiersDB2;
 begin
   Result := Self.Create;
 end;
 
-function TCQLSelectQualifiersOracle.SerializePagination: String;
+function TCQLSelectQualifiersDB2.SerializePagination: String;
 var
   LFor: Integer;
   LFirst: String;

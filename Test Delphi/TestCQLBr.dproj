@@ -58,6 +58,7 @@
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <DCC_UnitSearchPath>$(DUnitX);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <SanitizedProjectName>TestCQLBr</SanitizedProjectName>
+        <DCC_Define>TESTINSIGHT;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Linux64)'!=''">
         <DCC_UsePackage>FireDACADSDriver;FireDACMSSQLDriver;RESTBackendComponents;bindengine;CloudService;FireDACMySQLDriver;DataSnapClient;IndySystem;FireDACInfxDriver;emshosting;FireDACTDataDriver;soaprtl;DbxCommonDriver;xmlrtl;soapmidas;DataSnapNativeClient;rtl;emsserverresource;DbxClientDriver;FireDACODBCDriver;DataSnapIndy10ServerTransport;FireDACMongoDBDriver;DataSnapServerMidas;RESTComponents;emsclientfiredac;DataSnapFireDAC;frxFD26;DatasnapConnectorsFreePascal;inetdb;emsedge;FireDACIBDriver;dbexpress;IndyCore;dsnap;DataSnapCommon;emsclient;FireDACCommon;DataSnapConnectors;soapserver;FireDACOracleDriver;FireDACCommonODBC;FireDACCommonDriver;inet;FireDACDb2Driver;FireDAC;FireDACSqliteDriver;FireDACPgDriver;FireDACASADriver;DataSnapServer;CustomIPTransport;bindcomp;dbxcds;dsnapxml;dbrtl;IndyProtocols;$(DCC_UsePackage)</DCC_UsePackage>
@@ -93,7 +94,7 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="test.select.pas"/>
+        <DCCReference Include="test.select.firebird.pas"/>
         <DCCReference Include="..\Source\Core\cqlbr.ast.pas"/>
         <DCCReference Include="..\Source\Core\cqlbr.cases.pas"/>
         <DCCReference Include="..\Source\Core\cqlbr.core.pas"/>
@@ -114,18 +115,18 @@
         <DCCReference Include="..\Source\Core\cqlbr.where.pas"/>
         <DCCReference Include="..\Source\Core\cqlbr.utils.pas"/>
         <DCCReference Include="..\Source\Core\cqlbr.db.register.pas"/>
-        <DCCReference Include="test.insert.pas"/>
-        <DCCReference Include="test.update.pas"/>
-        <DCCReference Include="test.delete.pas"/>
+        <DCCReference Include="test.insert.firebird.pas"/>
+        <DCCReference Include="test.update.firebird.pas"/>
+        <DCCReference Include="test.delete.firebird.pas"/>
         <DCCReference Include="..\Source\Core\cqlbr.operators.pas"/>
-        <DCCReference Include="test.operators.pas"/>
-        <DCCReference Include="test.operators.like.pas"/>
-        <DCCReference Include="test.operators.less.pas"/>
-        <DCCReference Include="test.operators.greater.pas"/>
-        <DCCReference Include="test.operators.equal.pas"/>
-        <DCCReference Include="test.operators.isin.pas"/>
-        <DCCReference Include="test.operators.exists.pas"/>
-        <DCCReference Include="test.functions.pas"/>
+        <DCCReference Include="test.operators.firebird.pas"/>
+        <DCCReference Include="test.operators.like.firebird.pas"/>
+        <DCCReference Include="test.operators.less.firebird.pas"/>
+        <DCCReference Include="test.operators.greater.firebird.pas"/>
+        <DCCReference Include="test.operators.equal.firebird.pas"/>
+        <DCCReference Include="test.operators.isin.firebird.pas"/>
+        <DCCReference Include="test.operators.exists.firebird.pas"/>
+        <DCCReference Include="test.functions.oracle.pas"/>
         <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.firebird.pas"/>
         <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.mongodb.pas"/>
         <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.mssql.pas"/>
@@ -153,6 +154,15 @@
         <DCCReference Include="..\Source\Drivers\cqlbr.functions.oracle.pas"/>
         <DCCReference Include="..\Source\Drivers\cqlbr.functions.db2.pas"/>
         <DCCReference Include="..\Source\Drivers\cqlbr.functions.postgresql.pas"/>
+        <DCCReference Include="test.functions.firebird.pas"/>
+        <DCCReference Include="test.functions.interbase.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.select.interbase.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.interbase.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.serialize.interbase.pas"/>
+        <DCCReference Include="test.functions.db2.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.select.db2.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.qualifier.db2.pas"/>
+        <DCCReference Include="..\Source\Drivers\cqlbr.serialize.db2.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

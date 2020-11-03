@@ -24,38 +24,50 @@
   @author(Site : https://www.isaquepinheiro.com.br)
 }
 
-unit cqlbr.serialize.oracle;
+unit cqlbr.select.db2;
 
 interface
 
 uses
   SysUtils,
-  cqlbr.db.register,
-  cqlbr.interfaces,
-  cqlbr.serialize;
+  cqlbr.select;
 
 type
-  TCQLSerializeOracle = class(TCQLSerialize)
+  TCQLSelectDB2 = class(TCQLSelect)
   public
-    function AsString(const AAST: ICQLAST): String; override;
+    constructor Create; override;
+    function Serialize: String; override;
   end;
 
 implementation
 
-{ TCQLSerialize }
+uses
+  cqlbr.utils,
+  cqlbr.interfaces,
+  cqlbr.db.register,
+  cqlbr.qualifier.oracle;
 
-function TCQLSerializeOracle.AsString(const AAST: ICQLAST): String;
-var
-  LSerializePagination: String;
+{ TCQLSelectDB2 }
+
+constructor TCQLSelectDB2.Create;
 begin
-  Result := inherited AsString(AAST);
-  LSerializePagination := AAST.Select.Qualifiers.SerializePagination;
-  if LSerializePagination = '' then
-    Exit;
-  Result := Format(LSerializePagination, [Result]);
+  inherited;
+  FQualifiers := TCQLSelectQualifiersOracle.New;
+end;
+
+function TCQLSelectDB2.Serialize: String;
+begin
+  if IsEmpty then
+    Result := ''
+  else
+    Result := TUtils.Concat(['SELECT',
+                             FColumns.Serialize,
+                             FQualifiers.SerializeDistinct,
+                             'FROM',
+                             FTableNames.Serialize]);
 end;
 
 initialization
-  TDBRegister.RegisterSerialize(dbnOracle, TCQLSerializeOracle.Create);
+  TDBRegister.RegisterSelect(dbnDB2, TCQLSelectDB2.Create);
 
 end.

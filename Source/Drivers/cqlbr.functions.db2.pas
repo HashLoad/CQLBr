@@ -37,6 +37,11 @@ type
   public
     constructor Create;
     function Substring(const AVAlue: String; const AStart, ALength: Integer): String; override;
+    function Date(const AVAlue: String; const AFormat: String): String; overload; override;
+    function Date(const AVAlue: String): String; overload; override;
+    function Day(const AValue: String): String; override;
+    function Month(const AValue: String): String; override;
+    function Year(const AValue: String): String; override;
   end;
 
 implementation
@@ -52,10 +57,35 @@ begin
   inherited;
 end;
 
+function TCQLFunctionsDB2.Date(const AVAlue, AFormat: String): String;
+begin
+  Result := 'TO_DATE(' + AValue + ', ' + AFormat + ')';
+end;
+
+function TCQLFunctionsDB2.Date(const AVAlue: String): String;
+begin
+  Result := 'TO_DATE(' + AValue + ', ''dd/MM/yyyy'')';
+end;
+
+function TCQLFunctionsDB2.Day(const AValue: String): String;
+begin
+  Result := 'DAY(' + AVAlue + ')';
+end;
+
+function TCQLFunctionsDB2.Month(const AValue: String): String;
+begin
+  Result := 'MONTH(' + AVAlue + ')';
+end;
+
 function TCQLFunctionsDB2.Substring(const AVAlue: String; const AStart,
   ALength: Integer): String;
 begin
-  Result := 'Substring(' + AValue + ', ' + IntToStr(AStart) + ', ' + IntToStr(ALength) + ')';
+  Result := 'SUBSTRING(' + AValue + ', ' + IntToStr(AStart) + ', ' + IntToStr(ALength) + ')';
+end;
+
+function TCQLFunctionsDB2.Year(const AValue: String): String;
+begin
+  Result := 'YEAR(' + AVAlue + ')';
 end;
 
 initialization

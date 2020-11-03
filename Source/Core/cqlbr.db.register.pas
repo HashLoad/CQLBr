@@ -35,7 +35,6 @@ interface
 uses
   SysUtils,
   Generics.Collections,
-  cqlbr.functions.abstract,
   cqlbr.interfaces;
 
 type
@@ -44,7 +43,7 @@ type
     class var FCQLSelect: TDictionary<TDBName, ICQLSelect>;
     class var FCQLWhere: TDictionary<TDBName, ICQLWhere>;
     class var FCQLSerialize: TDictionary<TDBName, ICQLSerialize>;
-    class var FCQLFunctions: TDictionary<TDBName, TCQLFunctionAbstract>;
+    class var FCQLFunctions: TDictionary<TDBName, ICQLFunctions>;
   private
     class constructor Create;
     class destructor Destroy;
@@ -59,8 +58,8 @@ type
     class function Where(const ADBName: TDBName): ICQLWhere;
     // Functions for database
     class procedure RegisterFunctions(const ADBName: TDBName;
-      const ACQLFunctions: TCQLFunctionAbstract);
-    class function Functions(const ADBName: TDBName): TCQLFunctionAbstract;
+      const ACQLFunctions: ICQLFunctions);
+    class function Functions(const ADBName: TDBName): ICQLFunctions;
     // Serialize for database
     class procedure RegisterSerialize(const ADBName: TDBName;
       const ACQLSelect: ICQLSerialize);
@@ -81,7 +80,7 @@ begin
   FCQLSelect := TDictionary<TDBName, ICQLSelect>.Create;
   FCQLWhere := TDictionary<TDBName, ICQLWhere>.Create;
   FCQLSerialize := TDictionary<TDBName, ICQLSerialize>.Create;
-  FCQLFunctions := TDictionary<TDBName, TCQLFunctionAbstract>.Create;
+  FCQLFunctions := TDictionary<TDBName, ICQLFunctions>.Create;
 end;
 
 class destructor TDBRegister.Destroy;
@@ -97,7 +96,7 @@ begin
   inherited;
 end;
 
-class function TDBRegister.Functions(const ADBName: TDBName): TCQLFunctionAbstract;
+class function TDBRegister.Functions(const ADBName: TDBName): ICQLFunctions;
 begin
   Result := nil;
   if FCQLFunctions.ContainsKey(ADBName) then
@@ -115,7 +114,7 @@ begin
 end;
 
 class procedure TDBRegister.RegisterFunctions(const ADBName: TDBName;
-      const ACQLFunctions: TCQLFunctionAbstract);
+      const ACQLFunctions: ICQLFunctions);
 begin
   FCQLFunctions.AddOrSetValue(ADBName, ACQLFunctions);
 end;

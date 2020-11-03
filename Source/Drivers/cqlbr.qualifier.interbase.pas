@@ -24,38 +24,51 @@
   @author(Site : https://www.isaquepinheiro.com.br)
 }
 
-unit cqlbr.serialize.oracle;
+unit cqlbr.qualifier.interbase;
 
 interface
 
 uses
   SysUtils,
-  cqlbr.db.register,
   cqlbr.interfaces,
-  cqlbr.serialize;
+  cqlbr.qualifier;
 
 type
-  TCQLSerializeOracle = class(TCQLSerialize)
+  TCQLSelectQualifiersinterbase = class(TCQLSelectQualifiers)
   public
-    function AsString(const AAST: ICQLAST): String; override;
+    function SerializePagination: String; override;
+    class function New: TCQLSelectQualifiersinterbase;
   end;
 
 implementation
 
-{ TCQLSerialize }
+uses
+  cqlbr.utils;
 
-function TCQLSerializeOracle.AsString(const AAST: ICQLAST): String;
-var
-  LSerializePagination: String;
+{ TCQLSelectQualifiersinterbase }
+
+class function TCQLSelectQualifiersinterbase.New: TCQLSelectQualifiersinterbase;
 begin
-  Result := inherited AsString(AAST);
-  LSerializePagination := AAST.Select.Qualifiers.SerializePagination;
-  if LSerializePagination = '' then
-    Exit;
-  Result := Format(LSerializePagination, [Result]);
+  Result := Self.Create;
 end;
 
-initialization
-  TDBRegister.RegisterSerialize(dbnOracle, TCQLSerializeOracle.Create);
+function TCQLSelectQualifiersinterbase.SerializePagination: String;
+var
+  LFor: Integer;
+  LFirst: String;
+  LSkip: String;
+begin
+  Result := '';
+  for LFor := 0 to Count -1 do
+  begin
+    case FQualifiers[LFor].Qualifier of
+      sqFirst: LFirst := TUtils.Concat(['FIRST', IntToStr(FQualifiers[LFor].Value)]);
+      sqSkip:  LSkip  := TUtils.Concat(['SKIP' , IntToStr(FQualifiers[LFor].Value)]);
+    else
+      raise Exception.Create('TCQLSelectQualifiersFirebird.SerializeSelectQualifiers: Unknown qualifier');
+    end;
+  end;
+  Result := TUtils.Concat([Result, LFirst, LSkip]);
+end;
 
 end.

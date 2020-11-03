@@ -38,8 +38,9 @@ type
 
   ICQL = interface;
   ICQLAST = interface;
+  ICQLFunctions = interface;
 
-  TExpressionOperation = (opNone, opAND, opOR, opOperation);
+  TExpressionOperation = (opNone, opAND, opOR, opOperation, opFunction);
   ICQLExpression = interface
     ['{D1DA5991-9755-485A-A031-9C25BC42A2AA}']
     function GetLeft: ICQLExpression;
@@ -72,6 +73,9 @@ type
     function &Ope(const AExpression: array of const): ICQLCriteriaExpression; overload;
     function &Ope(const AExpression: String): ICQLCriteriaExpression; overload;
     function &Ope(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
+    function &Fun(const AExpression: array of const): ICQLCriteriaExpression; overload;
+    function &Fun(const AExpression: String): ICQLCriteriaExpression; overload;
+    function &Fun(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
     function AsString: string;
     function Expression: ICQLExpression;
   end;
@@ -155,7 +159,7 @@ type
     function All: ICQL;
     function Clear: ICQL;
     function ClearAll: ICQL;
-    function Column(const AColumnName: String): ICQL; overload;
+    function Column(const AColumnName: String = ''): ICQL; overload;
     function Column(const ATableName: String; const AColumnName: String): ICQL; overload;
     function Column(const AColumnsName: array of const): ICQL; overload;
     function Column(const ACaseExpression: ICQLCriteriaCase): ICQL; overload;
@@ -197,12 +201,11 @@ type
     function Where(const AExpression: ICQLCriteriaExpression): ICQL; overload;
     function Values(const AColumnName, AColumnValue: String): ICQL; overload;
     function Values(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
-    function AsString: String;
     // Operators functions
-    function Equal(const AValue: String): ICQL; overload;
+    function Equal(const AValue: String = ''): ICQL; overload;
     function Equal(const AValue: Extended): ICQL overload;
     function Equal(const AValue: Integer): ICQL; overload;
-    function NotEqual(const AValue: String): ICQL; overload;
+    function NotEqual(const AValue: String = ''): ICQL; overload;
     function NotEqual(const AValue: Extended): ICQL; overload;
     function NotEqual(const AValue: Integer): ICQL; overload;
     function GreaterThan(const AValue: Extended): ICQL; overload;
@@ -238,6 +241,13 @@ type
     function Max: ICQL;
     function Upper: ICQL;
     function Substring(const AStart: Integer; const ALength: Integer): ICQL;
+    function Date(const AValue: String): ICQL;
+    function Day(const AValue: String): ICQL;
+    function Month(const AValue: String): ICQL;
+    function Year(const AValue: String): ICQL;
+    //
+    function AsFun: ICQLFunctions;
+    function AsString: String;
   end;
 
   ICQLName = interface
@@ -543,7 +553,11 @@ type
     function Max(const AValue: String): String;
     function Upper(const AValue: String): String;
     function Substring(const AVAlue: String; const AFrom, AFor: Integer): String;
-    function Date(const AVAlue: String; const AFormat: String): String;
+    function Date(const AVAlue: String; const AFormat: String): String; overload;
+    function Date(const AVAlue: String): String; overload;
+    function Day(const AValue: String): String;
+    function Month(const AValue: String): String;
+    function Year(const AValue: String): String;
   end;
 
 implementation

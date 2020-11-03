@@ -37,7 +37,11 @@ type
   public
     constructor Create;
     function Substring(const AVAlue: String; const AStart, ALength: Integer): String; override;
-    function Date(const AVAlue: String; const AFormat: String): String; override;
+    function Date(const AVAlue: String; const AFormat: String): String; overload; override;
+    function Date(const AVAlue: String): String; overload; override;
+    function Day(const AValue: String): String; override;
+    function Month(const AValue: String): String; override;
+    function Year(const AValue: String): String; override;
   end;
 
 implementation
@@ -58,10 +62,30 @@ begin
   Result := 'DATE_FORMAT(' + AValue + ', ' + AFormat + ')';
 end;
 
+function TCQLFunctionsMySQL.Date(const AVAlue: String): String;
+begin
+  Result := 'DATE_FORMAT(' + AValue + ', ''yyyy-MM-dd'')';
+end;
+
 function TCQLFunctionsMySQL.Substring(const AVAlue: String; const AStart,
   ALength: Integer): String;
 begin
-  Result := 'Substring(' + AValue + ', ' + IntToStr(AStart) + ', ' + IntToStr(ALength) + ')';
+  Result := 'SUBSTRING(' + AValue + ', ' + IntToStr(AStart) + ', ' + IntToStr(ALength) + ')';
+end;
+
+function TCQLFunctionsMySQL.Day(const AValue: String): String;
+begin
+  Result := 'DAY(' + AValue + ')';
+end;
+
+function TCQLFunctionsMySQL.Month(const AValue: String): String;
+begin
+  Result := 'MONTH(' + AValue + ')';
+end;
+
+function TCQLFunctionsMySQL.Year(const AValue: String): String;
+begin
+  Result := 'YEAR(' + AValue + ')';
 end;
 
 initialization

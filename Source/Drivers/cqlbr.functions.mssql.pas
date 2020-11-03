@@ -37,6 +37,11 @@ type
   public
     constructor Create;
     function Substring(const AVAlue: String; const AStart, ALength: Integer): String; override;
+    function Date(const AVAlue: String; const AFormat: String): String; overload; override;
+    function Date(const AVAlue: String): String; overload; override;
+    function Day(const AValue: String): String; override;
+    function Month(const AValue: String): String; override;
+    function Year(const AValue: String): String; override;
   end;
 
 implementation
@@ -55,7 +60,32 @@ end;
 function TCQLFunctionsMSSQL.Substring(const AVAlue: String; const AStart,
   ALength: Integer): String;
 begin
-  Result := 'Substring(' + AValue + ', ' + IntToStr(AStart) + ', ' + IntToStr(ALength) + ')';
+  Result := 'SUBSTRING(' + AValue + ', ' + IntToStr(AStart) + ', ' + IntToStr(ALength) + ')';
+end;
+
+function TCQLFunctionsMSSQL.Year(const AValue: String): String;
+begin
+  Result := 'YEAR(' + AValue + ')';
+end;
+
+function TCQLFunctionsMSSQL.Date(const AVAlue, AFormat: String): String;
+begin
+  Result := FormatDateTime(AFormat, StrToDateTime(AValue));
+end;
+
+function TCQLFunctionsMSSQL.Date(const AVAlue: String): String;
+begin
+  Result := AValue;
+end;
+
+function TCQLFunctionsMSSQL.Day(const AValue: String): String;
+begin
+  Result := 'DAY(' + AValue + ')';
+end;
+
+function TCQLFunctionsMSSQL.Month(const AValue: String): String;
+begin
+  Result := 'MONTH(' + AValue + ')';
 end;
 
 initialization

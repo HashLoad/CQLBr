@@ -24,38 +24,44 @@
   @author(Site : https://www.isaquepinheiro.com.br)
 }
 
-unit cqlbr.serialize.oracle;
+unit cqlbr.select.interbase;
 
 interface
 
 uses
   SysUtils,
-  cqlbr.db.register,
-  cqlbr.interfaces,
-  cqlbr.serialize;
+  cqlbr.select;
 
 type
-  TCQLSerializeOracle = class(TCQLSerialize)
+  TCQLSelectInterbase = class(TCQLSelect)
   public
-    function AsString(const AAST: ICQLAST): String; override;
+    constructor Create; override;
+    function Serialize: String; override;
   end;
 
 implementation
 
-{ TCQLSerialize }
 
-function TCQLSerializeOracle.AsString(const AAST: ICQLAST): String;
-var
-  LSerializePagination: String;
+uses
+  cqlbr.utils,
+  cqlbr.db.register,
+  cqlbr.interfaces,
+  cqlbr.qualifier.interbase;
+
+{ TCQLSelectInterbase }
+
+constructor TCQLSelectInterbase.Create;
 begin
-  Result := inherited AsString(AAST);
-  LSerializePagination := AAST.Select.Qualifiers.SerializePagination;
-  if LSerializePagination = '' then
-    Exit;
-  Result := Format(LSerializePagination, [Result]);
+  inherited;
+  FQualifiers := TCQLSelectQualifiersInterbase.New;
+end;
+
+function TCQLSelectInterbase.Serialize: String;
+begin
+  Result := inherited Serialize;
 end;
 
 initialization
-  TDBRegister.RegisterSerialize(dbnOracle, TCQLSerializeOracle.Create);
+  TDBRegister.RegisterSelect(dbnInterbase, TCQLSelectInterbase.Create);
 
 end.

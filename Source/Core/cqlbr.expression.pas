@@ -43,6 +43,7 @@ type
     function SerializeAND: String;
     function SerializeOR: String;
     function SerializeOperator: String;
+    function SerializeFunction: String;
   protected
     function GetLeft: ICQLExpression;
     function GetOperation: TExpressionOperation;
@@ -82,6 +83,9 @@ type
     function &Ope(const AExpression: array of const): ICQLCriteriaExpression; overload;
     function &Ope(const AExpression: String): ICQLCriteriaExpression; overload;
     function &Ope(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
+    function &Fun(const AExpression: array of const): ICQLCriteriaExpression; overload;
+    function &Fun(const AExpression: String): ICQLCriteriaExpression; overload;
+    function &Fun(const AExpression: ICQLExpression): ICQLCriteriaExpression; overload;
     function AsString: String;
     function Expression: ICQLExpression;
   end;
@@ -131,7 +135,7 @@ end;
 
 function TCQLExpression.IsEmpty: Boolean;
 begin
-  // Caso não exista a chamada do WHERE pe considerado Empty.
+  // Caso não exista a chamada do WHERE é considerado Empty.
   Result := (FOperation = opNone) and (FTerm = '');
 end;
 
@@ -154,6 +158,8 @@ begin
         Result := SerializeOR;
       opOperation:
         Result := SerializeOperator;
+      opFunction:
+        Result := SerializeFunction;
       else
         raise Exception.Create('TCQLExpression.Serialize: Unknown operation');
     end;
@@ -164,6 +170,12 @@ begin
   Result := TUtils.Concat([FLeft.Serialize(True),
                            'AND',
                            FRight.Serialize(True)]);
+end;
+
+function TCQLExpression.SerializeFunction: String;
+begin
+  Result := TUtils.Concat([FLeft.Serialize(False),
+                           FRight.Serialize(False)]);
 end;
 
 function TCQLExpression.SerializeOperator: String;
@@ -278,6 +290,32 @@ begin
     Result := FExpression
   else
     Result := FindRightmostAnd(AExpression.Right);
+end;
+
+function TCQLCriteriaExpression.Fun(const AExpression: array of const): ICQLCriteriaExpression;
+begin
+  Result := &Fun(TUtils.SqlParamsToStr(AExpression));
+end;
+
+function TCQLCriteriaExpression.Fun(const AExpression: String): ICQLCriteriaExpression;
+var
+  LNode: ICQLExpression;
+begin
+  LNode := TCQLExpression.New;
+  LNode.Term := AExpression;
+  Result := &Fun(LNode);
+end;
+
+function TCQLCriteriaExpression.Fun(const AExpression: ICQLExpression): ICQLCriteriaExpression;
+var
+  LNode: ICQLExpression;
+begin
+  LNode := TCQLExpression.New;
+  LNode.Assign(FLastAnd);
+  FLastAnd.Left := LNode;
+  FLastAnd.Operation := opFunction;
+  FLastAnd.Right := AExpression;
+  Result := Self;
 end;
 
 function TCQLCriteriaExpression.&Or(const AExpression: array of const): ICQLCriteriaExpression;

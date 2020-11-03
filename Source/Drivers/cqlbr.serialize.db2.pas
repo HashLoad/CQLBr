@@ -24,7 +24,7 @@
   @author(Site : https://www.isaquepinheiro.com.br)
 }
 
-unit cqlbr.serialize.oracle;
+unit cqlbr.serialize.db2;
 
 interface
 
@@ -35,7 +35,7 @@ uses
   cqlbr.serialize;
 
 type
-  TCQLSerializeOracle = class(TCQLSerialize)
+  TCQLSerializeDB2 = class(TCQLSerialize)
   public
     function AsString(const AAST: ICQLAST): String; override;
   end;
@@ -44,7 +44,7 @@ implementation
 
 { TCQLSerialize }
 
-function TCQLSerializeOracle.AsString(const AAST: ICQLAST): String;
+function TCQLSerializeDB2.AsString(const AAST: ICQLAST): String;
 var
   LSerializePagination: String;
 begin
@@ -56,6 +56,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSerialize(dbnOracle, TCQLSerializeOracle.Create);
+  TDBRegister.RegisterSerialize(dbnDB2, TCQLSerializeDB2.Create);
 
 end.

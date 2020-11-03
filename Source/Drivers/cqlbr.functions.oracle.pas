@@ -37,6 +37,11 @@ type
   public
     constructor Create;
     function Substring(const AVAlue: String; const AStart, ALength: Integer): String; override;
+    function Date(const AVAlue: String; const AFormat: String): String; overload; override;
+    function Date(const AVAlue: String): String; overload; override;
+    function Day(const AValue: String): String; override;
+    function Month(const AValue: String): String; override;
+    function Year(const AValue: String): String; override;
   end;
 
 implementation
@@ -52,10 +57,35 @@ begin
   inherited;
 end;
 
+function TCQLFunctionsOracle.Date(const AVAlue, AFormat: String): String;
+begin
+  Result := 'TO_DATE(' + AValue + ', ' + AFormat + ')';
+end;
+
+function TCQLFunctionsOracle.Date(const AVAlue: String): String;
+begin
+  Result := 'TO_DATE(' + AValue + ', ''dd/MM/yyyy'')';
+end;
+
+function TCQLFunctionsOracle.Day(const AValue: String): String;
+begin
+  Result := 'EXTRACT(DAY FROM ' + AVAlue + ')';
+end;
+
+function TCQLFunctionsOracle.Month(const AValue: String): String;
+begin
+  Result := 'EXTRACT(MONTH FROM ' + AVAlue + ')';
+end;
+
 function TCQLFunctionsOracle.Substring(const AVAlue: String; const AStart,
   ALength: Integer): String;
 begin
-  Result := 'Substr(' + AValue + ', ' + IntToStr(AStart) + ', ' + IntToStr(ALength) + ')';
+  Result := 'SUBSTR(' + AValue + ', ' + IntToStr(AStart) + ', ' + IntToStr(ALength) + ')';
+end;
+
+function TCQLFunctionsOracle.Year(const AValue: String): String;
+begin
+  Result := 'EXTRACT(YEAR FROM ' + AVAlue + ')';
 end;
 
 initialization

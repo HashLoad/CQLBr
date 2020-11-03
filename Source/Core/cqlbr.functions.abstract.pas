@@ -28,8 +28,11 @@ unit cqlbr.functions.abstract;
 
 interface
 
+uses
+  cqlbr.interfaces;
+
 type
-  TCQLFunctionAbstract = class(TInterfacedObject)
+  TCQLFunctionAbstract = class(TInterfacedObject, ICQLFunctions)
   public
     function Count(const AValue: String): String; virtual; abstract;
     function Upper(const AValue: String): String; virtual; abstract;
@@ -41,7 +44,11 @@ type
     function Substring(const AVAlue: String; const AStart, ALength: Integer): String; virtual; abstract;
     function Cast(const AExpression: String; ADataType: String): String; virtual; abstract;
     function Convert(const ADataType: String; AExpression: String; AStyle: String): String; virtual; abstract;
-    function Date(const AVAlue: String; const AFormat: String): String; virtual; abstract;
+    function Date(const AVAlue: String; const AFormat: String): String; overload; virtual; abstract;
+    function Date(const AVAlue: String): String; overload; virtual; abstract;
+    function Day(const AValue: String): String; virtual; abstract;
+    function Month(const AValue: String): String; virtual; abstract;
+    function Year(const AValue: String): String; virtual; abstract;
   end;
 
 implementation

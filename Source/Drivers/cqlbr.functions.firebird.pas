@@ -36,8 +36,12 @@ type
   TCQLFunctionsFirebird = class(TCQLFunctionAbstract)
   public
     constructor Create;
-    function Substring(const AVAlue: String; const AStart, ALength: Integer): String; override;
-    function Date(const AVAlue: String; const AFormat: String): String; override;
+    function Substring(const AValue: String; const AStart, ALength: Integer): String; override;
+    function Date(const AValue: String; const AFormat: String): String; overload; override;
+    function Date(const AValue: String): String; overload; override;
+    function Day(const AValue: String): String; override;
+    function Month(const AValue: String): String; override;
+    function Year(const AValue: String): String; override;
   end;
 
 implementation
@@ -53,15 +57,35 @@ begin
   inherited;
 end;
 
-function TCQLFunctionsFirebird.Date(const AVAlue: String; const AFormat: String): String;
+function TCQLFunctionsFirebird.Date(const AValue: String; const AFormat: String): String;
 begin
   Result := FormatDateTime(AFormat, StrToDateTime(AValue));
 end;
 
-function TCQLFunctionsFirebird.Substring(const AVAlue: String; const AStart,
+function TCQLFunctionsFirebird.Date(const AValue: String): String;
+begin
+  Result := AValue;
+end;
+
+function TCQLFunctionsFirebird.Day(const AValue: String): String;
+begin
+  Result := 'EXTRACT(DAY FROM ' + AValue + ')';
+end;
+
+function TCQLFunctionsFirebird.Month(const AValue: String): String;
+begin
+  Result := 'EXTRACT(MONTH FROM ' + AValue + ')';
+end;
+
+function TCQLFunctionsFirebird.Substring(const AValue: String; const AStart,
   ALength: Integer): String;
 begin
-  Result := 'Substring(' + AValue + ' FROM ' + IntToStr(AStart) + ' FOR ' + IntToStr(ALength) + ')';
+  Result := 'SUBSTRING(' + AValue + ' FROM ' + IntToStr(AStart) + ' FOR ' + IntToStr(ALength) + ')';
+end;
+
+function TCQLFunctionsFirebird.Year(const AValue: String): String;
+begin
+  Result := 'EXTRACT(YEAR FROM ' + AValue + ')';
 end;
 
 initialization
