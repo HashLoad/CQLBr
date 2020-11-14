@@ -29,7 +29,8 @@ unit cqlbr.delete;
 interface
 
 uses
-  cqlbr.core,
+  cqlbr.name,
+  cqlbr.section,
   cqlbr.interfaces;
 
 type

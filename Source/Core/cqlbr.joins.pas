@@ -37,7 +37,8 @@ uses
   Generics.Collections,
   cqlbr.expression,
   cqlbr.utils,
-  cqlbr.core,
+  cqlbr.section,
+  cqlbr.name,
   cqlbr.interfaces;
 
 type

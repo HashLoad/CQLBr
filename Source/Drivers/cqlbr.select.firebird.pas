@@ -44,7 +44,7 @@ implementation
 
 uses
   cqlbr.utils,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.interfaces,
   cqlbr.qualifier.firebird;
 
@@ -62,6 +62,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSelect(dbnFirebird, TCQLSelectFirebird.Create);
+  TCQLBrRegister.RegisterSelect(dbnFirebird, TCQLSelectFirebird.Create);
 
 end.

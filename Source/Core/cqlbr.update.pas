@@ -29,7 +29,8 @@ unit cqlbr.update;
 interface
 
 uses
-  cqlbr.core,
+  cqlbr.section,
+  cqlbr.namevalue,
   cqlbr.interfaces;
 
 type

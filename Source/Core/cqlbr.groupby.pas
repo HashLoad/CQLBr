@@ -29,7 +29,8 @@ unit cqlbr.groupby;
 interface
 
 uses
-  cqlbr.core,
+  cqlbr.section,
+  cqlbr.name,
   cqlbr.interfaces;
 
 type

@@ -350,7 +350,6 @@
       <Unit40>
         <Filename Value="test.insert.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <TopLine Value="18"/>
         <CursorPos X="5" Y="54"/>
@@ -360,8 +359,9 @@
       <Unit41>
         <Filename Value="test.update.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="24"/>
+        <TopLine Value="15"/>
         <CursorPos Y="29"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>

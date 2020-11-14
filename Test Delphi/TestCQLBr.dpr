@@ -14,7 +14,6 @@ uses
   test.select.firebird in 'test.select.firebird.pas',
   cqlbr.ast in '..\Source\Core\cqlbr.ast.pas',
   cqlbr.cases in '..\Source\Core\cqlbr.cases.pas',
-  cqlbr.core in '..\Source\Core\cqlbr.core.pas',
   cqlbr.delete in '..\Source\Core\cqlbr.delete.pas',
   cqlbr.expression in '..\Source\Core\cqlbr.expression.pas',
   cqlbr.functions.abstract in '..\Source\Core\cqlbr.functions.abstract.pas',
@@ -31,7 +30,7 @@ uses
   cqlbr.update in '..\Source\Core\cqlbr.update.pas',
   cqlbr.where in '..\Source\Core\cqlbr.where.pas',
   cqlbr.utils in '..\Source\Core\cqlbr.utils.pas',
-  cqlbr.db.register in '..\Source\Core\cqlbr.db.register.pas',
+  cqlbr.register in '..\Source\Core\cqlbr.register.pas',
   test.insert.firebird in 'test.insert.firebird.pas',
   test.update.firebird in 'test.update.firebird.pas',
   test.delete.firebird in 'test.delete.firebird.pas',
@@ -79,7 +78,12 @@ uses
   test.functions.db2 in 'test.functions.db2.pas',
   cqlbr.select.db2 in '..\Source\Drivers\cqlbr.select.db2.pas',
   cqlbr.qualifier.db2 in '..\Source\Drivers\cqlbr.qualifier.db2.pas',
-  cqlbr.serialize.db2 in '..\Source\Drivers\cqlbr.serialize.db2.pas';
+  cqlbr.serialize.db2 in '..\Source\Drivers\cqlbr.serialize.db2.pas',
+  test.functions.mssql in 'test.functions.mssql.pas',
+  test.functions.mysql in 'test.functions.mysql.pas',
+  cqlbr.section in '..\Source\Core\cqlbr.section.pas',
+  cqlbr.name in '..\Source\Core\cqlbr.name.pas',
+  cqlbr.namevalue in '..\Source\Core\cqlbr.namevalue.pas';
 
 {$IFNDEF TESTINSIGHT}
 var

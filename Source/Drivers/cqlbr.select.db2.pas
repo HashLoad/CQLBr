@@ -44,7 +44,7 @@ implementation
 uses
   cqlbr.utils,
   cqlbr.interfaces,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.qualifier.oracle;
 
 { TCQLSelectDB2 }
@@ -68,6 +68,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSelect(dbnDB2, TCQLSelectDB2.Create);
+  TCQLBrRegister.RegisterSelect(dbnDB2, TCQLSelectDB2.Create);
 
 end.

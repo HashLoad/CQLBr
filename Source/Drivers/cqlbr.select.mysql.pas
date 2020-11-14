@@ -43,7 +43,7 @@ implementation
 
 uses
   cqlbr.utils,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.interfaces,
   cqlbr.qualifier.mysql;
 
@@ -68,6 +68,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSelect(dbnMySQL, TCQLSelectMySQL.Create);
+  TCQLBrRegister.RegisterSelect(dbnMySQL, TCQLSelectMySQL.Create);
 
 end.

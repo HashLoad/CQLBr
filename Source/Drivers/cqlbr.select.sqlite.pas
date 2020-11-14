@@ -43,7 +43,7 @@ implementation
 
 uses
   cqlbr.utils,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.interfaces,
   cqlbr.qualifier.sqlite;
 
@@ -68,6 +68,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSelect(dbnSQLite, TCQLSelectSQLite.Create);
+  TCQLBrRegister.RegisterSelect(dbnSQLite, TCQLSelectSQLite.Create);
 
 end.

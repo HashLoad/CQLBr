@@ -42,15 +42,37 @@ type
     function Day(const AValue: String): String; override;
     function Month(const AValue: String): String; override;
     function Year(const AValue: String): String; override;
+    function Concat(const AValue: array of string): string; override;
   end;
 
 implementation
 
 uses
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.interfaces;
 
 { TCQLFunctionsMSSQL }
+
+function TCQLFunctionsMSSQL.Concat(const AValue: array of string): string;
+var
+  LFor: Integer;
+  LIni: Integer;
+  LFin: Integer;
+const
+  cCONCAT = 'CONCAT(%s)';
+begin
+  Result := '';
+  LIni := Low(AValue);
+  LFin := High(AValue);
+
+  for LFor := LIni to LFin do
+  begin
+    Result := Result + AValue[LFor];
+    if LFor < LFin then
+      Result := Result + ', ';
+  end;
+  Result := Format(cCONCAT, [Result]);
+end;
 
 constructor TCQLFunctionsMSSQL.Create;
 begin
@@ -89,6 +111,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterFunctions(dbnMSSQL, TCQLFunctionsMSSQL.Create);
+  TCQLBrRegister.RegisterFunctions(dbnMSSQL, TCQLFunctionsMSSQL.Create);
 
 end.

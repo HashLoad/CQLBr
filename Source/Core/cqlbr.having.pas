@@ -29,7 +29,7 @@ unit cqlbr.having;
 interface
 
 uses
-  cqlbr.core,
+  cqlbr.section,
   cqlbr.interfaces;
 
 type

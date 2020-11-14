@@ -1,4 +1,4 @@
-unit test.functions.interbase;
+unit test.functions.mssql;
 
 interface
 
@@ -7,7 +7,7 @@ uses
 
 type
   [TestFixture]
-  TTestCQLFunctionsInterbase = class
+  TTestCQLFunctionsMSSQL = class
   public
     [Setup]
     procedure Setup;
@@ -53,22 +53,22 @@ uses
   cqlbr.interfaces,
   criteria.query.language;
 
-procedure TTestCQLFunctionsInterbase.Setup;
+procedure TTestCQLFunctionsMSSQL.Setup;
 begin
 
 end;
 
-procedure TTestCQLFunctionsInterbase.TearDown;
+procedure TTestCQLFunctionsMSSQL.TearDown;
 begin
 
 end;
 
-procedure TTestCQLFunctionsInterbase.TestUpper;
+procedure TTestCQLFunctionsMSSQL.TestUpper;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT UPPER(NOME_CLIENTE) AS NOME FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .Column('NOME_CLIENTE').Upper
                                       .&As('NOME')
@@ -76,24 +76,24 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestYearSelect;
+procedure TTestCQLFunctionsMSSQL.TestYearSelect;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT EXTRACT(YEAR FROM NASCTO) FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  LAsString := 'SELECT YEAR(NASCTO) FROM CLIENTES';
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .Column.Year('NASCTO')
                                       .From('CLIENTES')
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestYearWhere;
+procedure TTestCQLFunctionsMSSQL.TestYearWhere;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT * FROM CLIENTES WHERE (EXTRACT(YEAR FROM NASCTO) = 9)';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  LAsString := 'SELECT * FROM CLIENTES WHERE (YEAR(NASCTO) = 9)';
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -101,12 +101,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestMin;
+procedure TTestCQLFunctionsMSSQL.TestMin;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT MIN(ID_CLIENTE) AS IDCOUNT FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .Column('ID_CLIENTE').Min
                                       .&As('IDCOUNT')
@@ -114,12 +114,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestMonthWhere;
+procedure TTestCQLFunctionsMSSQL.TestMonthWhere;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT * FROM CLIENTES WHERE (EXTRACT(MONTH FROM NASCTO) = 9)';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  LAsString := 'SELECT * FROM CLIENTES WHERE (MONTH(NASCTO) = 9)';
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -127,24 +127,24 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestMonthSelect;
+procedure TTestCQLFunctionsMSSQL.TestMonthSelect;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT EXTRACT(MONTH FROM NASCTO) FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  LAsString := 'SELECT MONTH(NASCTO) FROM CLIENTES';
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .Column.Month('NASCTO')
                                       .From('CLIENTES')
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestSubstring;
+procedure TTestCQLFunctionsMSSQL.TestSubstring;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT SUBSTRING(NOME_CLIENTE FROM 1 FOR 2) AS NOME FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  LAsString := 'SELECT SUBSTRING(NOME_CLIENTE, 1, 2) AS NOME FROM CLIENTES';
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .Column('NOME_CLIENTE').Substring(1, 2)
                                       .&As('NOME')
@@ -152,12 +152,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestLower;
+procedure TTestCQLFunctionsMSSQL.TestLower;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT LOWER(NOME_CLIENTE) AS NOME FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .Column('NOME_CLIENTE').Lower
                                       .&As('NOME')
@@ -165,12 +165,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestMax;
+procedure TTestCQLFunctionsMSSQL.TestMax;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT MAX(ID_CLIENTE) AS IDCOUNT FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .Column('ID_CLIENTE').Max
                                       .&As('IDCOUNT')
@@ -178,24 +178,24 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestConcatSelect;
+procedure TTestCQLFunctionsMSSQL.TestConcatSelect;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT ''-'' || NOME FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  LAsString := 'SELECT CONCAT(''-'', NOME) FROM CLIENTES';
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                  .Select
                                  .Column.Concat(['''-''', 'NOME'])
                                  .From('CLIENTES')
                                  .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestConcatWhere;
+procedure TTestCQLFunctionsMSSQL.TestConcatWhere;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT ''-'' || NOME FROM CLIENTES WHERE (''-'' || NOME = ''-NOME'')';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  LAsString := 'SELECT CONCAT(''-'', NOME) FROM CLIENTES WHERE (CONCAT(''-'', NOME) = ''-NOME'')';
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                  .Select
                                  .Column.Concat(['''-''', 'NOME'])
                                  .From('CLIENTES')
@@ -203,12 +203,12 @@ begin
                                  .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestCount;
+procedure TTestCQLFunctionsMSSQL.TestCount;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT COUNT(ID_CLIENTE) AS IDCOUNT FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .Column('ID_CLIENTE').Count
                                       .&As('IDCOUNT')
@@ -216,12 +216,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestDate;
+procedure TTestCQLFunctionsMSSQL.TestDate;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES WHERE NASCTO = ''02/11/2020''';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                  .Select
                                  .All
                                  .From('CLIENTES')
@@ -229,24 +229,24 @@ begin
                                  .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestDaySelect;
+procedure TTestCQLFunctionsMSSQL.TestDaySelect;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT EXTRACT(DAY FROM NASCTO) FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  LAsString := 'SELECT DAY(NASCTO) FROM CLIENTES';
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .Column.Day('NASCTO')
                                       .From('CLIENTES')
                                       .AsString);
 end;
 
-procedure TTestCQLFunctionsInterbase.TestDayWhere;
+procedure TTestCQLFunctionsMSSQL.TestDayWhere;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT * FROM CLIENTES WHERE (EXTRACT(DAY FROM NASCTO) = 9)';
-  Assert.AreEqual(LAsString, TCQL.New(dbnInterbase)
+  LAsString := 'SELECT * FROM CLIENTES WHERE (DAY(NASCTO) = 9)';
+  Assert.AreEqual(LAsString, TCQL.New(dbnMSSQL)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -255,6 +255,6 @@ begin
 end;
 
 initialization
-  TDUnitX.RegisterTestFixture(TTestCQLFunctionsInterbase);
+  TDUnitX.RegisterTestFixture(TTestCQLFunctionsMSSQL);
 
 end.

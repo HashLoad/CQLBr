@@ -30,7 +30,7 @@ interface
 
 uses
   SysUtils,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.interfaces,
   cqlbr.serialize;
 
@@ -50,6 +50,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSerialize(dbnInterbase, TCQLSerializerInterbase.Create);
+  TCQLBrRegister.RegisterSerialize(dbnInterbase, TCQLSerializerInterbase.Create);
 
 end.

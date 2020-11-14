@@ -44,7 +44,7 @@ implementation
 
 uses
   cqlbr.utils,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.qualifier.mssql;
 
 { TCQLSelectMSSQL }
@@ -87,6 +87,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSelect(dbnMSSQL, TCQLSelectMSSQL.Create);
+  TCQLBrRegister.RegisterSelect(dbnMSSQL, TCQLSelectMSSQL.Create);
 
 end.

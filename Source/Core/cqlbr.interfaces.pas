@@ -245,6 +245,7 @@ type
     function Day(const AValue: String): ICQL;
     function Month(const AValue: String): ICQL;
     function Year(const AValue: String): ICQL;
+    function Concat(const AValue: array of string): ICQL;
     //
     function AsFun: ICQLFunctions;
     function AsString: String;
@@ -558,6 +559,7 @@ type
     function Day(const AValue: String): String;
     function Month(const AValue: String): String;
     function Year(const AValue: String): String;
+    function Concat(const AValue: array of string): String;
   end;
 
 implementation

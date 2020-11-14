@@ -29,7 +29,9 @@ unit cqlbr.insert;
 interface
 
 uses
-  cqlbr.core,
+  cqlbr.section,
+  cqlbr.name,
+  cqlbr.namevalue,
   cqlbr.interfaces;
 
 type
