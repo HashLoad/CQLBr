@@ -40,6 +40,10 @@ type
     procedure TestYearSelect;
     [Test]
     procedure TestDate;
+    [Test]
+    procedure TestConcatSelect;
+    [Test]
+    procedure TestConcatWhere;
    end;
 
 implementation
@@ -172,6 +176,31 @@ begin
                                       .&As('IDCOUNT')
                                       .From('CLIENTES')
                                       .AsString);
+end;
+
+procedure TTestCQLFunctionsOracle.TestConcatSelect;
+var
+  LAsString: String;
+begin
+  LAsString := 'SELECT ''-'' || NOME FROM CLIENTES';
+  Assert.AreEqual(LAsString, TCQL.New(dbnOracle)
+                                 .Select
+                                 .Column.Concat(['''-''', 'NOME'])
+                                 .From('CLIENTES')
+                                 .AsString);
+end;
+
+procedure TTestCQLFunctionsOracle.TestConcatWhere;
+var
+  LAsString: String;
+begin
+  LAsString := 'SELECT ''-'' || NOME FROM CLIENTES WHERE (''-'' || NOME = ''-NOME'')';
+  Assert.AreEqual(LAsString, TCQL.New(dbnOracle)
+                                 .Select
+                                 .Column.Concat(['''-''','NOME'])
+                                 .From('CLIENTES')
+                                 .Where.Concat(['''-''', 'NOME']).Equal('''-NOME''')
+                                 .AsString);
 end;
 
 procedure TTestCQLFunctionsOracle.TestCount;

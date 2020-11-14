@@ -24,38 +24,47 @@
   @author(Site : https://www.isaquepinheiro.com.br)
 }
 
-unit cqlbr.serialize.db2;
+unit cqlbr.section;
+
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
 
 interface
 
 uses
   SysUtils,
-  cqlbr.register,
-  cqlbr.interfaces,
-  cqlbr.serialize;
+  Generics.Collections,
+  cqlbr.interfaces;
 
 type
-  TCQLSerializeDB2 = class(TCQLSerialize)
+  TCQLSection = class(TInterfacedObject, ICQLSection)
+  private
+    FName: String;
+  protected
+    function GetName: String;
   public
-    function AsString(const AAST: ICQLAST): String; override;
+    constructor Create(ASectionName: String);
+    procedure Clear; virtual; abstract;
+    function IsEmpty: Boolean; virtual; abstract;
+    property Name: String read GetName;
   end;
 
 implementation
 
-{ TCQLSerialize }
+uses
+  cqlbr.utils;
 
-function TCQLSerializeDB2.AsString(const AAST: ICQLAST): String;
-var
-  LSerializePagination: String;
+{ TCQLSection }
+
+constructor TCQLSection.Create(ASectionName: String);
 begin
-  Result := inherited AsString(AAST);
-  LSerializePagination := AAST.Select.Qualifiers.SerializePagination;
-  if LSerializePagination = '' then
-    Exit;
-  Result := Format(LSerializePagination, [Result]);
+  FName := ASectionName;
 end;
 
-initialization
-  TCQLBrRegister.RegisterSerialize(dbnDB2, TCQLSerializeDB2.Create);
+function TCQLSection.GetName: String;
+begin
+  Result := FName;
+end;
 
 end.

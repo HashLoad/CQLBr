@@ -29,7 +29,8 @@ unit cqlbr.orderby;
 interface
 
 uses
-  cqlbr.core,
+  cqlbr.section,
+  cqlbr.name,
   cqlbr.utils,
   cqlbr.interfaces;
 

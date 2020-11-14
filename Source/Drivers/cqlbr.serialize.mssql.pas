@@ -31,7 +31,7 @@ interface
 uses
   SysUtils,
   cqlbr.utils,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.interfaces,
   cqlbr.serialize;
 
@@ -50,9 +50,7 @@ var
   LWhere: String;
 begin
   LWhere := AAST.Where.Serialize;
-  /// <summary>
-  ///   Gera sintaxe para caso exista comando de paginação.
-  /// </summary>
+  // Gera sintaxe para caso exista comando de paginação.
   if AAST.Select.Qualifiers.ExecutingPagination then
   begin
     if LWhere = '' then
@@ -72,6 +70,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSerialize(dbnMSSQL, TCQLSerializerMSSQL.Create);
+  TCQLBrRegister.RegisterSerialize(dbnMSSQL, TCQLSerializerMSSQL.Create);
 
 end.

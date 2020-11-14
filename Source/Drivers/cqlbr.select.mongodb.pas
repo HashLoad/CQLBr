@@ -44,7 +44,7 @@ implementation
 
 uses
   cqlbr.utils,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.interfaces,
   cqlbr.qualifier.mongodb;
 
@@ -71,6 +71,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSelect(dbnMongoDB, TCQLSelectMongoDB.Create);
+  TCQLBrRegister.RegisterSelect(dbnMongoDB, TCQLSelectMongoDB.Create);
 
 end.

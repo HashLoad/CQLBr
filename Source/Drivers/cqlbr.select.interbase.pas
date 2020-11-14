@@ -44,7 +44,7 @@ implementation
 
 uses
   cqlbr.utils,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.interfaces,
   cqlbr.qualifier.interbase;
 
@@ -62,6 +62,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSelect(dbnInterbase, TCQLSelectInterbase.Create);
+  TCQLBrRegister.RegisterSelect(dbnInterbase, TCQLSelectInterbase.Create);
 
 end.

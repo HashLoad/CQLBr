@@ -31,7 +31,8 @@ interface
 uses
   cqlbr.interfaces,
   cqlbr.qualifier,
-  cqlbr.core;
+  cqlbr.section,
+  cqlbr.name;
 
 type
   TCQLSelect = class(TCQLSection, ICQLSelect)

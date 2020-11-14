@@ -29,7 +29,7 @@ unit cqlbr.where;
 interface
 
 uses
-  cqlbr.core,
+  cqlbr.section,
   cqlbr.expression,
   cqlbr.interfaces;
 

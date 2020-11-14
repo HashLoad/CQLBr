@@ -29,8 +29,7 @@ unit cqlbr.ast;
 interface
 
 uses
-  cqlbr.interfaces,
-  cqlbr.core;
+  cqlbr.interfaces;
 
 type
   TCQLAST = class(TInterfacedObject, ICQLAST)
@@ -81,7 +80,7 @@ type
 implementation
 
 uses
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.select,
   cqlbr.orderby,
   cqlbr.where,
@@ -109,14 +108,14 @@ end;
 
 constructor TCQLAST.Create(const ADatabase: TDBName);
 begin
-  FSelect := TDBRegister.Select(ADatabase);
+  FSelect := TCQLBrRegister.Select(ADatabase);
   if FSelect = nil then
     FSelect := TCQLSelect.Create;
   FDelete := TCQLDelete.Create;
   FInsert := TCQLInsert.Create;
   FUpdate := TCQLUpdate.Create;
   FJoins := TCQLJoins.Create;
-  FWhere := TDBRegister.Where(ADatabase);
+  FWhere := TCQLBrRegister.Where(ADatabase);
   if FWhere = nil then
     FWhere := TCQLWhere.Create;
   FGroupBy := TCQLGroupBy.Create;

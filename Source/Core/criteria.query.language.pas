@@ -35,7 +35,6 @@ uses
   cqlbr.interfaces,
   cqlbr.cases,
   cqlbr.select,
-  cqlbr.core,
   cqlbr.utils,
   cqlbr.serialize,
   cqlbr.qualifier,
@@ -191,6 +190,7 @@ type
     function Day(const AValue: String): ICQL;
     function Month(const AValue: String): ICQL;
     function Year(const AValue: String): ICQL;
+    function Concat(const AValue: array of string): ICQL;
     // Result full command sql
     function AsFun: ICQLFunctions;
     function AsString: String;
@@ -199,7 +199,7 @@ type
 implementation
 
 uses
-  cqlbr.db.register;
+  cqlbr.register;
 
 { TCQL }
 
@@ -347,7 +347,7 @@ end;
 
 function TCQL.AsString: String;
 begin
-  Result := TDBRegister.Serialize(FDatabase).AsString(FAST);
+  Result := TCQLBrRegister.Serialize(FDatabase).AsString(FAST);
   FActiveOperator := opeNone;
 end;
 
@@ -389,6 +389,17 @@ begin
   end
   else
     raise Exception.CreateFmt('Current section [%s] does not support COLUMN.', [FAST.ASTSection.Name]);
+  Result := Self;
+end;
+
+function TCQL.Concat(const AValue: array of string): ICQL;
+begin
+  AssertSection([secSelect, secJoin, secWhere]);
+  AssertHaveName;
+  case FActiveSection of
+    secSelect: FAST.ASTName.Name := FFunction.Concat(AValue);
+    secWhere: FActiveExpr.&Fun(FFunction.Concat(AValue));
+  end;
   Result := Self;
 end;
 

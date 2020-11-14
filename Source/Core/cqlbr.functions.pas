@@ -53,15 +53,16 @@ type
     function Convert(const ADataType: String; AExpression: String; AStyle: String): String; override;
     function Date(const AVAlue: String; const AFormat: String): String; overload; override;
     function Date(const AVAlue: String): String; overload; override;
-    function Day(const AValue: String): String; overload;
-    function Month(const AValue: String): String; overload;
-    function Year(const AValue: String): String; overload;
+    function Day(const AValue: String): String; override;
+    function Month(const AValue: String): String; override;
+    function Year(const AValue: String): String; override;
+    function Concat(const AValue: array of string): String; override;
   end;
 
 implementation
 
 uses
-  cqlbr.db.register;
+  cqlbr.register;
 
 { TCQLFunctions }
 
@@ -77,7 +78,7 @@ end;
 
 function TCQLFunctions.Substring(const AVAlue: String; const AStart, ALength: Integer): String;
 begin
-  Result := TDBRegister.Functions(FDatabase).Substring(AValue, AStart, ALength);
+  Result := TCQLBrRegister.Functions(FDatabase).Substring(AValue, AStart, ALength);
 end;
 
 function TCQLFunctions.Sum(const AValue: String): String;
@@ -87,17 +88,17 @@ end;
 
 function TCQLFunctions.Date(const AVAlue: String): String;
 begin
-  Result := TDBRegister.Functions(FDatabase).Date(AVAlue);
+  Result := TCQLBrRegister.Functions(FDatabase).Date(AVAlue);
 end;
 
 function TCQLFunctions.Date(const AVAlue, AFormat: String): String;
 begin
-  Result := TDBRegister.Functions(FDatabase).Date(AVAlue, AFormat);
+  Result := TCQLBrRegister.Functions(FDatabase).Date(AVAlue, AFormat);
 end;
 
 function TCQLFunctions.Day(const AValue: String): String;
 begin
-  Result := TDBRegister.Functions(FDatabase).Day(AVAlue);
+  Result := TCQLBrRegister.Functions(FDatabase).Day(AVAlue);
 end;
 
 function TCQLFunctions.Cast(const AExpression: String; ADataType: String): String;
@@ -108,6 +109,11 @@ end;
 function TCQLFunctions.Coalesce(const AValues: array of String): String;
 begin
   Result := '';
+end;
+
+function TCQLFunctions.Concat(const AValue: array of string): string;
+begin
+  Result := TCQLBrRegister.Functions(FDatabase).Concat(AVAlue);
 end;
 
 function TCQLFunctions.Convert(const ADataType: String; AExpression: String; AStyle: String): String;
@@ -142,7 +148,7 @@ end;
 
 function TCQLFunctions.Month(const AValue: String): String;
 begin
-  Result := TDBRegister.Functions(FDatabase).Month(AVAlue);
+  Result := TCQLBrRegister.Functions(FDatabase).Month(AVAlue);
 end;
 
 function TCQLFunctions.Upper(const AValue: String): String;
@@ -152,7 +158,7 @@ end;
 
 function TCQLFunctions.Year(const AValue: String): String;
 begin
-  Result := TDBRegister.Functions(FDatabase).Year(AVAlue);
+  Result := TCQLBrRegister.Functions(FDatabase).Year(AVAlue);
 end;
 
 end.

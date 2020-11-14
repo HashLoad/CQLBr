@@ -49,6 +49,7 @@ type
     function Day(const AValue: String): String; virtual; abstract;
     function Month(const AValue: String): String; virtual; abstract;
     function Year(const AValue: String): String; virtual; abstract;
+    function Concat(const AValue: array of string): String; virtual; abstract;
   end;
 
 implementation

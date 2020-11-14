@@ -31,7 +31,7 @@ interface
 uses
   SysUtils,
   cqlbr.utils,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.interfaces,
   cqlbr.serialize;
 
@@ -52,6 +52,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSerialize(dbnMySQL, TCQLSerializerMySQL.Create);
+  TCQLBrRegister.RegisterSerialize(dbnMySQL, TCQLSerializerMySQL.Create);
 
 end.

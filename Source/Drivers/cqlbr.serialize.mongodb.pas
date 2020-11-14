@@ -30,7 +30,7 @@ interface
 
 uses
   SysUtils,
-  cqlbr.db.register,
+  cqlbr.register,
   cqlbr.interfaces,
   cqlbr.serialize;
 
@@ -50,6 +50,6 @@ begin
 end;
 
 initialization
-  TDBRegister.RegisterSerialize(dbnMongoDB, TCQLSerializerMongoDB.Create);
+  TCQLBrRegister.RegisterSerialize(dbnMongoDB, TCQLSerializerMongoDB.Create);
 
 end.
