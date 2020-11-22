@@ -1,8 +1,7 @@
 {
-         CQL Brasil - Criteria Query Language for Delphi/Lazarus
+      ORM Brasil é um ORM simples e descomplicado para quem utiliza Delphi
 
-
-                   Copyright (c) 2019, Isaque Pinheiro
+                   Copyright (c) 2016, Isaque Pinheiro
                           All rights reserved.
 
                     GNU Lesser General Public License
@@ -18,15 +17,19 @@
        arquivo LICENSE na pasta principal.
 }
 
-{ @abstract(CQLBr Framework)
-  @created(18 Jul 2019)
-  @author(Isaque Pinheiro <isaquesp@gmail.com>)
-  @author(Site : https://www.isaquepinheiro.com.br)
+{ @abstract(ORMBr Framework.)
+  @created(20 Jul 2016)
+  @author(Isaque Pinheiro <isaquepsp@gmail.com>)
+  @author(Skype : ispinheiro)
+
+  ORM Brasil é um ORM simples e descomplicado para quem utiliza Delphi.
 }
 
 {
   Compiler				CompilerVersion	Defined Symbol	Used BPL
-  Delphi 10.2 Rio		33 				VER323			26
+  Delphi 10.5 ??        35 				VER350			28
+  Delphi 10.4 Sidney    34 				VER340			27
+  Delphi 10.3 Rio		33 				VER330			26
   Delphi 10.2 Tokyo		32 				VER320			25
   Delphi 10.1 Berlin	31				VER310			24
   Delphi 10 Seattle		30				VER300          23
@@ -41,8 +44,12 @@
   Delphi 2010 	        21 				VER210          14
 }
 
-{.$DEFINE LOAD_DYNAMICALLY}
 {.$DEFINE FMX}
+{.$DEFINE LOAD_DYNAMICALLY}
+{.$DEFINE DRIVERRESTFUL}
+{.$DEFINE USEFDMEMTABLE}
+{.$DEFINE USECLIENTDATASET}
+{.$DEFINE CACHEGENERATORSQL}
 
 {$IFDEF FMX}
   {$DEFINE HAS_FMX}
@@ -50,7 +57,52 @@
   {$DEFINE HAS_VCL}
 {$ENDIF}
 
+{$IFDEF USEFDMEMTABLE}
+  {$DEFINE USEMEMDATASET}
+{$ENDIF}
+
+{$IFDEF USECLIENTDATASET}
+  {$DEFINE USEMEMDATASET}
+{$ENDIF}
+
 // Delphi ???
+{$IFDEF VER350}
+  {$DEFINE DELPHI14_UP}
+  {$DEFINE DELPHI15_UP}
+  {$DEFINE DELPHI16_UP}
+  {$DEFINE DELPHI17_UP}
+  {$DEFINE DELPHI18_UP}
+  {$DEFINE DELPHI19_UP}
+  {$DEFINE DELPHI20_UP}
+  {$DEFINE DELPHI21_UP}
+  {$DEFINE DELPHI22_UP}
+  {$DEFINE DELPHI23_UP}
+  {$DEFINE DELPHI24_UP}
+  {$DEFINE DELPHI25_UP}
+  {$DEFINE DELPHI26_UP}
+  {$DEFINE DELPHI27_UP}
+  {$DEFINE DELPHI28_UP}
+{$ENDIF}
+
+// Delphi Sidney
+{$IFDEF VER340}
+  {$DEFINE DELPHI14_UP}
+  {$DEFINE DELPHI15_UP}
+  {$DEFINE DELPHI16_UP}
+  {$DEFINE DELPHI17_UP}
+  {$DEFINE DELPHI18_UP}
+  {$DEFINE DELPHI19_UP}
+  {$DEFINE DELPHI20_UP}
+  {$DEFINE DELPHI21_UP}
+  {$DEFINE DELPHI22_UP}
+  {$DEFINE DELPHI23_UP}
+  {$DEFINE DELPHI24_UP}
+  {$DEFINE DELPHI25_UP}
+  {$DEFINE DELPHI26_UP}
+  {$DEFINE DELPHI27_UP}
+{$ENDIF}
+
+// Delphi Rio
 {$IFDEF VER330}
   {$DEFINE DELPHI14_UP}
   {$DEFINE DELPHI15_UP}
@@ -67,7 +119,7 @@
   {$DEFINE DELPHI26_UP}
 {$ENDIF}
 
-// Delphi TOKYO
+// Delphi Tokyo
 {$IFDEF VER320}
   {$DEFINE DELPHI14_UP}
   {$DEFINE DELPHI15_UP}
