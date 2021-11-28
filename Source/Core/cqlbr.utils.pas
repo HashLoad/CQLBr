@@ -40,6 +40,9 @@ type
   public
     class function Concat(const AElements: array of String; const ADelimiter: String = ' '): String;
     class function SqlParamsToStr(const AParams: array of const): String;
+    class function DateToSQLFormat(const ADBName: TDBName; const AValue: TDate): string;
+    class function DateTimeToSQLFormat(const ADBName: TDBName; const AValue: TDateTime): string;
+    class function GuidStrToSQLFormat(const ADBName: TDBName; const AValue: TGUID): string;
   end;
 
 implementation
@@ -53,6 +56,65 @@ begin
   for LValue in AElements do
     if LValue <> '' then
       Result := AddToList(Result, ADelimiter, LValue);
+end;
+
+class function TUtils.DateTimeToSQLFormat(const ADBName: TDBName;
+  const AValue: TDateTime): string;
+begin
+  case ADBName of
+    dbnFirebird,
+    dbnAbsoluteDB,
+    dbnInterbase: Result := FormatDateTime('mm/dd/yyyy hh:nn:ss', AValue);
+
+    dbnMSSQL,
+    dbnMySQL,
+    dbnSQLite,
+    dbnDB2,
+    dbnOracle,
+    dbnInformix,
+    dbnPostgreSQL,
+    dbnADS,
+    dbnASA,
+    dbnMongoDB,
+    dbnElevateDB,
+    dbnNexusDB: Result := FormatDateTime('yyyy-mm-dd hh:nn:ss', AValue);
+  end;
+
+end;
+
+class function TUtils.DateToSQLFormat(const ADBName: TDBName;
+  const AValue: TDate): string;
+begin
+  case ADBName of
+    dbnFirebird,
+    dbnAbsoluteDB,
+    dbnInterbase: Result := FormatDateTime('mm/dd/yyyy', AValue);
+
+    dbnMSSQL,
+    dbnMySQL,
+    dbnSQLite,
+    dbnDB2,
+    dbnOracle,
+    dbnInformix,
+    dbnPostgreSQL,
+    dbnADS,
+    dbnASA,
+    dbnMongoDB,
+    dbnElevateDB,
+    dbnNexusDB: Result := FormatDateTime('yyyy-mm-dd', AValue);
+  end;
+end;
+
+class function TUtils.GuidStrToSQLFormat(const ADBName: TDBName;
+  const AValue: TGUID): string;
+begin
+  case ADBName of
+    dbnFirebird,
+    dbnInterbase: Result := Format('CHAR_TO_UUID(''%s'')', [AValue.ToString.Trim(['{', '}'])]);
+
+    else
+      raise Exception.Create('Conversão de Guid no formato string não implementada.');
+  end;
 end;
 
 class function TUtils.AddToList(const AList, ADelimiter, ANewElement: String): String;

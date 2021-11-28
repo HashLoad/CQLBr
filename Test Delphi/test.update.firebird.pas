@@ -40,12 +40,18 @@ end;
 procedure TTestCQLUpdate.TestUpdateFirebird;
 var
   LAsString: String;
+  LDate: TDate;
+  LDateTime: TDateTime;
 begin
-  LAsString := 'UPDATE CLIENTES SET ID_CLIENTE = ''1'', NOME_CLIENTE = ''MyName''';
+  LAsString := 'UPDATE CLIENTES SET ID_CLIENTE = ''1'', NOME_CLIENTE = ''MyName'', DATA_CADASTRO = ''12/31/2021'', DATA_ALTERACAO = ''12/31/2021 23:59:59''';
+  LDate := EncodeDate(2021, 12, 31);
+  LDateTime := EncodeDate(2021, 12, 31)+EncodeTime(23, 59, 59, 0);
   Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
                                       .Update('CLIENTES')
                                       .&Set('ID_CLIENTE', '1')
                                       .&Set('NOME_CLIENTE', 'MyName')
+                                      .&Set('DATA_CADASTRO', LDate)
+                                      .&Set('DATA_ALTERACAO', LDateTime)
                                       .AsString);
 end;
 
