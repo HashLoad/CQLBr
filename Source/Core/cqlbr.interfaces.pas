@@ -156,6 +156,9 @@ type
     function &Set(const AColumnName: String; AColumnValue: Integer): ICQL; overload;
     function &Set(const AColumnName: String; AColumnValue: Extended): ICQL; overload;
     function &Set(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
+    function &Set(const AColumnName: String; const AColumnValue: TDate): ICQL; overload;
+    function &Set(const AColumnName: String; const AColumnValue: TDateTime): ICQL; overload;
+    function &Set(const AColumnName: String; const AColumnValue: TGUID): ICQL; overload;
     function All: ICQL;
     function Clear: ICQL;
     function ClearAll: ICQL;
@@ -205,17 +208,31 @@ type
     function Equal(const AValue: String = ''): ICQL; overload;
     function Equal(const AValue: Extended): ICQL overload;
     function Equal(const AValue: Integer): ICQL; overload;
+    function Equal(const AValue: TDate): ICQL; overload;
+    function Equal(const AValue: TDateTime): ICQL; overload;
+    function Equal(const AValue: TGUID): ICQL; overload;
     function NotEqual(const AValue: String = ''): ICQL; overload;
     function NotEqual(const AValue: Extended): ICQL; overload;
     function NotEqual(const AValue: Integer): ICQL; overload;
+    function NotEqual(const AValue: TDate): ICQL; overload;
+    function NotEqual(const AValue: TDateTime): ICQL; overload;
+    function NotEqual(const AValue: TGUID): ICQL; overload;
     function GreaterThan(const AValue: Extended): ICQL; overload;
     function GreaterThan(const AValue: Integer) : ICQL; overload;
+    function GreaterThan(const AValue: TDate): ICQL; overload;
+    function GreaterThan(const AValue: TDateTime): ICQL; overload;
     function GreaterEqThan(const AValue: Extended): ICQL; overload;
     function GreaterEqThan(const AValue: Integer) : ICQL; overload;
+    function GreaterEqThan(const AValue: TDate): ICQL; overload;
+    function GreaterEqThan(const AValue: TDateTime): ICQL; overload;
     function LessThan(const AValue: Extended): ICQL; overload;
     function LessThan(const AValue: Integer) : ICQL; overload;
+    function LessThan(const AValue: TDate): ICQL; overload;
+    function LessThan(const AValue: TDateTime): ICQL; overload;
     function LessEqThan(const AValue: Extended): ICQL; overload;
     function LessEqThan(const AValue: Integer) : ICQL; overload;
+    function LessEqThan(const AValue: TDate) : ICQL; overload;
+    function LessEqThan(const AValue: TDateTime) : ICQL; overload;
     function IsNull: ICQL;
     function IsNotNull: ICQL;
     function Like(const AValue: String): ICQL;
@@ -490,7 +507,7 @@ type
                           fcLikeFull, fcLikeLeft, fcLikeRight,
                           fcNotLikeFull, fcNotLikeLeft, fcNotLikeRight, fcLike, fcNotLike
                           );
-  TCQLDataFieldType = (dftUnknown, dftString, dftInteger, dftFloat, dftDate, dftArray, dftText);
+  TCQLDataFieldType = (dftUnknown, dftString, dftInteger, dftFloat, dftDate, dftArray, dftText, dftDateTime, dftGuid);
 
   ICQLOperator = interface
     ['{A07D4935-0C52-4D8A-A3CF-5837AFE01C75}']
@@ -515,17 +532,31 @@ type
     function IsEqual(const AValue: Extended) : String; overload;
     function IsEqual(const AValue: Integer): String; overload;
     function IsEqual(const AValue: String): String; overload;
+    function IsEqual(const AValue: TDate): String; overload;
+    function IsEqual(const AValue: TDateTime): String; overload;
+    function IsEqual(const AValue: TGUID): String; overload;
     function IsNotEqual(const AValue: Extended): String; overload;
     function IsNotEqual(const AValue: Integer): String; overload;
     function IsNotEqual(const AValue: String): String; overload;
+    function IsNotEqual(const AValue: TDate): String; overload;
+    function IsNotEqual(const AValue: TDateTime): String; overload;
+    function IsNotEqual(const AValue: TGUID): String; overload;
     function IsGreaterThan(const AValue: Extended): String; overload;
     function IsGreaterThan(const AValue: Integer): String; overload;
+    function IsGreaterThan(const AValue: TDate): String; overload;
+    function IsGreaterThan(const AValue: TDateTime): String; overload;
     function IsGreaterEqThan(const AValue: Extended): String; overload;
     function IsGreaterEqThan(const AValue: Integer): String; overload;
+    function IsGreaterEqThan(const AValue: TDate): String; overload;
+    function IsGreaterEqThan(const AValue: TDateTime): String; overload;
     function IsLessThan(const AValue: Extended): String; overload;
     function IsLessThan(const AValue: Integer): String; overload;
+    function IsLessThan(const AValue: TDate): String; overload;
+    function IsLessThan(const AValue: TDateTime): String; overload;
     function IsLessEqThan(const AValue: Extended): String; overload;
     function IsLessEqThan(const AValue: Integer) : String; overload;
+    function IsLessEqThan(const AValue: TDate) : String; overload;
+    function IsLessEqThan(const AValue: TDateTime) : String; overload;
     function IsNull: String;
     function IsNotNull: String;
     function IsLike(const AValue: String): String;
