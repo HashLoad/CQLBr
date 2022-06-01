@@ -1,8 +1,12 @@
 # Add any directories, files, or patterns you don't want to be tracked by version control
 *.dcu
 *.bpl
+*.map
+*.exe
+*.tvsconfig
+*.txaPackage
+*.local
+*.identcache
+*.stat
 __history/
 __recovery/
-Win32/
-*.exe
-*.bak
