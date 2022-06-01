@@ -21,11 +21,19 @@ type
     [Test]
     procedure TestEqualStringField;
     [Test]
+    procedure TestEqualDateField;
+    [Test]
+    procedure TestEqualDateTimeField;
+    [Test]
     procedure TestNotEqualIntegerField;
     [Test]
     procedure TestNotEqualFloatField;
     [Test]
     procedure TestNotEqualStringField;
+    [Test]
+    procedure TestNotEqualDateField;
+    [Test]
+    procedure TestNotEqualDateTimeField;
    end;
 
 implementation
@@ -45,6 +53,36 @@ begin
 
 end;
 
+
+procedure TTestCQLOperatorsEqual.TestEqualDateField;
+var
+  LAsString : string;
+  LDate: TDate;
+begin
+  LAsString := 'SELECT * FROM CLIENTES WHERE (DATA_CADASTRO = ''12/31/2021'')';
+  LDate := EncodeDate(2021, 12, 31);
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+                                 .Select
+                                 .All
+                                 .From('CLIENTES')
+                                 .Where('DATA_CADASTRO').Equal(LDate)
+                                 .AsString);
+end;
+
+procedure TTestCQLOperatorsEqual.TestEqualDateTimeField;
+var
+  LAsString : string;
+  LDateTime: TDateTime;
+begin
+  LAsString := 'SELECT * FROM CLIENTES WHERE (DATA_CADASTRO = ''12/31/2021 23:59:59'')';
+  LDateTime := EncodeDate(2021, 12, 31)+EncodeTime(23, 59, 59, 0);
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+                                 .Select
+                                 .All
+                                 .From('CLIENTES')
+                                 .Where('DATA_CADASTRO').Equal(LDateTime)
+                                 .AsString);
+end;
 
 procedure TTestCQLOperatorsEqual.TestEqualFloatField;
 var
@@ -82,6 +120,36 @@ begin
                                  .All
                                  .From('CLIENTES')
                                  .Where('NOME').Equal('''VALUE''')
+                                 .AsString);
+end;
+
+procedure TTestCQLOperatorsEqual.TestNotEqualDateField;
+var
+  LAsString : string;
+  LDate: TDate;
+begin
+  LAsString := 'SELECT * FROM CLIENTES WHERE (DATA_CADASTRO <> ''12/31/2021'')';
+  LDate := EncodeDate(2021, 12, 31);
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+                                 .Select
+                                 .All
+                                 .From('CLIENTES')
+                                 .Where('DATA_CADASTRO').NotEqual(LDate)
+                                 .AsString);
+end;
+
+procedure TTestCQLOperatorsEqual.TestNotEqualDateTimeField;
+var
+  LAsString : string;
+  LDateTime: TDateTime;
+begin
+  LAsString := 'SELECT * FROM CLIENTES WHERE (DATA_CADASTRO <> ''12/31/2021 23:59:59'')';
+  LDateTime := EncodeDate(2021, 12, 31)+EncodeTime(23, 59, 59, 0);
+  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+                                 .Select
+                                 .All
+                                 .From('CLIENTES')
+                                 .Where('DATA_CADASTRO').NotEqual(LDateTime)
                                  .AsString);
 end;
 

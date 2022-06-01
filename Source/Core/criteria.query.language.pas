@@ -136,6 +136,9 @@ type
     function &Set(const AColumnName: String; AColumnValue: Integer): ICQL; overload;
     function &Set(const AColumnName: String; AColumnValue: Extended): ICQL; overload;
     function &Set(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
+    function &Set(const AColumnName: String; const AColumnValue: TDate): ICQL; overload;
+    function &Set(const AColumnName: String; const AColumnValue: TDateTime): ICQL; overload;
+    function &Set(const AColumnName: String; const AColumnValue: TGUID): ICQL; overload;
     function Values(const AColumnName, AColumnValue: String): ICQL; overload;
     function Values(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
     function First(AValue: Integer): ICQL;
@@ -150,17 +153,31 @@ type
     function Equal(const AValue: String = ''): ICQL; overload;
     function Equal(const AValue: Extended): ICQL overload;
     function Equal(const AValue: Integer): ICQL; overload;
+    function Equal(const AValue: TDate): ICQL; overload;
+    function Equal(const AValue: TDateTime): ICQL; overload;
+    function Equal(const AValue: TGUID): ICQL; overload;
     function NotEqual(const AValue: String = ''): ICQL; overload;
     function NotEqual(const AValue: Extended): ICQL; overload;
     function NotEqual(const AValue: Integer): ICQL; overload;
+    function NotEqual(const AValue: TDate): ICQL; overload;
+    function NotEqual(const AValue: TDateTime): ICQL; overload;
+    function NotEqual(const AValue: TGUID): ICQL; overload;
     function GreaterThan(const AValue: Extended): ICQL; overload;
     function GreaterThan(const AValue: Integer) : ICQL; overload;
+    function GreaterThan(const AValue: TDate): ICQL; overload;
+    function GreaterThan(const AValue: TDateTime) : ICQL; overload;
     function GreaterEqThan(const AValue: Extended): ICQL; overload;
     function GreaterEqThan(const AValue: Integer) : ICQL; overload;
+    function GreaterEqThan(const AValue: TDate): ICQL; overload;
+    function GreaterEqThan(const AValue: TDateTime) : ICQL; overload;
     function LessThan(const AValue: Extended): ICQL; overload;
     function LessThan(const AValue: Integer) : ICQL; overload;
+    function LessThan(const AValue: TDate): ICQL; overload;
+    function LessThan(const AValue: TDateTime) : ICQL; overload;
     function LessEqThan(const AValue: Extended): ICQL; overload;
     function LessEqThan(const AValue: Integer) : ICQL; overload;
+    function LessEqThan(const AValue: TDate): ICQL; overload;
+    function LessEqThan(const AValue: TDateTime) : ICQL; overload;
     function IsNull: ICQL;
     function IsNotNull: ICQL;
     function Like(const AValue: String): ICQL;
@@ -317,6 +334,24 @@ end;
 function TCQL.&Set(const AColumnName: String; AColumnValue: Extended): ICQL;
 begin
   Result := InternalSet(AColumnName, FloatToStr(AColumnValue));
+end;
+
+function TCQL.&Set(const AColumnName: String;
+  const AColumnValue: TDate): ICQL;
+begin
+  Result := InternalSet(AColumnName, QuotedStr(TUtils.DateToSQLFormat(FDatabase, AColumnValue)));
+end;
+
+function TCQL.&Set(const AColumnName: String;
+  const AColumnValue: TDateTime): ICQL;
+begin
+  Result := InternalSet(AColumnName, QuotedStr(TUtils.DateTimeToSQLFormat(FDatabase, AColumnValue)));
+end;
+
+function TCQL.&Set(const AColumnName: String;
+  const AColumnValue: TGUID): ICQL;
+begin
+  Result := InternalSet(AColumnName, TUtils.GuidStrToSQLFormat(FDatabase, AColumnValue));
 end;
 
 function TCQL.All: ICQL;
@@ -1098,6 +1133,104 @@ function TCQL.NotIn(const AValue: String): ICQL;
 begin
   AssertOperator([opeWhere, opeAND, opeOR]);
   FActiveExpr.&Ope(FOperator.IsNotIn(AValue));
+  Result := Self;
+end;
+
+function TCQL.Equal(const AValue: TDateTime): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsEqual(AValue));
+  Result := Self;
+end;
+
+function TCQL.Equal(const AValue: TDate): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsEqual(AValue));
+  Result := Self;
+end;
+
+function TCQL.GreaterEqThan(const AValue: TDateTime): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsGreaterEqThan(AValue));
+  Result := Self;
+end;
+
+function TCQL.GreaterEqThan(const AValue: TDate): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsGreaterEqThan(AValue));
+  Result := Self;
+end;
+
+function TCQL.GreaterThan(const AValue: TDate): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsGreaterThan(AValue));
+  Result := Self;
+end;
+
+function TCQL.GreaterThan(const AValue: TDateTime): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsGreaterThan(AValue));
+  Result := Self;
+end;
+
+function TCQL.LessEqThan(const AValue: TDateTime): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsLessEqThan(AValue));
+  Result := Self;
+end;
+
+function TCQL.LessEqThan(const AValue: TDate): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsLessEqThan(AValue));
+  Result := Self;
+end;
+
+function TCQL.LessThan(const AValue: TDateTime): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsLessThan(AValue));
+  Result := Self;
+end;
+
+function TCQL.LessThan(const AValue: TDate): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsLessThan(AValue));
+  Result := Self;
+end;
+
+function TCQL.NotEqual(const AValue: TDate): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsNotEqual(AValue));
+  Result := Self;
+end;
+
+function TCQL.NotEqual(const AValue: TDateTime): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsNotEqual(AValue));
+  Result := Self;
+end;
+
+function TCQL.Equal(const AValue: TGUID): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsEqual(AValue));
+  Result := Self;
+end;
+
+function TCQL.NotEqual(const AValue: TGUID): ICQL;
+begin
+  AssertOperator([opeWhere, opeAND, opeOR]);
+  FActiveExpr.&Ope(FOperator.IsNotEqual(AValue));
   Result := Self;
 end;
 
