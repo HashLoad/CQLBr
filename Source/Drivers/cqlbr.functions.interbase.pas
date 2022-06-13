@@ -26,6 +26,10 @@
 
 unit cqlbr.functions.interbase;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

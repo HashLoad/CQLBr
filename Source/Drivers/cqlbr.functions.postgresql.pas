@@ -26,6 +26,10 @@
 
 unit cqlbr.functions.postgresql;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

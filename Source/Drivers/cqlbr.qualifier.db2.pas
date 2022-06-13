@@ -26,6 +26,10 @@
 
 unit cqlbr.qualifier.db2;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

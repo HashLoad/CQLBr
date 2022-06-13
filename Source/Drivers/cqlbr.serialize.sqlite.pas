@@ -26,6 +26,10 @@
 
 unit cqlbr.serialize.sqlite;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

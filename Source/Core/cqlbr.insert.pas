@@ -26,6 +26,10 @@
 
 unit cqlbr.insert;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

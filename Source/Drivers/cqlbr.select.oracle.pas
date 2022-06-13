@@ -26,6 +26,10 @@
 
 unit cqlbr.select.oracle;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

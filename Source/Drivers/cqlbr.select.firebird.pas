@@ -26,6 +26,10 @@
 
 unit cqlbr.select.firebird;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

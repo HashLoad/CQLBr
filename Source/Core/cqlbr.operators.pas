@@ -28,6 +28,10 @@
 
 unit cqlbr.operators;
 
+{$IFDEF FPC}
+   {$MODE DELPHI}
+{$ENDIF}
+
 interface
 
 uses

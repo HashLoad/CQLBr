@@ -26,6 +26,10 @@
 
 unit cqlbr.qualifier.mongodb;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

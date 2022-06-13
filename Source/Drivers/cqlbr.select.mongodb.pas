@@ -26,6 +26,10 @@
 
 unit cqlbr.select.mongodb;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses
