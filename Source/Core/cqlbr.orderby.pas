@@ -26,6 +26,10 @@
 
 unit cqlbr.orderby;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

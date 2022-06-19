@@ -26,6 +26,10 @@
 
 unit cqlbr.serialize.interbase;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

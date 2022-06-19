@@ -26,6 +26,10 @@
 
 unit cqlbr.select.sqlite;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

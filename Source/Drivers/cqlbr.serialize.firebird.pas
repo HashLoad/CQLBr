@@ -26,6 +26,10 @@
 
 unit cqlbr.serialize.firebird;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

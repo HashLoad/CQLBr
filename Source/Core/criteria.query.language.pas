@@ -26,6 +26,10 @@
 
 unit criteria.query.language;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

@@ -26,6 +26,10 @@
 
 unit cqlbr.select.mssql;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses
