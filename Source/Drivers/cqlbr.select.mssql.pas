@@ -83,7 +83,7 @@ begin
     if FQualifiers.ExecutingPagination then
     begin
       FColumns.Add.Name := 'ROW_NUMBER() OVER(ORDER BY CURRENT_TIMESTAMP) AS ROWNUMBER';
-      Result := Format(cSELECT, [DoSerialize, FTableNames.Serialize]);
+      Result := Format(cSELECT, [DoSerialize, FTableNames[0].Name]);
     end
     else
       Result := DoSerialize;

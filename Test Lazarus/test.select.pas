@@ -26,6 +26,7 @@ type
     procedure TestSelectPagingFirebird;
     procedure TestSelectPagingOracle;
     procedure TestSelectPagingMySQL;
+    procedure TestSelectPagingMSSQL;
   end;
 
 implementation
@@ -35,9 +36,11 @@ uses
   cqlbr.select.firebird,
   cqlbr.select.oracle,
   cqlbr.select.mysql,
+  cqlbr.select.mssql,
   cqlbr.serialize.firebird,
   cqlbr.serialize.oracle,
   cqlbr.serialize.mysql,
+  cqlbr.serialize.mssql,
   criteria.query.language;
 
 procedure TTestCQLBrSelect.TestSelectAll;
@@ -145,28 +148,14 @@ procedure TTestCQLBrSelect.TestSelectPagingFirebird;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT FIRST 3 SKIP 0 * FROM CLIENTES ORDER BY ID_CLIENTE';
+  LAsString := 'SELECT FIRST 3 SKIP 0 ID_CLIENTE FROM CLIENTES ORDER BY ID_CLIENTE';
   AssertEquals(LAsString, TCQL.New(dbnFirebird)
-                                      .Select
-                                      .All
-                                      .First(3).Skip(0)
-                                      .From('CLIENTES')
-                                      .OrderBy('ID_CLIENTE')
-                                      .AsString);
-end;
-
-procedure TTestCQLBrSelect.TestSelectPagingOracle;
-var
-  LAsString: String;
-begin
-  LAsString := 'SELECT * FROM (SELECT T.*, ROWNUM AS ROWINI FROM (SELECT * FROM CLIENTES ORDER BY ID_CLIENTE) T) WHERE ROWNUM <= 3 AND ROWINI > 0';
-  AssertEquals(LAsString, TCQL.New(dbnOracle)
-                                      .Select
-                                      .All
-                                      .Limit(3).Offset(0)
-                                      .From('CLIENTES')
-                                      .OrderBy('ID_CLIENTE')
-                                      .AsString);
+                              .Select
+                              .Column('ID_CLIENTE')
+                              .First(3).Skip(0)
+                              .From('CLIENTES')
+                              .OrderBy('ID_CLIENTE')
+                              .AsString);
 end;
 
 procedure TTestCQLBrSelect.TestSelectPagingMySQL;
@@ -181,6 +170,26 @@ begin
                                       .From('CLIENTES')
                                       .OrderBy('ID_CLIENTE')
                                       .AsString);
+end;
+
+procedure TTestCQLBrSelect.TestSelectPagingMSSQL;
+var
+  LAsString: String;
+
+begin
+  LAsString := 'SELECT * '+
+               'FROM (SELECT ID_CLIENTE, '+
+               'ROW_NUMBER() OVER(ORDER BY CURRENT_TIMESTAMP) AS ROWNUMBER '+
+               'FROM CLIENTES AS C) AS CLIENTES '+
+               'WHERE (ROWNUMBER > 0 AND ROWNUMBER <= 3) '+
+               'ORDER BY ID_CLIENTE';
+  AssertEquals(LAsString, TCQL.New(dbnMSSQL)
+                              .Select
+                              .Column('ID_CLIENTE')
+                              .First(3)
+                              .From('CLIENTES', 'C')
+                              .OrderBy('ID_CLIENTE')
+                              .AsString);
 end;
 
 procedure TTestCQLBrSelect.SetUp;
