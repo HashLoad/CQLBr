@@ -26,6 +26,10 @@
 
 unit cqlbr.select.db2;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses

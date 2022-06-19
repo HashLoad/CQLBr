@@ -26,6 +26,10 @@
 
 unit cqlbr.select.mysql;
 
+{$ifdef fpc}
+  {$mode delphi}{$H+}
+{$endif}
+
 interface
 
 uses
