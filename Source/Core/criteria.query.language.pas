@@ -641,19 +641,6 @@ begin
   Result := TCQLCriteriaExpression.Create(ATerm);
 end;
 
-function TCQL.First(AValue: Integer): ICQL;
-var
-  LQualifier: ICQLSelectQualifier;
-begin
-  AssertSection([secSelect]);
-  LQualifier := FAST.Select.Qualifiers.Add;
-  LQualifier.Qualifier := sqFirst;
-  LQualifier.Value := AValue;
-  // Esse método tem que Add o Qualifier já todo parametrizado.
-  FAST.Select.Qualifiers.Add(LQualifier);
-  Result := Self;
-end;
-
 function TCQL.From(const AExpression: ICQLCriteriaExpression): ICQL;
 begin
   Result := From('(' + AExpression.AsString + ')');
@@ -1042,11 +1029,24 @@ begin
   FActiveSection := ASection;
 end;
 
+function TCQL.First(AValue: Integer): ICQL;
+var
+  LQualifier: ICQLSelectQualifier;
+begin
+  AssertSection([secSelect, secWhere, secOrderBy]);
+  LQualifier := FAST.Select.Qualifiers.Add;
+  LQualifier.Qualifier := sqFirst;
+  LQualifier.Value := AValue;
+  // Esse método tem que Add o Qualifier já todo parametrizado.
+  FAST.Select.Qualifiers.Add(LQualifier);
+  Result := Self;
+end;
+
 function TCQL.Skip(AValue: Integer): ICQL;
 var
   LQualifier: ICQLSelectQualifier;
 begin
-  AssertSection([secSelect]);
+  AssertSection([secSelect, secWhere, secOrderBy]);
   LQualifier := FAST.Select.Qualifiers.Add;
   LQualifier.Qualifier := sqSkip;
   LQualifier.Value := AValue;
