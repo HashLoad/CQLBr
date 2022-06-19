@@ -28,15 +28,10 @@
 
 unit cqlbr.operators;
 
-<<<<<<< HEAD
-{$IFDEF FPC}
-   {$MODE DELPHI}
-{$ENDIF}
-=======
+
 {$ifdef fpc}
   {$mode delphi}{$H+}
 {$endif}
->>>>>>> release/1.1.2
 
 interface
 
