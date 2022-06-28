@@ -369,7 +369,7 @@ end;
 procedure TCQL.AssertHaveName;
 begin
   if not Assigned(FAST.ASTName) then
-    raise Exception.Create('TCriteria: Curernt name is not set');
+    raise Exception.Create('TCriteria: Current name is not set');
 end;
 
 procedure TCQL.AssertOperator(AOperators: TOperators);
