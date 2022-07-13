@@ -77,7 +77,7 @@ begin
   if IsEmpty then
     Result := ''
   else
-    Result := TUtils.Concat(['DELETE', 'FROM', FTableNames.Serialize]);
+    Result := TUtils.Concat(['DELETE FROM', FTableNames.Serialize]);
 end;
 
 function TCQLDelete.TableNames: ICQLNames;

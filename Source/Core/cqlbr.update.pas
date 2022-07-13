@@ -64,7 +64,8 @@ uses
 
 procedure TCQLUpdate.Clear;
 begin
-  TableName := '';
+  FTableName := '';
+  FValues.Clear;
 end;
 
 constructor TCQLUpdate.Create;

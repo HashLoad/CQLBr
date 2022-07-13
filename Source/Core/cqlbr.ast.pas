@@ -113,8 +113,6 @@ end;
 constructor TCQLAST.Create(const ADatabase: TDBName);
 begin
   FSelect := TCQLBrRegister.Select(ADatabase);
-  if FSelect = nil then
-    FSelect := TCQLSelect.Create;
   FDelete := TCQLDelete.Create;
   FInsert := TCQLInsert.Create;
   FUpdate := TCQLUpdate.Create;

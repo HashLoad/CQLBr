@@ -114,7 +114,7 @@ class function TUtils.GuidStrToSQLFormat(const ADBName: TDBName;
 begin
   case ADBName of
     dbnFirebird,
-    dbnInterbase: Result := Format('CHAR_TO_UUID(''%s'')', [AValue.ToString.Trim(['{', '}'])]);
+    dbnInterbase: Result := Format('CHAR_TO_UUID(''%s'')', [AValue.ToString]);
 
     else
       raise Exception.Create('Conversão de Guid no formato string não implementada.');

@@ -125,7 +125,7 @@ begin
   else
     Result := FName;
   if FAlias <> '' then
-    Result := Result + ' AS ' + FAlias;
+    Result := TUtils.Concat([Result, 'AS', FAlias]);
 end;
 
 procedure TCQLName.SetAlias(const Value: String);
