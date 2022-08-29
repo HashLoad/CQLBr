@@ -198,7 +198,7 @@ end;
 function TCQLExpression.SerializeWhere(AAddParens: Boolean): String;
 begin
   if AAddParens then
-    Result := '(' + FTerm + ')'
+    Result := TUtils.concat(['(', FTerm, ')'], '')
   else
     Result := FTerm;
 end;

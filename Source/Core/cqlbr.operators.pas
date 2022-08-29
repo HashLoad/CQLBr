@@ -192,6 +192,7 @@ begin
     dftDateTime: Result := QuotedStr(TUtils.DateTimeToSQLFormat(FDatabase, VarToDateTime(FValue)));
     dftGuid:     Result := TUtils.GuidStrToSQLFormat(FDatabase, StringToGUID(FValue));
     dftArray:    Result := ArrayValueToString;
+    dftBoolean:  result := BoolToStr(FValue);
     dftText:     Result := '(' + FValue + ')';
   end;
 end;

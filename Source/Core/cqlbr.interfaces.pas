@@ -510,9 +510,11 @@ type
                           fcBetween, fcNotBetween,
                           fcExists, fcNotExists,
                           fcLikeFull, fcLikeLeft, fcLikeRight,
-                          fcNotLikeFull, fcNotLikeLeft, fcNotLikeRight, fcLike, fcNotLike
+                          fcNotLikeFull, fcNotLikeLeft, fcNotLikeRight,
+                          fcLike, fcNotLike
                           );
-  TCQLDataFieldType = (dftUnknown, dftString, dftInteger, dftFloat, dftDate, dftArray, dftText, dftDateTime, dftGuid);
+  TCQLDataFieldType = (dftUnknown, dftString, dftInteger, dftFloat, dftDate,
+                       dftArray, dftText, dftDateTime, dftGuid, dftBoolean);
 
   ICQLOperator = interface
     ['{A07D4935-0C52-4D8A-A3CF-5837AFE01C75}']

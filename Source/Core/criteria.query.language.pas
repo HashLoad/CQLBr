@@ -369,7 +369,7 @@ end;
 procedure TCQL.AssertHaveName;
 begin
   if not Assigned(FAST.ASTName) then
-    raise Exception.Create('TCriteria: Curernt name is not set');
+    raise Exception.Create('TCriteria: Current name is not set');
 end;
 
 procedure TCQL.AssertOperator(AOperators: TOperators);
@@ -386,8 +386,8 @@ end;
 
 function TCQL.AsString: String;
 begin
-  Result := TCQLBrRegister.Serialize(FDatabase).AsString(FAST);
   FActiveOperator := opeNone;
+  Result := TCQLBrRegister.Serialize(FDatabase).AsString(FAST);
 end;
 
 function TCQL.Column(const AColumnName: String): ICQL;
@@ -504,6 +504,7 @@ end;
 
 procedure TCQL.DefineSectionDelete;
 begin
+  ClearAll();
   FAST.ASTSection := FAST.Delete;
   FAST.ASTColumns := nil;
   FAST.ASTTableNames := FAST.Delete.TableNames;
@@ -531,6 +532,7 @@ end;
 
 procedure TCQL.DefineSectionInsert;
 begin
+  ClearAll();
   FAST.ASTSection := FAST.Insert;
   FAST.ASTColumns := FAST.Insert.Columns;
   FAST.ASTTableNames := nil;
@@ -549,6 +551,7 @@ end;
 
 procedure TCQL.DefineSectionSelect;
 begin
+  ClearAll();
   FAST.ASTSection := FAST.Select;
   FAST.ASTColumns := FAST.Select.Columns;
   FAST.ASTTableNames := FAST.Select.TableNames;
@@ -558,6 +561,7 @@ end;
 
 procedure TCQL.DefineSectionUpdate;
 begin
+  ClearAll();
   FAST.ASTSection := FAST.Update;
   FAST.ASTColumns := nil;
   FAST.ASTTableNames := nil;

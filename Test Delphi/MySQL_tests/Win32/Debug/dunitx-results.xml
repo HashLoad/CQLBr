@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<test-results name="D:\PROJETOS-Brasil\ORMBr\Source\CQLBr\Test Delphi\MySQL_tests\Win32\Debug\TestCQLBr_MySQL.exe" total="23" errors="0" failures="0" ignored="0" inconclusive="0" not-run="0" skipped="0" invalid="0" date="2022-07-16" time="0.003">
+  <culture-info current-culture="en" current-uiculture="en" />
+  <test-suite type="Assembly" name="TestCQLBr_MySQL.exe" executed="true" result="Success" success="True" time="0.003" asserts="0">
+    <results>
+        <test-suite type="Namespace" name="test" executed="true" result="Success" success="True" time="0.004" asserts="0" >
+          <results>
+              <test-suite type="Fixture" name="TTestCQLSelectMySQL" executed="True" result="Success" success="True" time="0.003" >
+                <results>
+                  <test-case name="TestSelectAll" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectAllWhere" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectAllWhereAndOr" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectAllWhereAndAnd" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectAllOrderBy" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectColumns" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectColumnsCase" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectPagingMySQL" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+              <test-suite type="Fixture" name="TTestCQLFunctionsMySQL" executed="True" result="Success" success="True" time="0.002" >
+                <results>
+                  <test-case name="TestCount" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestLower" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestUpper" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestMax" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestMin" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSubstring" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestMonthWhere" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestMonthSelect" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestDayWhere" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestDaySelect" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestYearWhere" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestYearSelect" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestDate" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestConcatSelect" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestConcatWhere" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+          </results>
+        </test-suite>
+    </results>
+  </test-suite>
+</test-results>

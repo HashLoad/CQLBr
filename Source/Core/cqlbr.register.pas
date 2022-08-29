@@ -110,7 +110,7 @@ begin
     raise Exception
             .Create('O select do banco ' + TStrDBName[ADBName] + ' não está registrado, adicione a unit "cqlbr.select.???.pas" onde ??? nome do banco, na cláusula USES do seu projeto!');
 
-    Result := FCQLSelect[ADBName];
+  Result := FCQLSelect[ADBName];
 end;
 
 class procedure TCQLBrRegister.RegisterFunctions(const ADBName: TDBName;

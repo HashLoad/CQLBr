@@ -20,52 +20,49 @@
 { @abstract(ORMBr Framework.)
   @created(20 Jul 2016)
   @author(Isaque Pinheiro <isaquepsp@gmail.com>)
-  @author(Skype : ispinheiro)
-
-  ORM Brasil é um ORM simples e descomplicado para quem utiliza Delphi.
 }
 
 {
-  Compiler				CompilerVersion	Defined Symbol	Used BPL
-  Delphi 10.5 ??        35 				VER350			28
-  Delphi 10.4 Sidney    34 				VER340			27
-  Delphi 10.3 Rio		33 				VER330			26
-  Delphi 10.2 Tokyo		32 				VER320			25
-  Delphi 10.1 Berlin	31				VER310			24
-  Delphi 10 Seattle		30				VER300          23
-  Delphi XE8			29 				VER290          22
-  Delphi XE7			28 				VER280          21
-  Delphi XE6			27 				VER270          20
-  Delphi XE5			26 				VER260          19
-  Delphi XE4			25 				VER250          18 
-  Delphi XE3			24 				VER240          17
-  Delphi XE2			23 				VER230          16
-  Delphi XE	        	22 				VER220          15
-  Delphi 2010 	        21 				VER210          14
+  Compiler				 CompilerVersion	Defined Symbol	Used BPL
+  Delphi 11.? ??         36 				VER360			29
+  Delphi 11.1 Alexandria 35 				VER350			28
+  Delphi 10.4 Sidney     34 				VER340			27
+  Delphi 10.3 Rio		 33 				VER330			26
+  Delphi 10.2 Tokyo		 32 				VER320			25
+  Delphi 10.1 Berlin	 31					VER310			24
+  Delphi 10 Seattle		 30					VER300          23
+  Delphi XE8			 29 				VER290          22
+  Delphi XE7			 28 				VER280          21
+  Delphi XE6			 27 				VER270          20
+  Delphi XE5			 26 				VER260          19
+  Delphi XE4			 25 				VER250          18 
+  Delphi XE3			 24 				VER240          17
+  Delphi XE2			 23 				VER230          16
+  Delphi XE	        	 22 				VER220          15
+  Delphi 2010 	         21 				VER210          14
 }
 
-{.$DEFINE FMX}
-{.$DEFINE LOAD_DYNAMICALLY}
-{.$DEFINE DRIVERRESTFUL}
-{.$DEFINE USEFDMEMTABLE}
-{.$DEFINE USECLIENTDATASET}
-{.$DEFINE CACHEGENERATORSQL}
-
-{$IFDEF FMX}
-  {$DEFINE HAS_FMX}
-{$ELSE}
-  {$DEFINE HAS_VCL}
-{$ENDIF}
-
-{$IFDEF USEFDMEMTABLE}
-  {$DEFINE USEMEMDATASET}
-{$ENDIF}
-
-{$IFDEF USECLIENTDATASET}
-  {$DEFINE USEMEMDATASET}
-{$ENDIF}
-
 // Delphi ???
+{$IFDEF VER360}
+  {$DEFINE DELPHI14_UP}
+  {$DEFINE DELPHI15_UP}
+  {$DEFINE DELPHI16_UP}
+  {$DEFINE DELPHI17_UP}
+  {$DEFINE DELPHI18_UP}
+  {$DEFINE DELPHI19_UP}
+  {$DEFINE DELPHI20_UP}
+  {$DEFINE DELPHI21_UP}
+  {$DEFINE DELPHI22_UP}
+  {$DEFINE DELPHI23_UP}
+  {$DEFINE DELPHI24_UP}
+  {$DEFINE DELPHI25_UP}
+  {$DEFINE DELPHI26_UP}
+  {$DEFINE DELPHI27_UP}
+  {$DEFINE DELPHI28_UP}
+  {$DEFINE DELPHI29_UP}
+{$ENDIF}
+
+// Delphi Alexandria
 {$IFDEF VER350}
   {$DEFINE DELPHI14_UP}
   {$DEFINE DELPHI15_UP}

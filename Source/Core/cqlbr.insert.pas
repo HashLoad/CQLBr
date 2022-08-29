@@ -67,7 +67,9 @@ uses
 
 procedure TCQLInsert.Clear;
 begin
-  TableName := '';
+  FTableName := '';
+  FColumns.Clear;
+  FValues.Clear;
 end;
 
 function TCQLInsert.Columns: ICQLNames;

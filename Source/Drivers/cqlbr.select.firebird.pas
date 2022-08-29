@@ -62,7 +62,15 @@ end;
 
 function TCQLSelectFirebird.Serialize: String;
 begin
-  Result := inherited Serialize;
+  if IsEmpty then
+    Result := ''
+  else
+    Result := TUtils.Concat(['SELECT',
+                             FQualifiers.SerializeDistinct,
+                             FQualifiers.SerializePagination,
+                             FColumns.Serialize,
+                             'FROM',
+                             FTableNames.Serialize]);
 end;
 
 initialization

@@ -7,7 +7,7 @@ uses
 
 type
   [TestFixture]
-  TTestCQLSelect = class
+  TTestCQLSelectDB2 = class
   public
     [Setup]
     procedure Setup;
@@ -16,8 +16,6 @@ type
 
     [Test]
     procedure TestSelectAll;
-    [Test]
-    procedure TestSelectAllNoSQL;
     [Test]
     procedure TestSelectAllWhere;
     [Test]
@@ -31,13 +29,7 @@ type
     [Test]
     procedure TestSelectColumnsCase;
     [Test]
-    procedure TestSelectPagingFirebird;
-    [Test]
-    procedure TestSelectPagingOracle;
-    [Test]
-    procedure TestSelectPagingMySQL;
-    [Test]
-    procedure TestSelectPagingMSSQL;
+    procedure TestSelectPagingDB2;
   end;
 
 implementation
@@ -47,44 +39,32 @@ uses
   cqlbr.interfaces,
   criteria.query.language;
 
-procedure TTestCQLSelect.Setup;
+procedure TTestCQLSelectDB2.Setup;
 begin
 end;
 
-procedure TTestCQLSelect.TearDown;
+procedure TTestCQLSelectDB2.TearDown;
 begin
 end;
 
-procedure TTestCQLSelect.TestSelectAll;
+procedure TTestCQLSelectDB2.TestSelectAll;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES AS CLI';
-  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnDB2)
                                       .Select
                                       .All
                                       .From('CLIENTES').&As('CLI')
                                       .AsString);
 end;
 
-procedure TTestCQLSelect.TestSelectAllNoSQL;
-var
-  LAsString: String;
-begin
-  LAsString := 'clientes.Find( {} )';
-  Assert.AreEqual(LAsString, TCQL.New(dbnMongoDB)
-                                      .Select
-                                      .All
-                                      .From('CLIENTES')
-                                      .AsString);
-end;
-
-procedure TTestCQLSelect.TestSelectAllOrderBy;
+procedure TTestCQLSelectDB2.TestSelectAllOrderBy;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES ORDER BY ID_CLIENTE';
-  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnDB2)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -92,12 +72,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLSelect.TestSelectAllWhere;
+procedure TTestCQLSelectDB2.TestSelectAllWhere;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES WHERE ID_CLIENTE = 1';
-  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnDB2)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -105,12 +85,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLSelect.TestSelectAllWhereAndAnd;
+procedure TTestCQLSelectDB2.TestSelectAllWhereAndAnd;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES WHERE (ID_CLIENTE = 1) AND (ID >= 10) AND (ID <= 20)';
-  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnDB2)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -120,12 +100,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLSelect.TestSelectAllWhereAndOr;
+procedure TTestCQLSelectDB2.TestSelectAllWhereAndOr;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT * FROM CLIENTES WHERE (ID_CLIENTE = 1) AND ((ID >= 10) OR (ID <= 20))';
-  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnDB2)
                                       .Select
                                       .All
                                       .From('CLIENTES')
@@ -135,12 +115,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLSelect.TestSelectColumns;
+procedure TTestCQLSelectDB2.TestSelectColumns;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT ID_CLIENTE, NOME_CLIENTE FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnDB2)
                                       .Select
                                       .Column('ID_CLIENTE')
                                       .Column('NOME_CLIENTE')
@@ -148,12 +128,12 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLSelect.TestSelectColumnsCase;
+procedure TTestCQLSelectDB2.TestSelectColumnsCase;
 var
   LAsString: String;
 begin
   LAsString := 'SELECT ID_CLIENTE, NOME_CLIENTE, (CASE TIPO_CLIENTE WHEN 0 THEN ''FISICA'' WHEN 1 THEN ''JURIDICA'' ELSE ''PRODUTOR'' END) AS TIPO_PESSOA FROM CLIENTES';
-  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
+  Assert.AreEqual(LAsString, TCQL.New(dbnDB2)
                                       .Select
                                       .Column('ID_CLIENTE')
                                       .Column('NOME_CLIENTE')
@@ -168,21 +148,7 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLSelect.TestSelectPagingFirebird;
-var
-  LAsString: String;
-begin
-  LAsString := 'SELECT FIRST 3 SKIP 0 * FROM CLIENTES AS CLI ORDER BY CLI.ID_CLIENTE';
-  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
-                                      .Select
-                                      .All
-                                      .First(3).Skip(0)
-                                      .From('CLIENTES', 'CLI')
-                                      .OrderBy('CLI.ID_CLIENTE')
-                                      .AsString);
-end;
-
-procedure TTestCQLSelect.TestSelectPagingMSSQL;
+procedure TTestCQLSelectDB2.TestSelectPagingDB2;
 var
   LAsString: String;
 begin
@@ -196,35 +162,7 @@ begin
                                       .AsString);
 end;
 
-procedure TTestCQLSelect.TestSelectPagingMySQL;
-var
-  LAsString: String;
-begin
-  LAsString := 'SELECT * FROM CLIENTES ORDER BY ID_CLIENTE LIMIT 3 OFFSET 0';
-  Assert.AreEqual(LAsString, TCQL.New(dbnMySQL)
-                                      .Select
-                                      .All
-                                      .Limit(3).Offset(0)
-                                      .From('CLIENTES')
-                                      .OrderBy('ID_CLIENTE')
-                                      .AsString);
-end;
-
-procedure TTestCQLSelect.TestSelectPagingOracle;
-var
-  LAsString: String;
-begin
-  LAsString := 'SELECT * FROM (SELECT T.*, ROWNUM AS ROWINI FROM (SELECT * FROM CLIENTES ORDER BY ID_CLIENTE) T) WHERE ROWNUM <= 3 AND ROWINI > 0';
-  Assert.AreEqual(LAsString, TCQL.New(dbnOracle)
-                                      .Select
-                                      .All
-                                      .Limit(3).Offset(0)
-                                      .From('CLIENTES')
-                                      .OrderBy('ID_CLIENTE')
-                                      .AsString);
-end;
-
 initialization
-  TDUnitX.RegisterTestFixture(TTestCQLSelect);
+  TDUnitX.RegisterTestFixture(TTestCQLSelectDB2);
 
 end.

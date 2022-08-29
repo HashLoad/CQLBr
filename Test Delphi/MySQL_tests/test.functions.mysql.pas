@@ -220,12 +220,13 @@ procedure TTestCQLFunctionsMySQL.TestDate;
 var
   LAsString: String;
 begin
-  LAsString := 'SELECT * FROM CLIENTES WHERE DATE_FORMAT(NASCTO, ''yyyy-MM-dd'') = DATE_FORMAT(''02/11/2020'', ''yyyy-MM-dd'')';
+  LAsString := 'SELECT * FROM CLIENTES WHERE DATE_FORMAT(NASCTO, ''yyyy-MM-dd'') = DATE_FORMAT(''2020/11/02'', ''yyyy-MM-dd'')';
   Assert.AreEqual(LAsString, TCQL.New(dbnMySQL)
                                  .Select
                                  .All
                                  .From('CLIENTES')
-                                 .Where.Date('NASCTO').Equal.Date('''02/11/2020''')
+                                 .Where.Date('NASCTO')
+                                 .Equal.Date('''2020/11/02''')
                                  .AsString);
 end;
 

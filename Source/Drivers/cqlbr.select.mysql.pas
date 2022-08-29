@@ -65,8 +65,8 @@ begin
     Result := ''
   else
     Result := TUtils.Concat(['SELECT',
-                             FColumns.Serialize,
                              FQualifiers.SerializeDistinct,
+                             FColumns.Serialize,
                              'FROM',
                              FTableNames.Serialize]);
 end;
