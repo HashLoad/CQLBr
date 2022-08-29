@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<test-results name="D:\PROJETOS-Brasil\ORMBr\Source\CQLBr\Test Delphi\Firebird_tests\Win32\Debug\TestCQLBr_Firebird.exe" total="71" errors="0" failures="0" ignored="0" inconclusive="0" not-run="0" skipped="0" invalid="0" date="2022-07-16" time="0.010">
+  <culture-info current-culture="en" current-uiculture="en" />
+  <test-suite type="Assembly" name="TestCQLBr_Firebird.exe" executed="true" result="Success" success="True" time="0.010" asserts="0">
+    <results>
+        <test-suite type="Namespace" name="test" executed="true" result="Success" success="True" time="0.058" asserts="0" >
+          <results>
+              <test-suite type="Fixture" name="TTestCQLSelect" executed="True" result="Success" success="True" time="0.010" >
+                <results>
+                  <test-case name="TestSelectAll" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectAllNoSQL" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectAllWhere" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                  <test-case name="TestSelectAllWhereAndOr" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectAllWhereAndAnd" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectAllOrderBy" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectColumns" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectColumnsCase" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectPagingFirebird" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectPagingOracle" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSelectPagingMySQL" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+              <test-suite type="Fixture" name="TTestCQLDelete" executed="True" result="Success" success="True" time="0.008" >
+                <results>
+                  <test-case name="TestDeleteFirebird" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestDeleteWhereFirebird" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+              <test-suite type="Namespace" name="operators" executed="true" result="Success" success="True" time="0.038" asserts="0" >
+                <results>
+                    <test-suite type="Fixture" name="TTestCQLOperatorsLike" executed="True" result="Success" success="True" time="0.008" >
+                      <results>
+                        <test-case name="TestLikeFull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestLikeRight" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestLikeLeft" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotLikeFull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotLikeRight" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotLikeLeft" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TTestCQLOperatorsEqual" executed="True" result="Success" success="True" time="0.007" >
+                      <results>
+                        <test-case name="TestEqualIntegerField" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestEqualFloatField" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestEqualStringField" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestEqualDateField" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestEqualDateTimeField" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotEqualIntegerField" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotEqualFloatField" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotEqualStringField" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotEqualDateField" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotEqualDateTimeField" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TTestCQLExists" executed="True" result="Success" success="True" time="0.006" >
+                      <results>
+                        <test-case name="TestExistsSubQuery" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotExistsSubQuery" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TTestCQLOperatorsGreater" executed="True" result="Success" success="True" time="0.005" >
+                      <results>
+                        <test-case name="TestGreaterThanFloat" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestGreaterThanInteger" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestGreaterEqualThanFloat" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestGreaterEqualThanInteger" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TTestCQLOperatorsIN" executed="True" result="Success" success="True" time="0.005" >
+                      <results>
+                        <test-case name="TestInInteger" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestInFloat" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestInString" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestInSubQuery" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotInInteger" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        <test-case name="TestNotInFloat" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotInString" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestNotInSubQuery" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TTestCQLOperatorsLess" executed="True" result="Success" success="True" time="0.004" >
+                      <results>
+                        <test-case name="TestLessThanFloat" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestLessThanInteger" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestLessEqualThanFloat" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestLessEqualThanInteger" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TTestCQLOperators" executed="True" result="Success" success="True" time="0.003" >
+                      <results>
+                        <test-case name="TestWhereIsNull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestOrIsNull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestAndIsNull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestWhereIsNotNull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestOrIsNotNull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        <test-case name="TestAndIsNotNull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="Fixture" name="TTestCQLFunctionsFirebird" executed="True" result="Success" success="True" time="0.003" >
+                <results>
+                  <test-case name="TestCount" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestLower" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestUpper" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestMax" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestMin" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestSubstring" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestMonthWhere" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestMonthSelect" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestDayWhere" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestDaySelect" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestYearWhere" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestYearSelect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                  <test-case name="TestDate" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestConcatSelect" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestConcatWhere" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+              <test-suite type="Fixture" name="TTestCQLUpdate" executed="True" result="Success" success="True" time="0.001" >
+                <results>
+                  <test-case name="TestUpdateFirebird" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestUpdateWhereFirebird" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+              <test-suite type="Fixture" name="TTestCQLInsert" executed="True" result="Success" success="True" time="0.000" >
+                <results>
+                  <test-case name="TestInsertFirebird" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+          </results>
+        </test-suite>
+    </results>
+  </test-suite>
+</test-results>

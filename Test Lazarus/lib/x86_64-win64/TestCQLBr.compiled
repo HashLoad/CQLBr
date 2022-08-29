@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="D:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" Date="1420791944"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -gw2 -godwarfsets -gl -WG -l -vewnhibq &quot;-FiD:\PROJETOS-Brasil\ORMBr\Source\CQLBr\Test Lazarus\lib\x86_64-win64&quot; -FuD:\CQLBr\Source\Core -FuD:\CQLBr\Source\Database -FuD:\lazarus\components\fpcunit\lib\x86_64-win64\win32 -FuD:\lazarus\components\synedit\units\x86_64-win64\win32 -FuD:\lazarus\lcl\units\x86_64-win64\win32 -FuD:\lazarus\lcl\units\x86_64-win64 -FuD:\lazarus\components\freetype\lib\x86_64-win64 -FuD:\lazarus\components\sparta\generics\lib\x86_64-win64 -FuD:\lazarus\components\lazutils\lib\x86_64-win64 -FuD:\lazarus\packager\units\x86_64-win64 &quot;-FuD:\PROJETOS-Brasil\ORMBr\Source\CQLBr\Test Lazarus\&quot; &quot;-FUD:\PROJETOS-Brasil\ORMBr\Source\CQLBr\Test Lazarus\lib\x86_64-win64\&quot; &quot;-FED:\PROJETOS-Brasil\ORMBr\Source\CQLBr\Test Lazarus\&quot; &quot;-oD:\PROJETOS-Brasil\ORMBr\Source\CQLBr\Test Lazarus\TestCQLBr.exe&quot; -dLCL -dLCLwin32 TestCQLBr.lpr"/>
+  <Complete Value="False"/>
+</CONFIG>
