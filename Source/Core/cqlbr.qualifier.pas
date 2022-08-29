@@ -92,6 +92,7 @@ end;
 
 procedure TCQLSelectQualifiers.Clear;
 begin
+  FExecutingPagination := False;
   FQualifiers.Clear;
 end;
 
