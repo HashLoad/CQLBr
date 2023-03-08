@@ -159,7 +159,9 @@ type
     function &Or(const AExpression: ICQLCriteriaExpression): ICQL; overload;
     function &Set(const AColumnName, AColumnValue: String): ICQL; overload;
     function &Set(const AColumnName: String; AColumnValue: Integer): ICQL; overload;
-    function &Set(const AColumnName: String; AColumnValue: Extended): ICQL; overload;
+    function &Set(const AColumnName: String; AColumnValue: Extended; ADecimalPlaces: Integer): ICQL; overload;
+    function &Set(const AColumnName: String; AColumnValue: Double; ADecimalPlaces: Integer): ICQL; overload;
+    function &Set(const AColumnName: String; AColumnValue: Currency; ADecimalPlaces: Integer): ICQL; overload;
     function &Set(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
     function &Set(const AColumnName: String; const AColumnValue: TDate): ICQL; overload;
     function &Set(const AColumnName: String; const AColumnValue: TDateTime): ICQL; overload;

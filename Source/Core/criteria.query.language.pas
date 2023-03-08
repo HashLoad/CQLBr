@@ -138,7 +138,9 @@ type
     function Select(const ACaseExpression: ICQLCriteriaCase): ICQL; overload;
     function &Set(const AColumnName, AColumnValue: String): ICQL; overload;
     function &Set(const AColumnName: String; AColumnValue: Integer): ICQL; overload;
-    function &Set(const AColumnName: String; AColumnValue: Extended): ICQL; overload;
+    function &Set(const AColumnName: String; AColumnValue: Extended; ADecimalPlaces: Integer): ICQL; overload;
+    function &Set(const AColumnName: String; AColumnValue: Double; ADecimalPlaces: Integer): ICQL; overload;
+    function &Set(const AColumnName: String; AColumnValue: Currency; ADecimalPlaces: Integer): ICQL; overload;
     function &Set(const AColumnName: String; const AColumnValue: array of const): ICQL; overload;
     function &Set(const AColumnName: String; const AColumnValue: TDate): ICQL; overload;
     function &Set(const AColumnName: String; const AColumnValue: TDateTime): ICQL; overload;
@@ -335,9 +337,28 @@ begin
   Result := InternalSet(AColumnName, IntToStr(AColumnValue));
 end;
 
-function TCQL.&Set(const AColumnName: String; AColumnValue: Extended): ICQL;
+function TCQL.&Set(const AColumnName: String; AColumnValue: Extended; ADecimalPlaces: Integer): ICQL;
+var
+  LFormat: TFormatSettings;
 begin
-  Result := InternalSet(AColumnName, FloatToStr(AColumnValue));
+  LFormat.DecimalSeparator := '.';
+  Result := InternalSet(AColumnName, Format('%.' + IntToStr(ADecimalPlaces) + 'f', [AColumnValue], LFormat));
+end;
+
+function TCQL.&Set(const AColumnName: String; AColumnValue: Double; ADecimalPlaces: Integer): ICQL;
+var
+  LFormat: TFormatSettings;
+begin
+  LFormat.DecimalSeparator := '.';
+  Result := InternalSet(AColumnName, Format('%.' + IntToStr(ADecimalPlaces) + 'f', [AColumnValue], LFormat));
+end;
+
+function TCQL.&Set(const AColumnName: String; AColumnValue: Currency; ADecimalPlaces: Integer): ICQL;
+var
+  LFormat: TFormatSettings;
+begin
+  LFormat.DecimalSeparator := '.';
+  Result := InternalSet(AColumnName, Format('%.' + IntToStr(ADecimalPlaces) + 'f', [AColumnValue], LFormat));
 end;
 
 function TCQL.&Set(const AColumnName: String;
