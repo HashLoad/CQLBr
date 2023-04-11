@@ -1,9 +1,9 @@
 {
 	"name": "CQLBr",
 	"description": "Criteria Query Language é um framework que provê escritas através de uma interface permitindo mapear de forma orientada a objeto, toda sintaxe de comandos para realizar as operações de consulta, inclusão, alteração e exclusão em banco de dados.",
-	"version": "1.2023.3.8",
-	"homepage": "",
-	"mainsrc": "Source",
+	"version": "^master",
+	"homepage": "https://www.isaquepinheiro.com.br",
+	"mainsrc": "Source/",
 	"projects": [],
 	"dependencies": {}
 }
