@@ -1,14 +1,22 @@
- |  | 
-:----------------------------------------------------------------------| ----------------------------------------------------------------------------------------:| :-:
-![CQLBr Framework](https://www.isaquepinheiro.com.br/imagens/cqlbrbitucket.png)  | [![pageseguro.png](http://www.ormbr.com.br/imagens/pagseguro.png)](https://pag.ae/bglQrWD)|
+# CQLBr Framework for Delphi/Lazaruz
 
-
-# CQLBr Framework for Delphi/Lazaruz   [![License](https://img.shields.io/badge/Licence-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
-
-**Criteria Query Language** é um framework que provê escritas através de uma interface permitindo mapear de forma orientada a objeto, toda sintaxe de comandos para realizar as operações de consulta, inclusão, alteração e exclusão em banco de dados.
+Criteria Query Language é um framework que provê escritas através de uma interface permitindo mapear de forma orientada a objeto, toda sintaxe de comandos para realizar as operações de consulta, inclusão, alteração e exclusão em banco de dados.
 
 Durante o desenvolvimento de software, é evidente a preocupação em que se tem em aumentar a produtividade e manter a compatibilidade. No que se refere a banco de dados, temos na maioria dos casos quebra de compatibilidade por necessidade de escrever sintaxe que acaba sendo particularidade de um determinado banco de dados, foi ai que CQLBr nasceu, ele foi projetado, para que a escrita de querys seja unica para todos os banco dados. Ao gerar uma query com CQLBr, ele irá te possibilitar mudar de banco de dados em um sistema, sem ter que refaturar querys com particularidades do banco substituído.
 
+<p align="center">
+  <a href="https://www.isaquepinheiro.com.br">
+    <img src="https://github.com/HashLoad/CQLBr/blob/master/Images/cqlbr_framework.png" width="200" height="200">
+  </a>
+</p>
+
+## 🏛 Delphi Versions
+Embarcadero Delphi XE e superior.
+
+## ⚙️ Instalação
+O CQLBr não precisa ser instalado, basta adicionar as units no path libriry do seu delphi e começar a usa-lo.
+
+## ⚡️ Como usar
 
 ### SELECT
 
@@ -122,13 +130,25 @@ Durante o desenvolvimento de software, é evidente a preocupação em que se tem
     .AsString);
 ```
 
-### Instalação ###
+## ✍️ License
+[![License](https://img.shields.io/badge/Licence-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 
+## ⛏️ Contribuição
 
-### Requisitos ###
-Embarcadero Delphi XE e superior ou Lazarus.
+Nossa equipe adoraria receber contribuições para este projeto open source. Se você tiver alguma ideia ou correção de bug, sinta-se à vontade para abrir uma issue ou enviar uma pull request.
 
-### Versão Atual ###
-1.0.0 (18 Jul 2019)
+[![Issues](https://img.shields.io/badge/Issues-channel-orange)](https://github.com/HashLoad/ormbr/issues)
 
-Copyright (c) 2019 CQLBr Framework Team
+Para enviar uma pull request, siga estas etapas:
+
+1. Faça um fork do projeto
+2. Crie uma nova branch (`git checkout -b minha-nova-funcionalidade`)
+3. Faça suas alterações e commit (`git commit -am 'Adicionando nova funcionalidade'`)
+4. Faça push da branch (`git push origin minha-nova-funcionalidade`)
+5. Abra uma pull request
+
+## 📬 Contato
+[![Telegram](https://img.shields.io/badge/Telegram-channel-blue)](https://t.me/hashload)
+
+## 💲 Doação
+[![Doação](https://img.shields.io/badge/PagSeguro-contribua-green)](https://pag.ae/bglQrWD)
