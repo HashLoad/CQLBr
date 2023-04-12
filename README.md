@@ -14,7 +14,10 @@ Durante o desenvolvimento de software, é evidente a preocupação em que se tem
 Embarcadero Delphi XE e superior.
 
 ## ⚙️ Instalação
-O CQLBr não precisa ser instalado, basta adicionar as units no path libriry do seu delphi e começar a usa-lo.
+Instalação usando o [`boss install`]
+```sh
+boss install "https://github.com/HashLoad/cqlbr"
+```
 
 ## ⚡️ Como usar
 
