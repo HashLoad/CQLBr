@@ -16,7 +16,7 @@ Embarcadero Delphi XE and above.
 ## ⚙️ Install
 Installation using [`boss install`]
 ```sh
-boss install "https://github.com/HashLoad/cqlbr"
+boss install cqlbr
 ```
 
 ## ⚡️ How to use
