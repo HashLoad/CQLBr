@@ -1,8 +1,8 @@
-# CQLBr Library for Delphi/Lazaruz
+# CQLBr Library for Delphi/Lazarus
 
-Criteria Query Language é uma Library que provê escritas através de uma interface permitindo mapear de forma orientada a objeto, toda sintaxe de comandos para realizar as operações de consulta, inclusão, alteração e exclusão em banco de dados.
+Criteria Query Language is a library that provides writing through an interface, allowing the mapping of object-oriented syntax for performing database query, insert, update, and delete operations.
 
-Durante o desenvolvimento de software, é evidente a preocupação em que se tem em aumentar a produtividade e manter a compatibilidade. No que se refere a banco de dados, temos na maioria dos casos quebra de compatibilidade por necessidade de escrever sintaxe que acaba sendo particularidade de um determinado banco de dados, foi ai que CQLBr nasceu, ele foi projetado, para que a escrita de querys seja unica para todos os banco dados. Ao gerar uma query com CQLBr, ele irá te possibilitar mudar de banco de dados em um sistema, sem ter que refaturar querys com particularidades do banco substituído.
+During software development, there is a clear concern about increasing productivity and maintaining compatibility. Regarding databases, in most cases, there is a compatibility break due to the need to write syntax that becomes specific to a particular database. This is where CQLBr comes in. It is designed so that query writing is unique for all databases. When generating a query with CQLBr, it allows you to switch between databases in a system without having to rewrite queries with specific details of the replaced database.
 
 <p align="center">
   <a href="https://www.isaquepinheiro.com.br">
@@ -10,16 +10,16 @@ Durante o desenvolvimento de software, é evidente a preocupação em que se tem
   </a>
 </p>
 
-## 🏛 Delphi Versions
-Embarcadero Delphi XE e superior.
+## 🏛 Delphi versions
+Embarcadero Delphi XE and above.
 
-## ⚙️ Instalação
-Instalação usando o [`boss install`]
+## ⚙️ Install
+Installation using [`boss install`]
 ```sh
-boss install "https://github.com/HashLoad/cqlbr"
+boss install cqlbr
 ```
 
-## ⚡️ Como usar
+## ⚡️ How to use
 
 ### SELECT
 
@@ -136,22 +136,22 @@ boss install "https://github.com/HashLoad/cqlbr"
 ## ✍️ License
 [![License](https://img.shields.io/badge/Licence-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 
-## ⛏️ Contribuição
+## ⛏️ Contribution
 
-Nossa equipe adoraria receber contribuições para este projeto open source. Se você tiver alguma ideia ou correção de bug, sinta-se à vontade para abrir uma issue ou enviar uma pull request.
+Our team would love to receive contributions to this open-source project. If you have any ideas or bug fixes, feel free to open an issue or submit a pull request..
 
 [![Issues](https://img.shields.io/badge/Issues-channel-orange)](https://github.com/HashLoad/ormbr/issues)
 
-Para enviar uma pull request, siga estas etapas:
+To submit a pull request, follow these steps:
 
-1. Faça um fork do projeto
-2. Crie uma nova branch (`git checkout -b minha-nova-funcionalidade`)
-3. Faça suas alterações e commit (`git commit -am 'Adicionando nova funcionalidade'`)
-4. Faça push da branch (`git push origin minha-nova-funcionalidade`)
-5. Abra uma pull request
+1. Fork the project
+2. Create a new branch (`git checkout -b my-new-feature`)
+3. Make your changes and commit (`git commit -am 'Adding new feature'`)
+4. Push the branch (`git push origin my-new-feature`)
+5. Open a pull request.
 
-## 📬 Contato
+## 📬 Contact
 [![Telegram](https://img.shields.io/badge/Telegram-channel-blue)](https://t.me/hashload)
 
-## 💲 Doação
+## 💲 Donation
 [![Doação](https://img.shields.io/badge/PagSeguro-contribua-green)](https://pag.ae/bglQrWD)
