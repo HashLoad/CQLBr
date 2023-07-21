@@ -14,7 +14,7 @@ During software development, there is a clear concern about increasing productiv
 Embarcadero Delphi XE and above.
 
 ## ⚙️ Install
-Instalação usando o [`boss install`]
+Installation using [`boss install`]
 ```sh
 boss install "https://github.com/HashLoad/cqlbr"
 ```
