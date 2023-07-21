@@ -10,7 +10,7 @@ During software development, there is a clear concern about increasing productiv
   </a>
 </p>
 
-## 🏛 Delphi Versions
+## 🏛 Delphi versions
 Embarcadero Delphi XE and above.
 
 ## ⚙️ Install
@@ -136,7 +136,7 @@ boss install cqlbr
 ## ✍️ License
 [![License](https://img.shields.io/badge/Licence-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 
-## ⛏️ Contribution.
+## ⛏️ Contribution
 
 Our team would love to receive contributions to this open-source project. If you have any ideas or bug fixes, feel free to open an issue or submit a pull request..
 
