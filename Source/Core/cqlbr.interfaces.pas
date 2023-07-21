@@ -18,10 +18,12 @@
        arquivo LICENSE na pasta principal.
 }
 
-{ @abstract(CQLBr Framework)
+{
+  @abstract(CQLBr Framework)
   @created(18 Jul 2019)
-  @author(Isaque Pinheiro <isaquesp@gmail.com>)
-  @author(Site : https://www.isaquepinheiro.com.br)
+  @source(Inspired by and based on "GpSQLBuilder" project - https://github.com/gabr42/GpSQLBuilder)
+  @source(Author of CQLBr Framework: Isaque Pinheiro <isaquesp@gmail.com>)
+  @source(Author's Website: https://www.isaquepinheiro.com.br)
 }
 
 unit cqlbr.interfaces;
@@ -36,7 +38,8 @@ interface
 type
   TOperator = (opeNone, opeWhere, opeAND, opeOR);
   TOperators = set of TOperator;
-
+
+
   TDBName = (dbnMSSQL, dbnMySQL, dbnFirebird, dbnSQLite, dbnInterbase, dbnDB2,
              dbnOracle, dbnInformix, dbnPostgreSQL, dbnADS, dbnASA,
              dbnAbsoluteDB, dbnMongoDB, dbnElevateDB, dbnNexusDB);
@@ -84,7 +87,6 @@ type
     function AsString: string;
     function Expression: ICQLExpression;
   end;
-
   ICQLCaseWhenThen = interface
     ['{C08E0BA8-87EA-4DA7-A4F2-DD718DB2E972}']
     function GetThenExpression: ICQLExpression;
@@ -95,7 +97,6 @@ type
     property WhenExpression: ICQLExpression read GetWhenExpression write SetWhenExpression;
     property ThenExpression: ICQLExpression read GetThenExpression write SetThenExpression;
   end;
-
   ICQLCaseWhenList = interface
     ['{CD02CC25-7261-4C37-8D22-532320EFAEB1}']
     function GetWhenThen(AIdx: Integer): ICQLCaseWhenThen;
@@ -250,7 +251,8 @@ type
     function NotLikeFull(const AValue: String): ICQL;
     function NotLikeLeft(const AValue: String): ICQL;
     function NotLikeRight(const AValue: String): ICQL;
-    function &In(const AValue: TArray<Double>): ICQL; overload;
+
+    function &In(const AValue: TArray<Double>): ICQL; overload;
     function &In(const AValue: TArray<String>): ICQL; overload;
     function &In(const AValue: String): ICQL; overload;
     function NotIn(const AValue: TArray<Double>): ICQL; overload;
@@ -322,7 +324,6 @@ type
     //
     property Direction: TOrderByDirection read GetDirection write SetDirection;
   end;
-
   ICQLOrderBy = interface(ICQLSection)
     ['{8D3484F7-9856-4232-AFD5-A80FB4F7833E}']
     function Columns: ICQLNames;
@@ -409,13 +410,11 @@ type
     function Serialize: String;
     property Joins[AIidx: Integer]: ICQLJoin read GetJoins write SetJoins; default;
   end;
-
   ICQLGroupBy = interface(ICQLSection)
     ['{820E003C-81FF-49BB-A7AC-2F00B58BE497}']
     function Columns: ICQLNames;
     function Serialize: String;
   end;
-
   ICQLHaving = interface(ICQLSection)
     ['{FAD8D0B5-CF5A-4615-93A5-434D4B399E28}']
     function GetExpression: ICQLExpression;
@@ -424,7 +423,6 @@ type
     function Serialize: String;
     property Expression: ICQLExpression read GetExpression write SetExpression;
   end;
-
   ICQLNameValue = interface
     ['{FC6C53CA-7CD1-475B-935C-B356E73105CF}']
     function  GetName: String;
@@ -437,7 +435,6 @@ type
     property Name: String read GetName write SetName;
     property Value: String read GetValue write SetValue;
   end;
-
   ICQLNameValuePairs = interface
     ['{561CA151-60B9-45E1-A443-5BAEC88DA955}']
     function  GetItem(AIdx: integer): ICQLNameValue;
@@ -449,7 +446,6 @@ type
     function IsEmpty: Boolean;
     property Item[AIdx: Integer]: ICQLNameValue read GetItem; default;
   end;
-
   ICQLInsert = interface(ICQLSection)
     ['{61136DB2-EBEB-46D1-8B9B-F5B6DBD1A423}']
     function  GetTableName: String;
@@ -460,7 +456,6 @@ type
     function Serialize: String;
     property TableName: String read GetTableName write SetTableName;
   end;
-
   ICQLUpdate = interface(ICQLSection)
     ['{90F7AC38-6E5A-4F5F-9A78-482FE2DBF7B1}']
     function  GetTableName: String;
@@ -470,7 +465,6 @@ type
     function Serialize: String;
     property TableName: String read GetTableName write SetTableName;
   end;
-
   ICQLAST = interface
     ['{09DC93FD-ABC4-4999-80AE-124EC1CAE9AC}']
     function GetASTColumns: ICQLNames;
@@ -576,7 +570,8 @@ type
     function IsNotLikeFull(const AValue: String): String;
     function IsNotLikeLeft(const AValue: String): String;
     function IsNotLikeRight(const AValue: String): String;
-    function IsIn(const AValue: TArray<Double>): string; overload;
+
+    function IsIn(const AValue: TArray<Double>): string; overload;
     function IsIn(const AValue: TArray<String>): string; overload;
     function IsIn(const AValue: String): string; overload;
     function IsNotIn(const AValue: TArray<Double>): string; overload;

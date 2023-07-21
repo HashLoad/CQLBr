@@ -1,5 +1,5 @@
 {
-         TCQLFunc Brasil - Criteria Query Language for Delphi/Lazarus
+         CQL Brasil - Criteria Query Language for Delphi/Lazarus
 
 
                    Copyright (c) 2019, Isaque Pinheiro
@@ -18,12 +18,12 @@
        arquivo LICENSE na pasta principal.
 }
 
-{ @abstract(CQLBr Framework)
+{
+  @abstract(CQLBr Framework)
   @created(18 Jul 2019)
-  @author(Isaque Pinheiro <isaquesp@gmail.com>)
-  @author(Site : https://www.isaquepinheiro.com.br)
-
-  @colaborador(Gabriel Baltazar - Autor da classe)
+  @source(Inspired by and based on "GpSQLBuilder" project - https://github.com/gabr42/GpSQLBuilder)
+  @source(Author of CQLBr Framework: Isaque Pinheiro <isaquesp@gmail.com>)
+  @source(Author's Website: https://www.isaquepinheiro.com.br)
 }
 
 unit cqlbr.operators;
@@ -122,8 +122,10 @@ type
     function IsNotLikeFull(const AValue: String): String;
     function IsNotLikeLeft(const AValue: String): String;
     function IsNotLikeRight(const AValue: String): String;
-    function IsIn(const AValue: TArray<Double>): string; overload;
-    function IsIn(const AValue: TArray<String>): string; overload;
+
+    function IsIn(const AValue: TArray<Double>): string; overload;
+
+    function IsIn(const AValue: TArray<String>): string; overload;
     function IsIn(const AValue: String): string; overload;
     function IsNotIn(const AValue: TArray<Double>): string; overload;
     function IsNotIn(const AValue: TArray<String>): string; overload;
