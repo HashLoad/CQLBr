@@ -18,10 +18,12 @@
        arquivo LICENSE na pasta principal.
 }
 
-{ @abstract(CQLBr Framework)
+{
+  @abstract(CQLBr Framework)
   @created(18 Jul 2019)
-  @author(Isaque Pinheiro <isaquesp@gmail.com>)
-  @author(Site : https://www.isaquepinheiro.com.br)
+  @source(Inspired by and based on "GpSQLBuilder" project - https://github.com/gabr42/GpSQLBuilder)
+  @source(Author of CQLBr Framework: Isaque Pinheiro <isaquesp@gmail.com>)
+  @source(Author's Website: https://www.isaquepinheiro.com.br)
 }
 
 unit criteria.query.language;
@@ -194,7 +196,8 @@ type
     function NotLikeFull(const AValue: String): ICQL;
     function NotLikeLeft(const AValue: String): ICQL;
     function NotLikeRight(const AValue: String): ICQL;
-    function &In(const AValue: TArray<Double>): ICQL; overload;
+
+    function &In(const AValue: TArray<Double>): ICQL; overload;
     function &In(const AValue: TArray<String>): ICQL; overload;
     function &In(const AValue: String): ICQL; overload;
     function NotIn(const AValue: TArray<Double>): ICQL; overload;

@@ -1,5 +1,5 @@
 {
-         TCQLFunctions Brasil - Criteria Query Language for Delphi/Lazarus
+         CQL Brasil - Criteria Query Language for Delphi/Lazarus
 
 
                    Copyright (c) 2019, Isaque Pinheiro
@@ -18,10 +18,12 @@
        arquivo LICENSE na pasta principal.
 }
 
-{ @abstract(CQLBr Framework)
+{
+  @abstract(CQLBr Framework)
   @created(18 Jul 2019)
-  @author(Isaque Pinheiro <isaquesp@gmail.com>)
-  @author(Site : https://www.isaquepinheiro.com.br)
+  @source(Inspired by and based on "GpSQLBuilder" project - https://github.com/gabr42/GpSQLBuilder)
+  @source(Author of CQLBr Framework: Isaque Pinheiro <isaquesp@gmail.com>)
+  @source(Author's Website: https://www.isaquepinheiro.com.br)
 }
 
 unit cqlbr.functions.abstract;
@@ -50,8 +52,10 @@ type
     function Convert(const ADataType: String; AExpression: String; AStyle: String): String; virtual; abstract;
     function Date(const AVAlue: String; const AFormat: String): String; overload; virtual; abstract;
     function Date(const AVAlue: String): String; overload; virtual; abstract;
-    function Day(const AValue: String): String; virtual; abstract;
-    function Month(const AValue: String): String; virtual; abstract;
+
+    function Day(const AValue: String): String; virtual; abstract;
+
+    function Month(const AValue: String): String; virtual; abstract;
     function Year(const AValue: String): String; virtual; abstract;
     function Concat(const AValue: array of string): String; virtual; abstract;
   end;
