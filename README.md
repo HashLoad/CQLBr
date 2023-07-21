@@ -1,4 +1,4 @@
-# CQLBr Library for Delphi/Lazaruz
+# CQLBr Library for Delphi/Lazarus
 
 Criteria Query Language é uma Library que provê escritas através de uma interface permitindo mapear de forma orientada a objeto, toda sintaxe de comandos para realizar as operações de consulta, inclusão, alteração e exclusão em banco de dados.
 
