@@ -42,25 +42,24 @@ uses
 type
   TCQLNameValue  = class(TInterfacedObject, ICQLNameValue)
   strict private
-    FName : String;
-    FValue: String;
-  protected
-    function GetName: String;
-    function GetValue: String;
-    procedure SetName(const Value: String);
-    procedure SetValue(const Value: String);
+    FName : string;
+    FValue: string;
+    function _GetName: string;
+    function _GetValue: string;
+    procedure _SetName(const Value: string);
+    procedure _SetValue(const Value: string);
   public
     procedure Clear;
     function IsEmpty: Boolean;
-    property Name: String read GetName write SetName;
-    property Value: String read GetValue write SetValue;
+    property Name: string read _GetName write _SetName;
+    property Value: string read _GetValue write _SetValue;
   end;
 
   TCQLNameValuePairs = class(TInterfacedObject, ICQLNameValuePairs)
   strict private
     FList: TList<ICQLNameValue>;
+    function _GetItem(AIdx: Integer): ICQLNameValue;
   protected
-    function GetItem(AIdx: Integer): ICQLNameValue;
     constructor Create;
   public
     class function New: ICQLNameValuePairs;
@@ -70,7 +69,7 @@ type
     procedure Clear;
     function Count: Integer;
     function IsEmpty: Boolean;
-    property Item[AIdx: Integer]: ICQLNameValue read GetItem; default;
+    property Item[AIdx: Integer]: ICQLNameValue read _GetItem; default;
   end;
 
 implementation
@@ -86,12 +85,12 @@ begin
   FValue := '';
 end;
 
-function TCQLNameValue.GetName: String;
+function TCQLNameValue._GetName: string;
 begin
   Result := FName;
 end;
 
-function TCQLNameValue.GetValue: String;
+function TCQLNameValue._GetValue: string;
 begin
   Result := FValue;
 end;
@@ -101,12 +100,12 @@ begin
   Result := (FName <> '');
 end;
 
-procedure TCQLNameValue.SetName(const Value: String);
+procedure TCQLNameValue._SetName(const Value: string);
 begin
   FName := Value;
 end;
 
-procedure TCQLNameValue.SetValue(const Value: String);
+procedure TCQLNameValue._SetValue(const Value: string);
 begin
   FValue := Value;
 end;
@@ -145,7 +144,7 @@ begin
   inherited;
 end;
 
-function TCQLNameValuePairs.GetItem(AIdx: Integer): ICQLNameValue;
+function TCQLNameValuePairs._GetItem(AIdx: Integer): ICQLNameValue;
 begin
   Result := FList[AIdx];
 end;

@@ -42,15 +42,14 @@ type
   TCQLHaving = class(TCQLSection, ICQLHaving)
   strict private
     FExpression: ICQLExpression;
-  protected
-    function GetExpression: ICQLExpression;
-    procedure SetExpression(const Value: ICQLExpression);
+    function _GetExpression: ICQLExpression;
+    procedure _SetExpression(const Value: ICQLExpression);
   public
     constructor Create;
     procedure Clear; override;
     function IsEmpty: Boolean; override;
-    function Serialize: String;
-    property Expression: ICQLExpression read GetExpression write SetExpression;
+    function Serialize: string;
+    property Expression: ICQLExpression read _GetExpression write _SetExpression;
   end;
 
 
@@ -73,7 +72,7 @@ begin
   FExpression.Clear;
 end;
 
-function TCQLHaving.GetExpression: ICQLExpression;
+function TCQLHaving._GetExpression: ICQLExpression;
 begin
   Result := FExpression;
 end;
@@ -83,7 +82,7 @@ begin
   Result := FExpression.IsEmpty;
 end;
 
-function TCQLHaving.Serialize: String;
+function TCQLHaving.Serialize: string;
 begin
   if IsEmpty then
     Result := ''
@@ -91,7 +90,7 @@ begin
     Result := TUtils.Concat(['HAVING', FExpression.Serialize]);
 end;
 
-procedure TCQLHaving.SetExpression(const Value: ICQLExpression);
+procedure TCQLHaving._SetExpression(const Value: ICQLExpression);
 begin
   FExpression := Value;
 end;

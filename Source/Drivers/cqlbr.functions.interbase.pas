@@ -42,12 +42,12 @@ type
   TCQLFunctionsInterbase = class(TCQLFunctionAbstract)
   public
     constructor Create;
-    function Substring(const AVAlue: String; const AStart, ALength: Integer): String; override;
-    function Date(const AVAlue: String; const AFormat: String): String; overload; override;
-    function Date(const AVAlue: String): String; overload; override;
-    function Day(const AValue: String): String; override;
-    function Month(const AValue: String): String; override;
-    function Year(const AValue: String): String; override;
+    function Substring(const AVAlue: string; const AStart, ALength: Integer): string; override;
+    function Date(const AVAlue: string; const AFormat: string): string; overload; override;
+    function Date(const AVAlue: string): string; overload; override;
+    function Day(const AValue: string): string; override;
+    function Month(const AValue: string): string; override;
+    function Year(const AValue: string): string; override;
     function Concat(const AValue: array of string): string; override;
   end;
 
@@ -82,33 +82,33 @@ begin
   inherited;
 end;
 
-function TCQLFunctionsInterbase.Date(const AVAlue, AFormat: String): String;
+function TCQLFunctionsInterbase.Date(const AVAlue, AFormat: string): string;
 begin
   Result := FormatDateTime(AFormat, StrToDateTime(AValue));
 end;
 
-function TCQLFunctionsInterbase.Date(const AVAlue: String): String;
+function TCQLFunctionsInterbase.Date(const AVAlue: string): string;
 begin
   Result := AValue;
 end;
 
-function TCQLFunctionsInterbase.Substring(const AVAlue: String; const AStart,
-  ALength: Integer): String;
+function TCQLFunctionsInterbase.Substring(const AVAlue: string; const AStart,
+  ALength: Integer): string;
 begin
   Result := 'SUBSTRING(' + AValue + ' FROM ' + IntToStr(AStart) + ' FOR ' + IntToStr(ALength) + ')';
 end;
 
-function TCQLFunctionsInterbase.Day(const AValue: String): String;
+function TCQLFunctionsInterbase.Day(const AValue: string): string;
 begin
   Result := 'EXTRACT(DAY FROM ' + AValue + ')';
 end;
 
-function TCQLFunctionsInterbase.Month(const AValue: String): String;
+function TCQLFunctionsInterbase.Month(const AValue: string): string;
 begin
   Result := 'EXTRACT(MONTH FROM ' + AValue + ')';
 end;
 
-function TCQLFunctionsInterbase.Year(const AValue: String): String;
+function TCQLFunctionsInterbase.Year(const AValue: string): string;
 begin
   Result := 'EXTRACT(YEAR FROM ' + AValue + ')';
 end;

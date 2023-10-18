@@ -42,7 +42,7 @@ uses
 type
   TCQLSelectQualifiersMSSQL = class(TCQLSelectQualifiers)
   public
-    function SerializePagination: String; override;
+    function SerializePagination: string; override;
     class function New: ICQLSelectQualifiers;
   end;
 
@@ -58,7 +58,7 @@ begin
   Result := Self.Create;
 end;
 
-function TCQLSelectQualifiersMSSQL.SerializePagination: String;
+function TCQLSelectQualifiersMSSQL.SerializePagination: string;
 var
   LFor: Integer;
   LFirst: Integer;

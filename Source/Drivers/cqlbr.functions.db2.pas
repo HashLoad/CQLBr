@@ -42,12 +42,12 @@ type
   TCQLFunctionsDB2 = class(TCQLFunctionAbstract)
   public
     constructor Create;
-    function Substring(const AVAlue: String; const AStart, ALength: Integer): String; override;
-    function Date(const AVAlue: String; const AFormat: String): String; overload; override;
-    function Date(const AVAlue: String): String; overload; override;
-    function Day(const AValue: String): String; override;
-    function Month(const AValue: String): String; override;
-    function Year(const AValue: String): String; override;
+    function Substring(const AVAlue: string; const AStart, ALength: Integer): string; override;
+    function Date(const AVAlue: string; const AFormat: string): string; overload; override;
+    function Date(const AVAlue: string): string; overload; override;
+    function Day(const AValue: string): string; override;
+    function Month(const AValue: string): string; override;
+    function Year(const AValue: string): string; override;
     function Concat(const AValue: array of string): string; override;
   end;
 
@@ -82,33 +82,33 @@ begin
   inherited;
 end;
 
-function TCQLFunctionsDB2.Date(const AVAlue, AFormat: String): String;
+function TCQLFunctionsDB2.Date(const AVAlue, AFormat: string): string;
 begin
   Result := 'TO_DATE(' + AValue + ', ' + AFormat + ')';
 end;
 
-function TCQLFunctionsDB2.Date(const AVAlue: String): String;
+function TCQLFunctionsDB2.Date(const AVAlue: string): string;
 begin
   Result := 'TO_DATE(' + AValue + ', ''dd/MM/yyyy'')';
 end;
 
-function TCQLFunctionsDB2.Day(const AValue: String): String;
+function TCQLFunctionsDB2.Day(const AValue: string): string;
 begin
   Result := 'DAY(' + AVAlue + ')';
 end;
 
-function TCQLFunctionsDB2.Month(const AValue: String): String;
+function TCQLFunctionsDB2.Month(const AValue: string): string;
 begin
   Result := 'MONTH(' + AVAlue + ')';
 end;
 
-function TCQLFunctionsDB2.Substring(const AVAlue: String; const AStart,
-  ALength: Integer): String;
+function TCQLFunctionsDB2.Substring(const AVAlue: string; const AStart,
+  ALength: Integer): string;
 begin
   Result := 'SUBSTRING(' + AValue + ', ' + IntToStr(AStart) + ', ' + IntToStr(ALength) + ')';
 end;
 
-function TCQLFunctionsDB2.Year(const AValue: String): String;
+function TCQLFunctionsDB2.Year(const AValue: string): string;
 begin
   Result := 'YEAR(' + AVAlue + ')';
 end;

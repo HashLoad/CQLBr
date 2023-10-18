@@ -42,17 +42,17 @@ uses
 type
   TCQLWhere = class(TCQLSection, ICQLWhere)
   private
-    function GetExpression: ICQLExpression;
-    procedure SetExpression(const Value: ICQLExpression);
+    function _GetExpression: ICQLExpression;
+    procedure _SetExpression(const Value: ICQLExpression);
   protected
     FExpression: ICQLExpression;
   public
     constructor Create; virtual;
     destructor Destroy; override;
     procedure Clear; override;
-    function Serialize: String; virtual;
+    function Serialize: string; virtual;
     function IsEmpty: Boolean; override;
-    property Expression: ICQLExpression read GetExpression write SetExpression;
+    property Expression: ICQLExpression read _GetExpression write _SetExpression;
   end;
 
 implementation
@@ -78,7 +78,7 @@ begin
   inherited;
 end;
 
-function TCQLWhere.GetExpression: ICQLExpression;
+function TCQLWhere._GetExpression: ICQLExpression;
 begin
   Result := FExpression;
 end;
@@ -88,7 +88,7 @@ begin
   Result := FExpression.IsEmpty;
 end;
 
-function TCQLWhere.Serialize: String;
+function TCQLWhere.Serialize: string;
 begin
   if IsEmpty then
     Result := ''
@@ -96,7 +96,7 @@ begin
     Result := TUtils.Concat(['WHERE', FExpression.Serialize]);
 end;
 
-procedure TCQLWhere.SetExpression(const Value: ICQLExpression);
+procedure TCQLWhere._SetExpression(const Value: ICQLExpression);
 begin
   FExpression := Value;
 end;

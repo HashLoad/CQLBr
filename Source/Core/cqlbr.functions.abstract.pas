@@ -40,24 +40,24 @@ uses
 type
   TCQLFunctionAbstract = class(TInterfacedObject, ICQLFunctions)
   public
-    function Count(const AValue: String): String; virtual; abstract;
-    function Upper(const AValue: String): String; virtual; abstract;
-    function Lower(const AValue: String): String; virtual; abstract;
-    function Min(const AValue: String): String; virtual; abstract;
-    function Max(const AValue: String): String; virtual; abstract;
-    function Sum(const AValue: String): String; virtual; abstract;
-    function Coalesce(const AValues: array of String): String; virtual; abstract;
-    function Substring(const AVAlue: String; const AStart, ALength: Integer): String; virtual; abstract;
-    function Cast(const AExpression: String; ADataType: String): String; virtual; abstract;
-    function Convert(const ADataType: String; AExpression: String; AStyle: String): String; virtual; abstract;
-    function Date(const AVAlue: String; const AFormat: String): String; overload; virtual; abstract;
-    function Date(const AVAlue: String): String; overload; virtual; abstract;
-
-    function Day(const AValue: String): String; virtual; abstract;
-
-    function Month(const AValue: String): String; virtual; abstract;
-    function Year(const AValue: String): String; virtual; abstract;
-    function Concat(const AValue: array of string): String; virtual; abstract;
+    function Count(const AValue: string): string; virtual; abstract;
+    function Upper(const AValue: string): string; virtual; abstract;
+    function Lower(const AValue: string): string; virtual; abstract;
+    function Min(const AValue: string): string; virtual; abstract;
+    function Max(const AValue: string): string; virtual; abstract;
+    function Sum(const AValue: string): string; virtual; abstract;
+    function Coalesce(const AValues: array of String): string; virtual; abstract;
+    function Substring(const AVAlue: string; const AStart, ALength: Integer): string; virtual; abstract;
+    function Cast(const AExpression: string; const ADataType: string): string; virtual; abstract;
+    function Convert(const ADataType: string; const AExpression: string;
+      const AStyle: string): string; virtual; abstract;
+    function Year(const AValue: string): string; virtual; abstract;
+    function Concat(const AValue: array of string): string; virtual; abstract;
+    // Date
+    function Date(const AVAlue: string; const AFormat: string): string; overload; virtual; abstract;
+    function Date(const AVAlue: string): string; overload; virtual; abstract;
+    function Day(const AValue: string): string; virtual; abstract;
+    function Month(const AValue: string): string; virtual; abstract;
   end;
 
 implementation

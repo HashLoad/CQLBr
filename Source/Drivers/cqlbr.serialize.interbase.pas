@@ -43,14 +43,14 @@ uses
 type
   TCQLSerializerInterbase = class(TCQLSerialize)
   public
-    function AsString(const AAST: ICQLAST): String; override;
+    function AsString(const AAST: ICQLAST): string; override;
   end;
 
 implementation
 
 { TCQLSerializerInterbase }
 
-function TCQLSerializerInterbase.AsString(const AAST: ICQLAST): String;
+function TCQLSerializerInterbase.AsString(const AAST: ICQLAST): string;
 begin
   Result := inherited AsString(AAST);
 end;

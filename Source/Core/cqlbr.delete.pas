@@ -48,7 +48,7 @@ type
     procedure Clear; override;
     function IsEmpty: boolean; override;
     function TableNames: ICQLNames;
-    function Serialize: String;
+    function Serialize: string;
   end;
 
 implementation
@@ -74,7 +74,7 @@ begin
   Result := FTableNames.IsEmpty;
 end;
 
-function TCQLDelete.Serialize: String;
+function TCQLDelete.Serialize: string;
 begin
   if IsEmpty then
     Result := ''

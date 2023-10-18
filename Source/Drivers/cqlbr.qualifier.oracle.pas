@@ -42,7 +42,7 @@ uses
 type
   TCQLSelectQualifiersOracle = class(TCQLSelectQualifiers)
   public
-    function SerializePagination: String; override;
+    function SerializePagination: string; override;
     class function New: TCQLSelectQualifiersOracle;
   end;
 
@@ -58,11 +58,11 @@ begin
   Result := Self.Create;
 end;
 
-function TCQLSelectQualifiersOracle.SerializePagination: String;
+function TCQLSelectQualifiersOracle.SerializePagination: string;
 var
   LFor: Integer;
-  LFirst: String;
-  LSkip: String;
+  LFirst: string;
+  LSkip: string;
 begin
   LFirst := '';
   LSkip := '';

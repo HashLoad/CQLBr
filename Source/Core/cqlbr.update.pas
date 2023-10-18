@@ -44,17 +44,16 @@ type
   strict private
     FTableName: string;
     FValues: ICQLNameValuePairs;
-    function SerializeNameValuePairsForUpdate(const APairs: ICQLNameValuePairs): string;
-  protected
-    function  GetTableName: string;
-    procedure SetTableName(const value: string);
+    function _SerializeNameValuePairsForUpdate(const APairs: ICQLNameValuePairs): string;
+    function  _GetTableName: string;
+    procedure _SetTableName(const value: string);
   public
     constructor Create;
     procedure Clear; override;
     function IsEmpty: boolean; override;
     function Values: ICQLNameValuePairs;
-    function Serialize: String;
-    property TableName: string read GetTableName write SetTableName;
+    function Serialize: string;
+    property TableName: string read _GetTableName write _SetTableName;
   end;
 
 implementation
@@ -76,7 +75,7 @@ begin
   FValues := TCQLNameValuePairs.New;
 end;
 
-function TCQLUpdate.GetTableName: string;
+function TCQLUpdate._GetTableName: string;
 begin
   Result := FTableName;
 end;
@@ -86,16 +85,16 @@ begin
   Result := (TableName = '');
 end;
 
-function TCQLUpdate.Serialize: String;
+function TCQLUpdate.Serialize: string;
 begin
   if IsEmpty then
     Result := ''
   else
     Result := TUtils.Concat(['UPDATE', FTableName, 'SET',
-      SerializeNameValuePairsForUpdate(FValues)]);
+      _SerializeNameValuePairsForUpdate(FValues)]);
 end;
 
-function TCQLUpdate.SerializeNameValuePairsForUpdate(const APairs: ICQLNameValuePairs): string;
+function TCQLUpdate._SerializeNameValuePairsForUpdate(const APairs: ICQLNameValuePairs): string;
 var
   LFor: Integer;
 begin
@@ -104,7 +103,7 @@ begin
     Result := TUtils.Concat([Result, TUtils.Concat([APairs[LFor].Name, '=', APairs[LFor].Value])], ', ');
 end;
 
-procedure TCQLUpdate.SetTableName(const value: string);
+procedure TCQLUpdate._SetTableName(const value: string);
 begin
   FTableName := Value;
 end;

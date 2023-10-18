@@ -49,29 +49,27 @@ type
     FCondition: ICQLExpression;
     FJoinedTable: ICQLName;
     FJoinType: TJoinType;
-  protected
-    function GetCondition: ICQLExpression;
-    function GetJoinedTable: ICQLName;
-    function GetJoinType: TJoinType;
-    procedure SetCondition(const Value: ICQLExpression);
-    procedure SetJoinedTable(const Value: ICQLName);
-    procedure SetJoinType(const Value: TJoinType);
+    function _GetCondition: ICQLExpression;
+    function _GetJoinedTable: ICQLName;
+    function _GetJoinType: TJoinType;
+    procedure _SetCondition(const Value: ICQLExpression);
+    procedure _SetJoinedTable(const Value: ICQLName);
+    procedure _SetJoinType(const Value: TJoinType);
   public
     constructor Create;
     procedure Clear; override;
     function IsEmpty: Boolean; override;
-    property Condition: ICQLExpression read GetCondition write SetCondition;
-    property JoinedTable: ICQLName read GetJoinedTable write SetJoinedTable;
-    property JoinType: TJoinType read GetJoinType write SetJoinType;
+    property Condition: ICQLExpression read _GetCondition write _SetCondition;
+    property JoinedTable: ICQLName read _GetJoinedTable write _SetJoinedTable;
+    property JoinType: TJoinType read _GetJoinType write _SetJoinType;
   end;
 
   TCQLJoins = class(TInterfacedObject, ICQLJoins)
   strict private
     FJoins: TList<ICQLJoin>;
     function SerializeJoinType(const AJoin: ICQLJoin): string;
-  protected
-    function GetJoins(AIdx: Integer): ICQLJoin;
-    procedure SetJoins(AIdx: Integer; const Value: ICQLJoin);
+    function _GetJoins(AIdx: Integer): ICQLJoin;
+    procedure _SetJoins(AIdx: Integer; const Value: ICQLJoin);
   public
     constructor Create;
     destructor Destroy; override;
@@ -80,8 +78,8 @@ type
     procedure Clear;
     function Count: Integer;
     function IsEmpty: Boolean;
-    function Serialize: String;
-    property Joins[AIdx: Integer]: ICQLJoin read GetJoins write SetJoins; default;
+    function Serialize: string;
+    property Joins[AIdx: Integer]: ICQLJoin read _GetJoins write _SetJoins; default;
   end;
 
 implementation
@@ -101,17 +99,17 @@ begin
   FCondition := TCQLExpression.New;
 end;
 
-function TCQLJoin.GetCondition: ICQLExpression;
+function TCQLJoin._GetCondition: ICQLExpression;
 begin
   Result := FCondition;
 end;
 
-function TCQLJoin.GetJoinedTable: ICQLName;
+function TCQLJoin._GetJoinedTable: ICQLName;
 begin
   Result := FJoinedTable;
 end;
 
-function TCQLJoin.GetJoinType: TJoinType;
+function TCQLJoin._GetJoinType: TJoinType;
 begin
   Result := FJoinType;
 end;
@@ -121,17 +119,17 @@ begin
   Result := (FCondition.IsEmpty and FJoinedTable.IsEmpty);
 end;
 
-procedure TCQLJoin.SetCondition(const Value: ICQLExpression);
+procedure TCQLJoin._SetCondition(const Value: ICQLExpression);
 begin
   FCondition := Value;
 end;
 
-procedure TCQLJoin.SetJoinedTable(const Value: ICQLName);
+procedure TCQLJoin._SetJoinedTable(const Value: ICQLName);
 begin
   FJoinedTable := Value;
 end;
 
-procedure TCQLJoin.SetJoinType(const Value: TJoinType);
+procedure TCQLJoin._SetJoinType(const Value: TJoinType);
 begin
   FJoinType := Value;
 end;
@@ -171,7 +169,7 @@ begin
   inherited;
 end;
 
-function TCQLJoins.GetJoins(AIdx: Integer): ICQLJoin;
+function TCQLJoins._GetJoins(AIdx: Integer): ICQLJoin;
 begin
   Result := FJoins[AIdx];
 end;
@@ -181,7 +179,7 @@ begin
   Result := (FJoins.Count = 0);
 end;
 
-function TCQLJoins.Serialize: String;
+function TCQLJoins.Serialize: string;
 var
   LFor: Integer;
   LJoin: ICQLJoin;
@@ -211,7 +209,7 @@ begin
   end;
 end;
 
-procedure TCQLJoins.SetJoins(AIdx: Integer; const Value: ICQLJoin);
+procedure TCQLJoins._SetJoins(AIdx: Integer; const Value: ICQLJoin);
 begin
   FJoins[AIdx] := Value;
 end;

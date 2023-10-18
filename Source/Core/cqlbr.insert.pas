@@ -46,18 +46,17 @@ type
     FColumns: ICQLNames;
     FTableName: string;
     FValues: ICQLNameValuePairs;
-    function SerializeNameValuePairsForInsert(const APairs: ICQLNameValuePairs): string;
-  protected
-    function GetTableName: string;
-    procedure SetTableName(const Value: string);
+    function _SerializeNameValuePairsForInsert(const APairs: ICQLNameValuePairs): string;
+    function _GetTableName: string;
+    procedure _SetTableName(const Value: string);
   public
     constructor Create;
     procedure Clear; override;
     function Columns: ICQLNames;
     function IsEmpty: Boolean; override;
     function Values: ICQLNameValuePairs;
-    function Serialize: String;
-    property TableName: string read GetTableName write SetTableName;
+    function Serialize: string;
+    property TableName: string read _GetTableName write _SetTableName;
   end;
 
 implementation
@@ -86,7 +85,7 @@ begin
   FValues := TCQLNameValuePairs.New;
 end;
 
-function TCQLInsert.GetTableName: string;
+function TCQLInsert._GetTableName: string;
 begin
   Result := FTableName;
 end;
@@ -96,7 +95,7 @@ begin
   Result := (TableName = '');
 end;
 
-function TCQLInsert.Serialize: String;
+function TCQLInsert.Serialize: string;
 begin
   if IsEmpty then
     Result := ''
@@ -106,15 +105,15 @@ begin
     if FColumns.Count > 0 then
       Result := TUtils.Concat([Result, '(', Columns.Serialize, ')'])
     else
-      Result := TUtils.Concat([Result, SerializeNameValuePairsForInsert(FValues)]);
+      Result := TUtils.Concat([Result, _SerializeNameValuePairsForInsert(FValues)]);
   end;
 end;
 
-function TCQLInsert.SerializeNameValuePairsForInsert(const APairs: ICQLNameValuePairs): string;
+function TCQLInsert._SerializeNameValuePairsForInsert(const APairs: ICQLNameValuePairs): string;
 var
   LFor: integer;
-  LColumns: String;
-  LValues: String;
+  LColumns: string;
+  LValues: string;
 begin
   Result := '';
   if APairs.Count = 0 then
@@ -130,7 +129,7 @@ begin
   Result := TUtils.Concat(['(', LColumns, ') VALUES (', LValues, ')'],'');
 end;
 
-procedure TCQLInsert.SetTableName(const Value: string);
+procedure TCQLInsert._SetTableName(const Value: string);
 begin
   FTableName := Value;
 end;

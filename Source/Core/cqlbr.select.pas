@@ -54,7 +54,7 @@ type
     function Columns: ICQLNames;
     function TableNames: ICQLNames;
     function Qualifiers: ICQLSelectQualifiers;
-    function Serialize: String; virtual;
+    function Serialize: string; virtual;
   end;
 
 implementation
@@ -100,7 +100,7 @@ begin
   Result := FQualifiers;
 end;
 
-function TCQLSelect.Serialize: String;
+function TCQLSelect.Serialize: string;
 begin
   if IsEmpty then
     Result := ''
