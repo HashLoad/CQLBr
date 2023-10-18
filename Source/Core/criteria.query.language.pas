@@ -52,6 +52,8 @@ type
   CQL = cqlbr.functions.TCQLFunctions;
 
   TCQL = class(TInterfacedObject, ICQL)
+  private
+    class var FDatabaseDafault: TDBName;
   strict private
     type
       TSection = (secSelect = 0,
@@ -90,7 +92,9 @@ type
   protected
     constructor Create(const ADatabase: TDBName);
   public
-    class function New(const ADatabase: TDBName): ICQL;
+    class function New(const ADatabase: TDBName): ICQL; overload;
+    class function New: ICQL; overload;
+    class procedure SetDatabaseDafault(const ADatabase: TDBName);
     function &And(const AExpression: array of const): ICQL; overload;
     function &And(const AExpression: String): ICQL; overload;
     function &And(const AExpression: ICQLCriteriaExpression): ICQL; overload;
@@ -380,6 +384,11 @@ function TCQL.&Set(const AColumnName: String;
   const AColumnValue: TGUID): ICQL;
 begin
   Result := InternalSet(AColumnName, TUtils.GuidStrToSQLFormat(FDatabase, AColumnValue));
+end;
+
+class procedure TCQL.SetDatabaseDafault(const ADatabase: TDBName);
+begin
+  FDatabaseDafault := ADatabase;
 end;
 
 function TCQL.All: ICQL;
@@ -1257,6 +1266,11 @@ begin
   AssertOperator([opeWhere, opeAND, opeOR]);
   FActiveExpr.&Ope(FOperator.IsEqual(AValue));
   Result := Self;
+end;
+
+class function TCQL.New: ICQL;
+begin
+  Result := Self.Create(FDatabaseDafault);
 end;
 
 function TCQL.NotEqual(const AValue: TGUID): ICQL;

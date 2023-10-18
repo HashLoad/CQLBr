@@ -115,6 +115,7 @@ begin
 
     {$IFNDEF CI}
     //We don't want this happening when running under CI.
+    TDUnitX.Options.ExitBehavior := TDUnitXExitBehavior.Pause;
     if TDUnitX.Options.ExitBehavior = TDUnitXExitBehavior.Pause then
     begin
       System.Write('Done.. press <Enter> key to quit.');

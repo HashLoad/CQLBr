@@ -194,13 +194,14 @@ var
   LAsString: String;
 begin
   LAsString := 'SELECT FIRST 3 SKIP 0 * FROM CLIENTES AS CLI ORDER BY CLI.ID_CLIENTE';
-  Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)
-                                      .Select
-                                      .All
-                                      .First(3).Skip(0)
-                                      .From('CLIENTES', 'CLI')
-                                      .OrderBy('CLI.ID_CLIENTE')
-                                      .AsString);
+  TCQL.SetDatabaseDafault(dbnFirebird);
+  Assert.AreEqual(LAsString, TCQL.New
+                                 .Select
+                                 .All
+                                 .First(3).Skip(0)
+                                 .From('CLIENTES', 'CLI')
+                                 .OrderBy('CLI.ID_CLIENTE')
+                                 .AsString);
 end;
 
 procedure TTestCQLSelect.TestSelectPagingMSSQL;
