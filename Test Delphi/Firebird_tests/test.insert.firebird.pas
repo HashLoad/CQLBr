@@ -37,7 +37,7 @@ end;
 
 procedure TTestCQLInsert.TestInsertFirebird;
 var
-  LAsString: String;
+  LAsString: string;
 begin
   LAsString := 'INSERT INTO CLIENTES (ID_CLIENTE, NOME_CLIENTE) VALUES (1, ''MyName'')';
   Assert.AreEqual(LAsString, TCQL.New(dbnFirebird)

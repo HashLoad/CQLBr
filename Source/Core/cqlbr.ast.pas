@@ -53,15 +53,14 @@ type
     FJoins: ICQLJoins;
     FOrderBy: ICQLOrderBy;
     FWhere: ICQLWhere;
-    function GetASTColumns: ICQLNames;
-    procedure SetASTColumns(const Value: ICQLNames);
-    function GetASTSection: ICQLSection;
-    procedure SetASTSection(const Value: ICQLSection);
-    function GetASTName: ICQLName;
-    procedure SetASTName(const Value: ICQLName);
-    function GetASTTableNames: ICQLNames;
-    procedure SetASTTableNames(const Value: ICQLNames);
-  protected
+    function _GetASTColumns: ICQLNames;
+    procedure _SetASTColumns(const Value: ICQLNames);
+    function _GetASTSection: ICQLSection;
+    procedure _SetASTSection(const Value: ICQLSection);
+    function _GetASTName: ICQLName;
+    procedure _SetASTName(const Value: ICQLName);
+    function _GetASTTableNames: ICQLNames;
+    procedure _SetASTTableNames(const Value: ICQLNames);
   public
     constructor Create(const ADatabase: TDBName);
     destructor Destroy; override;
@@ -77,10 +76,10 @@ type
     function GroupBy: ICQLGroupBy;
     function Having: ICQLHaving;
     function OrderBy: ICQLOrderBy;
-    property ASTColumns: ICQLNames read GetASTColumns write SetASTColumns;
-    property ASTSection: ICQLSection read GetASTSection write SetASTSection;
-    property ASTName: ICQLName read GetASTName write SetASTName;
-    property ASTTableNames: ICQLNames read GetASTTableNames write SetASTTableNames;
+    property ASTColumns: ICQLNames read _GetASTColumns write _SetASTColumns;
+    property ASTSection: ICQLSection read _GetASTSection write _SetASTSection;
+    property ASTName: ICQLName read _GetASTName write _SetASTName;
+    property ASTTableNames: ICQLNames read _GetASTTableNames write _SetASTTableNames;
   end;
 
 implementation
@@ -137,22 +136,22 @@ begin
   inherited;
 end;
 
-function TCQLAST.GetASTColumns: ICQLNames;
+function TCQLAST._GetASTColumns: ICQLNames;
 begin
   Result := FASTColumns;
 end;
 
-function TCQLAST.GetASTName: ICQLName;
+function TCQLAST._GetASTName: ICQLName;
 begin
   Result := FASTName;
 end;
 
-function TCQLAST.GetASTSection: ICQLSection;
+function TCQLAST._GetASTSection: ICQLSection;
 begin
   Result := FASTSection;
 end;
 
-function TCQLAST.GetASTTableNames: ICQLNames;
+function TCQLAST._GetASTTableNames: ICQLNames;
 begin
   Result := FASTTableNames;
 end;
@@ -202,22 +201,22 @@ begin
   Result := FSelect;
 end;
 
-procedure TCQLAST.SetASTColumns(const Value: ICQLNames);
+procedure TCQLAST._SetASTColumns(const Value: ICQLNames);
 begin
   FASTColumns := Value;
 end;
 
-procedure TCQLAST.SetASTName(const Value: ICQLName);
+procedure TCQLAST._SetASTName(const Value: ICQLName);
 begin
   FASTName := Value;
 end;
 
-procedure TCQLAST.SetASTSection(const Value: ICQLSection);
+procedure TCQLAST._SetASTSection(const Value: ICQLSection);
 begin
   FASTSection := Value;
 end;
 
-procedure TCQLAST.SetASTTableNames(const Value: ICQLNames);
+procedure TCQLAST._SetASTTableNames(const Value: ICQLNames);
 begin
   FASTTableNames := Value;
 end;

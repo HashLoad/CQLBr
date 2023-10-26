@@ -62,7 +62,7 @@ type
   public
     constructor Create;
     procedure Clear; override;
-    function Serialize: String;
+    function Serialize: string;
     function IsEmpty: Boolean; override;
     function Columns: ICQLNames;
   end;
@@ -112,7 +112,7 @@ begin
   Result := Columns.IsEmpty;
 end;
 
-function TCQLOrderBy.Serialize: String;
+function TCQLOrderBy.Serialize: string;
 begin
   if IsEmpty then
     Result := ''

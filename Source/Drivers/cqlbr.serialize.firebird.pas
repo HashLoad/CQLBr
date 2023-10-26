@@ -43,14 +43,14 @@ uses
 type
   TCQLSerializerFirebird = class(TCQLSerialize)
   public
-    function AsString(const AAST: ICQLAST): String; override;
+    function AsString(const AAST: ICQLAST): string; override;
   end;
 
 implementation
 
 { TCQLSerializer }
 
-function TCQLSerializerFirebird.AsString(const AAST: ICQLAST): String;
+function TCQLSerializerFirebird.AsString(const AAST: ICQLAST): string;
 begin
   Result := inherited AsString(AAST);
 end;

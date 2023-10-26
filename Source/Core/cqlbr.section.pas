@@ -41,15 +41,14 @@ uses
 
 type
   TCQLSection = class(TInterfacedObject, ICQLSection)
-  private
-    FName: String;
-  protected
-    function GetName: String;
+  strict private
+    FName: string;
+    function _GetName: string;
   public
-    constructor Create(ASectionName: String);
+    constructor Create(ASectionName: string);
     procedure Clear; virtual; abstract;
     function IsEmpty: Boolean; virtual; abstract;
-    property Name: String read GetName;
+    property Name: string read _GetName;
   end;
 
 implementation
@@ -59,12 +58,12 @@ uses
 
 { TCQLSection }
 
-constructor TCQLSection.Create(ASectionName: String);
+constructor TCQLSection.Create(ASectionName: string);
 begin
   FName := ASectionName;
 end;
 
-function TCQLSection.GetName: String;
+function TCQLSection._GetName: string;
 begin
   Result := FName;
 end;

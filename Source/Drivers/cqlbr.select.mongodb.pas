@@ -42,7 +42,7 @@ type
   TCQLSelectMongoDB = class(TCQLSelect)
   public
     constructor Create; override;
-    function Serialize: String; override;
+    function Serialize: string; override;
   end;
 
 implementation
@@ -62,7 +62,7 @@ begin
   FQualifiers := TCQLSelectQualifiersMongodb.New;
 end;
 
-function TCQLSelectMongoDB.Serialize: String;
+function TCQLSelectMongoDB.Serialize: string;
 begin
   if IsEmpty then
     Result := ''

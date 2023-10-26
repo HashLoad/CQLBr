@@ -41,11 +41,11 @@ uses
 type
   TUtils = class
   private
-    class function AddToList(const AList, ADelimiter, ANewElement: String): String;
-    class function VarRecToString(const AValue: TVarRec): String;
+    class function _AddToList(const AList, ADelimiter, ANewElement: string): string;
+    class function _VarRecToString(const AValue: TVarRec): string;
   public
-    class function Concat(const AElements: array of String; const ADelimiter: String = ' '): String;
-    class function SqlParamsToStr(const AParams: array of const): String;
+    class function Concat(const AElements: array of String; const ADelimiter: string = ' '): string;
+    class function SqlParamsToStr(const AParams: array of const): string;
     class function DateToSQLFormat(const ADBName: TDBName; const AValue: TDate): string;
     class function DateTimeToSQLFormat(const ADBName: TDBName; const AValue: TDateTime): string;
     class function GuidStrToSQLFormat(const ADBName: TDBName; const AValue: TGUID): string;
@@ -54,14 +54,14 @@ type
 implementation
 
 class function TUtils.Concat(const AElements: array of String;
-  const ADelimiter: String): String;
+  const ADelimiter: string): string;
 var
-  LValue: String;
+  LValue: string;
 begin
   Result := '';
   for LValue in AElements do
     if LValue <> '' then
-      Result := AddToList(Result, ADelimiter, LValue);
+      Result := _AddToList(Result, ADelimiter, LValue);
 end;
 
 class function TUtils.DateTimeToSQLFormat(const ADBName: TDBName;
@@ -123,7 +123,7 @@ begin
   end;
 end;
 
-class function TUtils.AddToList(const AList, ADelimiter, ANewElement: String): String;
+class function TUtils._AddToList(const AList, ADelimiter, ANewElement: string): string;
 begin
   Result := AList;
   if Result <> '' then
@@ -131,16 +131,16 @@ begin
   Result := Result + ANewElement;
 end;
 
-class function TUtils.SqlParamsToStr(const AParams: array of const): String;
+class function TUtils.SqlParamsToStr(const AParams: array of const): string;
 var
   LFor: Integer;
   LastCh: Char;
-  LParam: String;
+  LParam: string;
 begin
   Result := '';
   for LFor := Low(AParams) to High(AParams) do
   begin
-    LParam := VarRecToString(AParams[LFor]);
+    LParam := _VarRecToString(AParams[LFor]);
     if Result = '' then
       LastCh := ' '
     else
@@ -152,7 +152,7 @@ begin
   end;
 end;
 
-class function TUtils.VarRecToString(const AValue: TVarRec): String;
+class function TUtils._VarRecToString(const AValue: TVarRec): string;
 const
   BoolChars: array [Boolean] of String = ('F', 'T');
 {$IFNDEF FPC}

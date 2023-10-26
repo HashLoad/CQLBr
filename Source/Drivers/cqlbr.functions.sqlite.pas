@@ -42,12 +42,12 @@ type
   TCQLFunctionsSQLite = class(TCQLFunctionAbstract)
   public
     constructor Create;
-    function Substring(const AVAlue: String; const AStart, ALength: Integer): String; override;
-    function Date(const AVAlue: String; const AFormat: String): String; overload; override;
-    function Date(const AVAlue: String): String; overload; override;
-    function Day(const AValue: String): String; override;
-    function Month(const AValue: String): String; override;
-    function Year(const AValue: String): String; override;
+    function Substring(const AVAlue: string; const AStart, ALength: Integer): string; override;
+    function Date(const AVAlue: string; const AFormat: string): string; overload; override;
+    function Date(const AVAlue: string): string; overload; override;
+    function Day(const AValue: string): string; override;
+    function Month(const AValue: string): string; override;
+    function Year(const AValue: string): string; override;
     function Concat(const AValue: array of string): string; override;
   end;
 
@@ -82,33 +82,33 @@ begin
   inherited;
 end;
 
-function TCQLFunctionsSQLite.Date(const AValue, AFormat: String): String;
+function TCQLFunctionsSQLite.Date(const AValue, AFormat: string): string;
 begin
   Result := 'DATE(' + FormatDateTime(AFormat, StrToDate(AValue)) + ')';
 end;
 
-function TCQLFunctionsSQLite.Date(const AValue: String): String;
+function TCQLFunctionsSQLite.Date(const AValue: string): string;
 begin
   Result := 'DATE(' + AValue + ')';
 end;
 
-function TCQLFunctionsSQLite.Day(const AValue: String): String;
+function TCQLFunctionsSQLite.Day(const AValue: string): string;
 begin
   Result := 'STRFTIME(%d, ' + AValue + ')';
 end;
 
-function TCQLFunctionsSQLite.Month(const AValue: String): String;
+function TCQLFunctionsSQLite.Month(const AValue: string): string;
 begin
   Result := 'STRFTIME(%m, ' + AValue + ')';
 end;
 
-function TCQLFunctionsSQLite.Substring(const AVAlue: String; const AStart,
-  ALength: Integer): String;
+function TCQLFunctionsSQLite.Substring(const AVAlue: string; const AStart,
+  ALength: Integer): string;
 begin
   Result := 'SUBSTRING(' + AValue + ', ' + IntToStr(AStart) + ', ' + IntToStr(ALength) + ')';
 end;
 
-function TCQLFunctionsSQLite.Year(const AValue: String): String;
+function TCQLFunctionsSQLite.Year(const AValue: string): string;
 begin
   Result := 'STRFTIME(%Y, ' + AValue + ')';
 end;

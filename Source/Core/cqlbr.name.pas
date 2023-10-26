@@ -42,31 +42,30 @@ uses
 type
   TCQLName = class(TInterfacedObject, ICQLName)
   strict private
-    FAlias: String;
+    FAlias: string;
     FCase: ICQLCase;
-    FName: String;
-  protected
-    function GetAlias: String;
-    function GetCase: ICQLCase;
-    function GetName: String;
-    procedure SetAlias(const Value: String);
-    procedure SetCase(const Value: ICQLCase);
-    procedure SetName(const Value: String);
+    FName: string;
+    function _GetAlias: string;
+    function _GetCase: ICQLCase;
+    function _GetName: string;
+    procedure _SetAlias(const Value: string);
+    procedure _SetCase(const Value: ICQLCase);
+    procedure _SetName(const Value: string);
   public
     class function New: ICQLName;
     procedure Clear;
     function IsEmpty: Boolean;
-    function Serialize: String;
-    property Name: String read GetName write SetName;
-    property Alias: String read GetAlias write SetAlias;
-    property &Case: ICQLCase read GetCase write SetCase;
+    function Serialize: string;
+    property Name: string read _GetName write _SetName;
+    property Alias: string read _GetAlias write _SetAlias;
+    property &Case: ICQLCase read _GetCase write _SetCase;
   end;
 
   TCQLNames = class(TInterfacedObject, ICQLNames)
   private
     FColumns: TList<ICQLName>;
-    function SerializeName(const AName: ICQLName): String;
-    function SerializeDirection(ADirection: TOrderByDirection): String;
+    function SerializeName(const AName: ICQLName): string;
+    function SerializeDirection(ADirection: TOrderByDirection): string;
   protected
     function GetColumns(AIdx: Integer): ICQLName;
     constructor Create;
@@ -78,7 +77,7 @@ type
     procedure Clear;
     function Count: Integer;
     function IsEmpty: Boolean;
-    function Serialize: String;
+    function Serialize: string;
     property Columns[AIdx: Integer]: ICQLName read GetColumns; default;
   end;
 
@@ -95,17 +94,17 @@ begin
   FAlias := '';
 end;
 
-function TCQLName.GetAlias: String;
+function TCQLName._GetAlias: string;
 begin
   Result := FAlias;
 end;
 
-function TCQLName.GetCase: ICQLCase;
+function TCQLName._GetCase: ICQLCase;
 begin
   Result := FCase;
 end;
 
-function TCQLName.GetName: String;
+function TCQLName._GetName: string;
 begin
   Result := FName;
 end;
@@ -120,7 +119,7 @@ begin
   Result := Self.Create;
 end;
 
-function TCQLName.Serialize: String;
+function TCQLName.Serialize: string;
 begin
   if Assigned(FCase) then
     Result := '(' + FCase.Serialize + ')'
@@ -130,17 +129,17 @@ begin
     Result := TUtils.Concat([Result, 'AS', FAlias]);
 end;
 
-procedure TCQLName.SetAlias(const Value: String);
+procedure TCQLName._SetAlias(const Value: string);
 begin
   FAlias := Value;
 end;
 
-procedure TCQLName.SetCase(const Value: ICQLCase);
+procedure TCQLName._SetCase(const Value: ICQLCase);
 begin
   FCase := Value;
 end;
 
-procedure TCQLName.SetName(const Value: String);
+procedure TCQLName._SetName(const Value: string);
 begin
   FName := Value;
 end;
@@ -194,7 +193,7 @@ begin
   Result := Self.Create;
 end;
 
-function TCQLNames.Serialize: String;
+function TCQLNames.Serialize: string;
 var
   LFor: Integer;
   LOrderByCol: ICQLOrderByColumn;
@@ -208,7 +207,7 @@ begin
   end;
 end;
 
-function TCQLNames.SerializeDirection(ADirection: TOrderByDirection): String;
+function TCQLNames.SerializeDirection(ADirection: TOrderByDirection): string;
 begin
   case ADirection of
     dirAscending:  Result := '';
@@ -218,7 +217,7 @@ begin
   end;
 end;
 
-function TCQLNames.SerializeName(const AName: ICQLName): String;
+function TCQLNames.SerializeName(const AName: ICQLName): string;
 begin
   Result := AName.Serialize;
 end;

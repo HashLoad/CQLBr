@@ -44,21 +44,20 @@ type
   strict private
     FQualifier: TSelectQualifierType;
     FValue: Integer;
-  protected
-    function GetQualifier: TSelectQualifierType;
-    function GetValue: Integer;
-    procedure SetQualifier(const Value: TSelectQualifierType);
-    procedure SetValue(const Value: Integer);
+    function _GetQualifier: TSelectQualifierType;
+    function _GetValue: Integer;
+    procedure _SetQualifier(const Value: TSelectQualifierType);
+    procedure _SetValue(const Value: Integer);
   public
-    property Qualifier: TSelectQualifierType read GetQualifier write SetQualifier;
-    property Value: Integer read GetValue write SetValue;
+    property Qualifier: TSelectQualifierType read _GetQualifier write _SetQualifier;
+    property Value: Integer read _GetValue write _SetValue;
   end;
 
   TCQLSelectQualifiers = class(TInterfacedObject, ICQLSelectQualifiers)
   protected
     FExecutingPagination: Boolean;
     FQualifiers: TList<ICQLSelectQualifier>;
-    function GetQualifier(AIdx: Integer): ICQLSelectQualifier;
+    function _GetQualifier(AIdx: Integer): ICQLSelectQualifier;
     constructor Create;
   public
     destructor Destroy; override;
@@ -68,9 +67,9 @@ type
     function ExecutingPagination: Boolean;
     function Count: Integer;
     function IsEmpty: Boolean;
-    function SerializePagination: String; virtual; abstract;
+    function SerializePagination: string; virtual; abstract;
     function SerializeDistinct: string;
-    property Qualifiers[AIdx: Integer]: ICQLSelectQualifier read GetQualifier; default;
+    property Qualifiers[AIdx: Integer]: ICQLSelectQualifier read _GetQualifier; default;
   end;
 
 implementation
@@ -120,7 +119,7 @@ begin
   Result := FExecutingPagination;
 end;
 
-function TCQLSelectQualifiers.GetQualifier(AIdx: Integer): ICQLSelectQualifier;
+function TCQLSelectQualifiers._GetQualifier(AIdx: Integer): ICQLSelectQualifier;
 begin
   Result := FQualifiers[AIdx];
 end;
@@ -148,22 +147,22 @@ end;
 
 { TCQLSelectQualifier }
 
-function TCQLSelectQualifier.GetQualifier: TSelectQualifierType;
+function TCQLSelectQualifier._GetQualifier: TSelectQualifierType;
 begin
   Result := FQualifier;
 end;
 
-function TCQLSelectQualifier.GetValue: Integer;
+function TCQLSelectQualifier._GetValue: Integer;
 begin
   Result := FValue;
 end;
 
-procedure TCQLSelectQualifier.SetQualifier(const Value: TSelectQualifierType);
+procedure TCQLSelectQualifier._SetQualifier(const Value: TSelectQualifierType);
 begin
   FQualifier := Value;
 end;
 
-procedure TCQLSelectQualifier.SetValue(const Value: Integer);
+procedure TCQLSelectQualifier._SetValue(const Value: Integer);
 begin
   FValue := Value;
 end;

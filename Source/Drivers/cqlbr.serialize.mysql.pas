@@ -44,14 +44,14 @@ uses
 type
   TCQLSerializerMySQL = class(TCQLSerialize)
   public
-    function AsString(const AAST: ICQLAST): String; override;
+    function AsString(const AAST: ICQLAST): string; override;
   end;
 
 implementation
 
 { TCQLSerializer }
 
-function TCQLSerializerMySQL.AsString(const AAST: ICQLAST): String;
+function TCQLSerializerMySQL.AsString(const AAST: ICQLAST): string;
 begin
   Result := inherited AsString(AAST);
   Result := TUtils.Concat([Result, AAST.Select.Qualifiers.SerializePagination]);

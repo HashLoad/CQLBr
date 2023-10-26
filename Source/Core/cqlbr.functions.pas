@@ -41,28 +41,29 @@ uses
 
 type
   TCQLFunctions = class(TCQLFunctionAbstract, ICQLFunctions)
-  private
+  strict private
     FDatabase: TDBName;
     constructor CreatePrivate(const ADatabase: TDBName);
   public
     class function New(const ADatabase: TDBName): ICQLFunctions;
-    class function Q(const AValue: String): String;
-    function Count(const AValue: String): String; override;
-    function Upper(const AValue: String): String; override;
-    function Lower(const AValue: String): String; override;
-    function Min(const AValue: String): String; override;
-    function Max(const AValue: String): String; override;
-    function Sum(const AValue: String): String; override;
-    function Coalesce(const AValues: array of String): String; override;
-    function Substring(const AVAlue: String; const AStart, ALength: Integer): String; override;
-    function Cast(const AExpression: String; ADataType: String): String; override;
-    function Convert(const ADataType: String; AExpression: String; AStyle: String): String; override;
-    function Date(const AVAlue: String; const AFormat: String): String; overload; override;
-    function Date(const AVAlue: String): String; overload; override;
-    function Day(const AValue: String): String; override;
-    function Month(const AValue: String): String; override;
-    function Year(const AValue: String): String; override;
-    function Concat(const AValue: array of string): String; override;
+    class function Q(const AValue: string): string;
+    function Count(const AValue: string): string; override;
+    function Upper(const AValue: string): string; override;
+    function Lower(const AValue: string): string; override;
+    function Min(const AValue: string): string; override;
+    function Max(const AValue: string): string; override;
+    function Sum(const AValue: string): string; override;
+    function Coalesce(const AValues: array of String): string; override;
+    function Substring(const AVAlue: string; const AStart, ALength: Integer): string; override;
+    function Cast(const AExpression: string; const ADataType: string): string; override;
+    function Convert(const ADataType: string; const AExpression: string;
+      const AStyle: string): string; override;
+    function Date(const AVAlue: string; const AFormat: string): string; overload; override;
+    function Date(const AVAlue: string): string; overload; override;
+    function Day(const AValue: string): string; override;
+    function Month(const AValue: string): string; override;
+    function Year(const AValue: string): string; override;
+    function Concat(const AValue: array of string): string; override;
   end;
 implementation
 
@@ -76,42 +77,44 @@ begin
   Result := Self.CreatePrivate(ADatabase);
 end;
 
-class function TCQLFunctions.Q(const AValue: String): String;
+class function TCQLFunctions.Q(const AValue: string): string;
 begin
   Result := '''' + AValue + '''';
 end;
 
-function TCQLFunctions.Substring(const AVAlue: String; const AStart, ALength: Integer): String;
+function TCQLFunctions.Substring(const AVAlue: string;
+  const AStart, ALength: Integer): string;
 begin
   Result := TCQLBrRegister.Functions(FDatabase).Substring(AValue, AStart, ALength);
 end;
 
-function TCQLFunctions.Sum(const AValue: String): String;
+function TCQLFunctions.Sum(const AValue: string): string;
 begin
   Result := 'SUM(' + AValue + ')';
 end;
 
-function TCQLFunctions.Date(const AVAlue: String): String;
+function TCQLFunctions.Date(const AVAlue: string): string;
 begin
   Result := TCQLBrRegister.Functions(FDatabase).Date(AVAlue);
 end;
 
-function TCQLFunctions.Date(const AVAlue, AFormat: String): String;
+function TCQLFunctions.Date(const AVAlue, AFormat: string): string;
 begin
   Result := TCQLBrRegister.Functions(FDatabase).Date(AVAlue, AFormat);
 end;
 
-function TCQLFunctions.Day(const AValue: String): String;
+function TCQLFunctions.Day(const AValue: string): string;
 begin
   Result := TCQLBrRegister.Functions(FDatabase).Day(AVAlue);
 end;
 
-function TCQLFunctions.Cast(const AExpression: String; ADataType: String): String;
+function TCQLFunctions.Cast(const AExpression: string;
+  const ADataType: string): string;
 begin
   Result := 'CAST(' + AExpression + ' AS ' + ADataType + ')';
 end;
 
-function TCQLFunctions.Coalesce(const AValues: array of String): String;
+function TCQLFunctions.Coalesce(const AValues: array of String): string;
 begin
   Result := '';
 end;
@@ -121,12 +124,13 @@ begin
   Result := TCQLBrRegister.Functions(FDatabase).Concat(AVAlue);
 end;
 
-function TCQLFunctions.Convert(const ADataType: String; AExpression: String; AStyle: String): String;
+function TCQLFunctions.Convert(const ADataType: string;
+  const AExpression: string; const AStyle: string): string;
 begin
   Result := '';
 end;
 
-function TCQLFunctions.Count(const AValue: String): String;
+function TCQLFunctions.Count(const AValue: string): string;
 begin
   Result := 'COUNT(' + AValue + ')';
 end;
@@ -136,32 +140,32 @@ begin
   FDatabase := ADatabase;
 end;
 
-function TCQLFunctions.Lower(const AValue: String): String;
+function TCQLFunctions.Lower(const AValue: string): string;
 begin
   Result := 'LOWER(' + AValue + ')';
 end;
 
-function TCQLFunctions.Max(const AValue: String): String;
+function TCQLFunctions.Max(const AValue: string): string;
 begin
   Result := 'MAX(' + AValue + ')';
 end;
 
-function TCQLFunctions.Min(const AValue: String): String;
+function TCQLFunctions.Min(const AValue: string): string;
 begin
   Result := 'MIN(' + AValue + ')';
 end;
 
-function TCQLFunctions.Month(const AValue: String): String;
+function TCQLFunctions.Month(const AValue: string): string;
 begin
   Result := TCQLBrRegister.Functions(FDatabase).Month(AVAlue);
 end;
 
-function TCQLFunctions.Upper(const AValue: String): String;
+function TCQLFunctions.Upper(const AValue: string): string;
 begin
   Result := 'UPPER(' + AValue + ')';
 end;
 
-function TCQLFunctions.Year(const AValue: String): String;
+function TCQLFunctions.Year(const AValue: string): string;
 begin
   Result := TCQLBrRegister.Functions(FDatabase).Year(AVAlue);
 end;

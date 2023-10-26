@@ -42,12 +42,12 @@ type
   TCQLFunctionsFirebird = class(TCQLFunctionAbstract)
   public
     constructor Create;
-    function Substring(const AValue: String; const AStart, ALength: Integer): String; override;
-    function Date(const AValue: String; const AFormat: String): String; overload; override;
-    function Date(const AValue: String): String; overload; override;
-    function Day(const AValue: String): String; override;
-    function Month(const AValue: String): String; override;
-    function Year(const AValue: String): String; override;
+    function Substring(const AValue: string; const AStart, ALength: Integer): string; override;
+    function Date(const AValue: string; const AFormat: string): string; overload; override;
+    function Date(const AValue: string): string; overload; override;
+    function Day(const AValue: string): string; override;
+    function Month(const AValue: string): string; override;
+    function Year(const AValue: string): string; override;
     function Concat(const AValue: array of string): string; override;
   end;
 
@@ -82,33 +82,33 @@ begin
   inherited;
 end;
 
-function TCQLFunctionsFirebird.Date(const AValue: String; const AFormat: String): String;
+function TCQLFunctionsFirebird.Date(const AValue: string; const AFormat: string): string;
 begin
   Result := FormatDateTime(AFormat, StrToDateTime(AValue));
 end;
 
-function TCQLFunctionsFirebird.Date(const AValue: String): String;
+function TCQLFunctionsFirebird.Date(const AValue: string): string;
 begin
   Result := AValue;
 end;
 
-function TCQLFunctionsFirebird.Day(const AValue: String): String;
+function TCQLFunctionsFirebird.Day(const AValue: string): string;
 begin
   Result := 'EXTRACT(DAY FROM ' + AValue + ')';
 end;
 
-function TCQLFunctionsFirebird.Month(const AValue: String): String;
+function TCQLFunctionsFirebird.Month(const AValue: string): string;
 begin
   Result := 'EXTRACT(MONTH FROM ' + AValue + ')';
 end;
 
-function TCQLFunctionsFirebird.Substring(const AValue: String; const AStart,
-  ALength: Integer): String;
+function TCQLFunctionsFirebird.Substring(const AValue: string; const AStart,
+  ALength: Integer): string;
 begin
   Result := 'SUBSTRING(' + AValue + ' FROM ' + IntToStr(AStart) + ' FOR ' + IntToStr(ALength) + ')';
 end;
 
-function TCQLFunctionsFirebird.Year(const AValue: String): String;
+function TCQLFunctionsFirebird.Year(const AValue: string): string;
 begin
   Result := 'EXTRACT(YEAR FROM ' + AValue + ')';
 end;

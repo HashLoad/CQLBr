@@ -48,7 +48,7 @@ type
     procedure Clear; override;
     function IsEmpty: Boolean; override;
     function Columns: ICQLNames;
-    function Serialize: String;
+    function Serialize: string;
   end;
 
 implementation
@@ -79,7 +79,7 @@ begin
   Result := FColumns.IsEmpty;
 end;
 
-function TCQLGroupBy.Serialize: String;
+function TCQLGroupBy.Serialize: string;
 begin
   if IsEmpty then
     Result := ''
